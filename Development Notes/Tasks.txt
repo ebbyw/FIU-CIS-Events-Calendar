@@ -1,0 +1,28 @@
+Tasks:
+
+Ebby:
+	-> Events View
+		- Calendar UI
+		- Events Table View
+			-Cell View Contents
+	-> My Events View
+	-> Look into db hosting
+
+Raul:
+	-> Splash Screen
+		-Progress Bar
+
+
+Eduardo:
+	-> Event Detail View
+		- Navigation View with TabBarView and a TableView
+		- TabBar view : 
+			-Add Button: Calls user's events view and passes this event class to that view -(void) addEvent: Event eventToAdd
+			-Share Button: Calls a scope Bar that has the following options
+				-E-mail
+				-Add To iCal
+				-Tweet
+				-Share on facebook
+				-Cancel (dismisses the scope bar)
+		- Assume a Event Class has been passed upon calling this view
+		- Link to event site that opens in safari
