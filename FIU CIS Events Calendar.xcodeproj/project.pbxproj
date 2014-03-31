@@ -16,6 +16,8 @@
 		4D94BA5018E37490002ADF90 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA4F18E37490002ADF90 /* Default.png */; };
 		4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5118E37490002ADF90 /* Default@2x.png */; };
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
+		4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */; };
+		4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4D94BA4F18E37490002ADF90 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4D94BA5118E37490002ADF90 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashScreen.xib; path = "FIU CIS Events Calendar/Views/SplashScreen.xib"; sourceTree = "<group>"; };
+		4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		4D94BA3118E37490002ADF90 = {
 			isa = PBXGroup;
 			children = (
+				4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */,
+				4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */,
 				4D94BA4318E37490002ADF90 /* FIU CIS Events Calendar */,
 				4D94BA3C18E37490002ADF90 /* Frameworks */,
 				4D94BA3B18E37490002ADF90 /* Products */,
@@ -154,6 +160,8 @@
 				4D94BA5018E37490002ADF90 /* Default.png in Resources */,
 				4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */,
 				4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */,
+				4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */,
+				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +288,7 @@
 				4D94BA5918E37490002ADF90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

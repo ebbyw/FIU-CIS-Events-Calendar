@@ -1,0 +1,26 @@
+Splash Screen:
+
+Classes:
+
+	-> EventSpeaker
+		NSString speakerName
+		NSString speakerOrganization
+		NSString speakerDepartment
+
+	-> Event
+		NSDate eventTimeAndDate
+		NSURL imageLink
+		NSURL eventLink
+		NSString eventLocation
+		NSString userNotes
+		NSString eventName
+		NSString eventType
+		EventSpeaker speaker
+		bool canceled
+
+		-(bool) passed
+		-(void) update: (Event) newEventInfo
+
+	-> NSMutableDictionary events
+		- key: NSDate
+		- value: Event
