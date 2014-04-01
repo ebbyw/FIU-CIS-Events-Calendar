@@ -18,6 +18,8 @@
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
 		4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */; };
 		4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */; };
+		EFD5F3A718EB4C2F00D75E34 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */; };
+		EFD5F3AA18EB4D7500D75E34 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFD5F3A918EB4D7500D75E34 /* SplashScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashScreen.xib; path = "FIU CIS Events Calendar/Views/SplashScreen.xib"; sourceTree = "<group>"; };
 		4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogo.png; sourceTree = "<group>"; };
+		EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EFD5F3A918EB4D7500D75E34 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFD5F3A718EB4C2F00D75E34 /* CoreData.framework in Frameworks */,
 				4D94BA3E18E37490002ADF90 /* UIKit.framework in Frameworks */,
 				4D94BA4018E37490002ADF90 /* Foundation.framework in Frameworks */,
 				4D94BA4218E37490002ADF90 /* CoreGraphics.framework in Frameworks */,
@@ -55,6 +60,8 @@
 		4D94BA3118E37490002ADF90 = {
 			isa = PBXGroup;
 			children = (
+				EFD5F3A818EB4D7500D75E34 /* Views */,
+				EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */,
 				4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */,
 				4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */,
 				4D94BA4318E37490002ADF90 /* FIU CIS Events Calendar */,
@@ -103,6 +110,15 @@
 				4D94BA5318E37490002ADF90 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFD5F3A818EB4D7500D75E34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EFD5F3A918EB4D7500D75E34 /* SplashScreen.xib */,
+			);
+			name = Views;
+			path = "FIU CIS Events Calendar/Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +178,7 @@
 				4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */,
 				4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */,
 				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
+				EFD5F3AA18EB4D7500D75E34 /* SplashScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
