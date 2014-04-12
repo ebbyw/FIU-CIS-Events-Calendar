@@ -10,6 +10,7 @@
 #import "Event.h"
 #import "EventSpeaker.h"
 #import "AppDelegate.h"
+#import "SplashViewController.h"
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 #define getValue(x,y) (([ x valueForKey:y] == [NSNull null]) ? nil : [ x valueForKey:y])
@@ -17,8 +18,6 @@
 @implementation Events
 
 @synthesize jsonObject;
-@synthesize progressValue;
-@synthesize loadingProgressBar;
 
 +(Events *) defaultEvents{
     static Events *defaultEvents = nil;
@@ -71,14 +70,22 @@
     return NO;
 }
 
+-(void) setSplashView: (SplashViewController *) controller{
+    splashView = controller;
+}
+
 -(void) loadEventsList{
-    
+    if(splashView == nil){
+        NSLog(@"SPLASH VIEW IS NIL");
+    }else{
+        NSLog(@"Current Progress is %f", [splashView progressValue]);
+    }
     float progressIncrement;
     if(jsonObject == nil){
         NSLog(@"JSON IS NIL");
-        progressIncrement = (1.0f - progressValue)/5.0f;
+        progressIncrement = (1.0f -  [splashView progressValue])/5.0f;
     }else{
-        progressIncrement = (1.0f - progressValue)/([jsonObject count]+ 5);
+        progressIncrement = (1.0f - [splashView progressValue])/([jsonObject count]+ 5);
     }
     
     currentSpeakers = [[NSMutableArray alloc] init];
@@ -106,8 +113,7 @@
             NSLog(@"Speaker fetch successful %lu itmes", (unsigned long)[speakersResult count]);
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
-        progressValue += progressIncrement;
-        [loadingProgressBar setProgress: progressValue animated:YES];
+        [splashView incrementProgressBar:progressIncrement];
 
     }
     
@@ -133,14 +139,11 @@
             [currentEvents addObjectsFromArray:eventsResult];
             
         }
-        progressValue += progressIncrement;
-        [loadingProgressBar setProgress: progressValue animated:YES];
+        [splashView incrementProgressBar:progressIncrement];
 
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
-    
-   
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-ddHH:mm:ss"];
@@ -158,25 +161,19 @@
                 NSLog(@"Event Not Added");
             }
         }
-        progressValue += progressIncrement;
-        [loadingProgressBar setProgress: progressValue animated:YES];
-
+        [splashView incrementProgressBar:progressIncrement];
 
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
-    progressValue += progressIncrement;
-    [loadingProgressBar setProgress: progressValue animated:YES];
-
+    [splashView incrementProgressBar:progressIncrement];
     
     allSpeakers = [NSArray arrayWithArray:currentSpeakers];
-    progressValue += progressIncrement;
-    [loadingProgressBar setProgress: progressValue animated:YES];
+    [splashView incrementProgressBar:progressIncrement];
 
 //    NSLog(@"progress bar value = %f", progressValue);
     appDelegate(saveContext);
-    progressValue = 1.0f;
-    [loadingProgressBar setProgress: progressValue animated:YES];
+    [splashView incrementProgressBar:progressIncrement];
 
 }
 
@@ -195,9 +192,7 @@
             if([speaker.speakerOrganization localizedCaseInsensitiveCompare:getValue(eventData, @"speakerOrganization")] !=NSOrderedSame){
                 [speaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
             }
-            if([speaker.imageLink localizedCaseInsensitiveCompare:getValue(eventData, @"imageLink")]!=NSOrderedSame){
-                [speaker setImageLink:getValue(eventData, @"imageLink")];
-            }
+            
             if([speaker.bio localizedCaseInsensitiveCompare:getValue(eventData, @"bio")]!=NSOrderedSame){
                 [speaker setBio: getValue(eventData, @"bio")];
             }

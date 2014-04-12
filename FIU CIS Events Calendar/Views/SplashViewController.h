@@ -18,9 +18,11 @@
     NSURLConnection *connection;
     NSMutableData *jsonData;
     NSMutableArray *jsonReceivedData;
-    float progressValue;
     
 }
+
+@property (nonatomic) float progressValue;
+-(void) incrementProgressBar: (float) increment;
 
 -(void) fetchEvents;
 

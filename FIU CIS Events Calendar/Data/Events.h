@@ -11,8 +11,12 @@
 
 @class EventSpeaker;
 @class Event;
+@class SplashViewController;
 
 @interface Events : NSObject{
+    
+    SplashViewController *splashView;
+    
     NSArray *allEvents;
     NSArray *allSpeakers;
     
@@ -25,9 +29,6 @@
 }
 
 @property (nonatomic, strong) NSArray *jsonObject;
-@property (nonatomic) float progressValue;
-@property (nonatomic, weak) IBOutlet UIProgressView *loadingProgressBar;
-
 
 +(Events *) defaultEvents;
 -(NSArray *) allEvents;
@@ -38,5 +39,5 @@
 -(NSString *) dataStoragePath;
 -(BOOL) saveChanges;
 -(void) loadEventsList;
-
+-(void) setSplashView: (SplashViewController *) controller;
 @end
