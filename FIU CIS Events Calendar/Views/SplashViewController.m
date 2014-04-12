@@ -19,6 +19,8 @@
 
 @implementation SplashViewController
 
+@synthesize progressValue;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -90,8 +92,7 @@
             Events *eventsData = [Events defaultEvents];
             //Send the JSON Object to Our Events Class
             [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
-            [eventsData setProgressValue:progressValue];
-            [eventsData setLoadingProgressBar:loadingProgressBar];
+            [eventsData setSplashView:self];
             [eventsData loadEventsList];
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
@@ -99,12 +100,14 @@
             connection = nil;
             
             [loadingProgressBar setProgress: 1.0f animated:YES];
-            while ([loadingProgressBar progress] < 1.0f){
-                NSLog(@"waiting");
-            }
             [self callNextView];
         }
     }
+}
+
+-(void) incrementProgressBar: (float) increment{
+    progressValue += increment;
+    [loadingProgressBar setProgress: progressValue animated:NO];
 }
 
 -(void) connection: (NSURLConnection *) conn didFailWithError:(NSError *)error{

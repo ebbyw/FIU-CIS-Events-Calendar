@@ -13,6 +13,7 @@
 @interface EventsView : UITableViewController <DSLCalendarViewDelegate>{
     NSDateFormatter* df_local;
     IBOutlet DSLCalendarView *headerView;
+    NSArray *currentEvents;
+    DSLCalendarRange *currentRangeFilter;
 }
--(UIView *) headerView;
 @end

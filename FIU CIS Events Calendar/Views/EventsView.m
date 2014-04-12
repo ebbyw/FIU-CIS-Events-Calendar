@@ -8,12 +8,18 @@
 
 #import "EventsView.h"
 #import "Events.h"
+#import "EventCellTableViewCell.h"
+#import "AppDelegate.h"
+
+#define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
+
 
 @interface EventsView ()
 
 @end
 
 @implementation EventsView
+
 
 -(id) init{
     self = [self initWithStyle:UITableViewStyleGrouped];
@@ -31,6 +37,7 @@
         [df_local setTimeZone:[NSTimeZone localTimeZone]];
         //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
         [df_local setDateFormat:@"MMM - dd"];
+        currentEvents = [[Events defaultEvents] allEvents];
     }
     return self;
 }
@@ -38,12 +45,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UINib *nib = [UINib nibWithNibName:@"EventCellTableViewCell" bundle:nil];
+    [[self tableView] registerNib:nib forCellReuseIdentifier:@"eventCell"];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,26 +94,45 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[Events defaultEvents] allEvents] count];
+    return [currentEvents count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
+    EventCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
     
     if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
+        cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
     }
     
     Event *theEvent = [ [ [Events defaultEvents] allEvents] objectAtIndex:[indexPath row]];
-    NSMutableString *cellText = [[NSMutableString alloc]init];
-    [cellText appendString:[df_local stringFromDate:[theEvent eventTimeAndDate]]];
-    [cellText appendString:[NSString stringWithFormat:@": %@",[theEvent eventType]]];
+    
+    [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
+    
+    [[cell cellEventTitle] setText:[NSString stringWithFormat:@"%@",[theEvent eventType]]];
+    
     //    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
-    [ [cell textLabel] setText: cellText];
+    
+    [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
     
     return cell;
+}
+
+-(void) getEventsForRange{
+    
+    NSPredicate *filter = [NSPredicate predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
+        return [currentRangeFilter containsDate: [(Event *) evaluatedObject eventTimeAndDate]];
+    }];
+    
+    currentEvents = [[[Events defaultEvents] allEvents] filteredArrayUsingPredicate:filter];
+
+    [self.tableView reloadData];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
+    NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
@@ -117,6 +140,8 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
     if (range != nil) {
         NSLog( @"Selected %d/%d - %d/%d", range.startDay.day, range.startDay.month, range.endDay.day, range.endDay.month);
+        currentRangeFilter = range;
+        [self getEventsForRange];
     }
     else {
         NSLog( @"No selection" );
@@ -148,6 +173,8 @@ heightForHeaderInSection:(NSInteger)section{
         }
     }
     
+//    currentRangeFilter = range;
+//    [self getEventsForRange];
     return range;
 }
 
