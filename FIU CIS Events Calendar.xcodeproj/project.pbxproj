@@ -18,8 +18,26 @@
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
 		4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */; };
 		4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */; };
+<<<<<<< HEAD
 		EFD5F3A718EB4C2F00D75E34 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */; };
 		EFD5F3AA18EB4D7500D75E34 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFD5F3A918EB4D7500D75E34 /* SplashScreen.xib */; };
+=======
+		62CBE9AF18F8465F00375C96 /* EventsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */; };
+		62CBE9B218F84A7000375C96 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9B118F84A7000375C96 /* EventsView.m */; };
+		62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */; };
+		62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */; };
+		62CBE9BB18F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */; };
+		62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */; };
+		62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */; };
+		62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */; };
+		62CBE9C418F8563600375C96 /* appbar.calendar.day.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C318F8563600375C96 /* appbar.calendar.day.png */; };
+		62CBE9C818F8586D00375C96 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9C618F8586D00375C96 /* SplashViewController.m */; };
+		62CBE9C918F8586D00375C96 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C718F8586D00375C96 /* SplashViewController.xib */; };
+		62CBE9CC18F86B8800375C96 /* EventSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CB18F86B8800375C96 /* EventSpeaker.m */; };
+		62CBE9CF18F86C4A00375C96 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CE18F86C4A00375C96 /* Event.m */; };
+		62CBE9D218F86CCF00375C96 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9D118F86CCF00375C96 /* Events.m */; };
+		62CBE9D418F8716800375C96 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62CBE9D318F8716800375C96 /* CoreData.framework */; };
+>>>>>>> Ebby
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +56,31 @@
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashScreen.xib; path = "FIU CIS Events Calendar/Views/SplashScreen.xib"; sourceTree = "<group>"; };
 		4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogo.png; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		EFD5F3A918EB4D7500D75E34 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashScreen.xib; sourceTree = "<group>"; };
+=======
+		62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventsModel.xcdatamodel; sourceTree = "<group>"; };
+		62CBE9B018F84A7000375C96 /* EventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsView.h; path = "FIU CIS Events Calendar/Views/EventsView.h"; sourceTree = "<group>"; };
+		62CBE9B118F84A7000375C96 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsView.m; path = "FIU CIS Events Calendar/Views/EventsView.m"; sourceTree = "<group>"; };
+		62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPad.png"; sourceTree = "<group>"; };
+		62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPadRetina.png"; sourceTree = "<group>"; };
+		62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPhoneRetina.png"; sourceTree = "<group>"; };
+		62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogoSquare.png; sourceTree = "<group>"; };
+		62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPhoneRetina.png"; sourceTree = "<group>"; };
+		62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPad.png"; sourceTree = "<group>"; };
+		62CBE9C318F8563600375C96 /* appbar.calendar.day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appbar.calendar.day.png; path = "FIU CIS Events Calendar/Views/appbar.calendar.day.png"; sourceTree = "<group>"; };
+		62CBE9C518F8586D00375C96 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashViewController.h; path = "FIU CIS Events Calendar/Views/SplashViewController.h"; sourceTree = "<group>"; };
+		62CBE9C618F8586D00375C96 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplashViewController.m; path = "FIU CIS Events Calendar/Views/SplashViewController.m"; sourceTree = "<group>"; };
+		62CBE9C718F8586D00375C96 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashViewController.xib; path = "FIU CIS Events Calendar/Views/SplashViewController.xib"; sourceTree = "<group>"; };
+		62CBE9CA18F86B8800375C96 /* EventSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventSpeaker.h; path = "FIU CIS Events Calendar/Data/EventSpeaker.h"; sourceTree = "<group>"; };
+		62CBE9CB18F86B8800375C96 /* EventSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSpeaker.m; path = "FIU CIS Events Calendar/Data/EventSpeaker.m"; sourceTree = "<group>"; };
+		62CBE9CD18F86C4A00375C96 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = "FIU CIS Events Calendar/Data/Event.h"; sourceTree = "<group>"; };
+		62CBE9CE18F86C4A00375C96 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = "FIU CIS Events Calendar/Data/Event.m"; sourceTree = "<group>"; };
+		62CBE9D018F86CCF00375C96 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Events.h; path = "FIU CIS Events Calendar/Data/Events.h"; sourceTree = "<group>"; };
+		62CBE9D118F86CCF00375C96 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Events.m; path = "FIU CIS Events Calendar/Data/Events.m"; sourceTree = "<group>"; };
+		62CBE9D318F8716800375C96 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+>>>>>>> Ebby
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +88,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				EFD5F3A718EB4C2F00D75E34 /* CoreData.framework in Frameworks */,
+=======
+				62CBE9D418F8716800375C96 /* CoreData.framework in Frameworks */,
+>>>>>>> Ebby
 				4D94BA3E18E37490002ADF90 /* UIKit.framework in Frameworks */,
 				4D94BA4018E37490002ADF90 /* Foundation.framework in Frameworks */,
 				4D94BA4218E37490002ADF90 /* CoreGraphics.framework in Frameworks */,
@@ -60,8 +105,14 @@
 		4D94BA3118E37490002ADF90 = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				EFD5F3A818EB4D7500D75E34 /* Views */,
 				EFD5F3A618EB4C2F00D75E34 /* CoreData.framework */,
+=======
+				62CBE9B418F84BD900375C96 /* App Icon */,
+				62CBE9B318F84A7A00375C96 /* Views */,
+				4DE3AFFF18F778310087336A /* Data */,
+>>>>>>> Ebby
 				4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */,
 				4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */,
 				4D94BA4318E37490002ADF90 /* FIU CIS Events Calendar */,
@@ -81,6 +132,7 @@
 		4D94BA3C18E37490002ADF90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62CBE9D318F8716800375C96 /* CoreData.framework */,
 				4D94BA3D18E37490002ADF90 /* UIKit.framework */,
 				4D94BA3F18E37490002ADF90 /* Foundation.framework */,
 				4D94BA4118E37490002ADF90 /* CoreGraphics.framework */,
@@ -112,6 +164,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		EFD5F3A818EB4D7500D75E34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +172,46 @@
 			);
 			name = Views;
 			path = "FIU CIS Events Calendar/Views";
+=======
+		4DE3AFFF18F778310087336A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */,
+				62CBE9CA18F86B8800375C96 /* EventSpeaker.h */,
+				62CBE9CB18F86B8800375C96 /* EventSpeaker.m */,
+				62CBE9CD18F86C4A00375C96 /* Event.h */,
+				62CBE9CE18F86C4A00375C96 /* Event.m */,
+				62CBE9D018F86CCF00375C96 /* Events.h */,
+				62CBE9D118F86CCF00375C96 /* Events.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		62CBE9B318F84A7A00375C96 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				62CBE9C318F8563600375C96 /* appbar.calendar.day.png */,
+				62CBE9B018F84A7000375C96 /* EventsView.h */,
+				62CBE9B118F84A7000375C96 /* EventsView.m */,
+				62CBE9C518F8586D00375C96 /* SplashViewController.h */,
+				62CBE9C618F8586D00375C96 /* SplashViewController.m */,
+				62CBE9C718F8586D00375C96 /* SplashViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		62CBE9B418F84BD900375C96 /* App Icon */ = {
+			isa = PBXGroup;
+			children = (
+				62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */,
+				62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */,
+				62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */,
+				62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */,
+				62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */,
+				62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */,
+			);
+			path = "App Icon";
+>>>>>>> Ebby
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,9 +267,17 @@
 			files = (
 				4D94BA4818E37490002ADF90 /* InfoPlist.strings in Resources */,
 				4D94BA5018E37490002ADF90 /* Default.png in Resources */,
+				62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */,
+				62CBE9C918F8586D00375C96 /* SplashViewController.xib in Resources */,
 				4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */,
+				62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */,
 				4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */,
 				4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */,
+				62CBE9BB18F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png in Resources */,
+				62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */,
+				62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */,
+				62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */,
+				62CBE9C418F8563600375C96 /* appbar.calendar.day.png in Resources */,
 				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
 				EFD5F3AA18EB4D7500D75E34 /* SplashScreen.xib in Resources */,
 			);
@@ -189,8 +290,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62CBE9D218F86CCF00375C96 /* Events.m in Sources */,
+				62CBE9CC18F86B8800375C96 /* EventSpeaker.m in Sources */,
+				62CBE9C818F8586D00375C96 /* SplashViewController.m in Sources */,
 				4D94BA4A18E37490002ADF90 /* main.m in Sources */,
+				62CBE9AF18F8465F00375C96 /* EventsModel.xcdatamodeld in Sources */,
 				4D94BA4E18E37490002ADF90 /* AppDelegate.m in Sources */,
+				62CBE9B218F84A7000375C96 /* EventsView.m in Sources */,
+				62CBE9CF18F86C4A00375C96 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +377,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIU CIS Events Calendar/FIU CIS Events Calendar-Prefix.pch";
 				INFOPLIST_FILE = "FIU CIS Events Calendar/FIU CIS Events Calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -281,7 +390,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIU CIS Events Calendar/FIU CIS Events Calendar-Prefix.pch";
 				INFOPLIST_FILE = "FIU CIS Events Calendar/FIU CIS Events Calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -308,6 +419,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */,
+			);
+			currentVersion = 62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */;
+			name = EventsModel.xcdatamodeld;
+			path = "FIU CIS Events Calendar/Data/EventsModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4D94BA3218E37490002ADF90 /* Project object */;
 }
