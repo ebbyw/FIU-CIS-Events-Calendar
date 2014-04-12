@@ -8,6 +8,32 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>FIUCISLogo-Spotlight-iPhoneRetina</string>
+				<string>FIUCISLogo-iPhoneRetina</string>
+				<string>FIUCISLogo-iPadRetina</string>
+			</array>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>FIUCISLogo-Spotlight-iPad</string>
+				<string>FIUCISLogo-Spotlight-iPhoneRetina</string>
+				<string>FIUCISLogo-iPad</string>
+				<string>FIUCISLogo-iPhoneRetina</string>
+				<string>FIUCISLogo-iPadRetina</string>
+			</array>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>com.ebbyw.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -28,6 +54,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
