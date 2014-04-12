@@ -19,7 +19,6 @@
 @dynamic events;
 @dynamic photo;
 
-<<<<<<< HEAD
 - (void) downloadAndStoreImage{
 
     UIImage * result;
@@ -35,6 +34,4 @@
 }
 
 
-=======
->>>>>>> FETCH_HEAD
 @end
