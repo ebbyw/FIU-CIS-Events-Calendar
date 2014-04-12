@@ -59,6 +59,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void) callMainAppView{
+    EventsView *eventsView = [[EventsView alloc] init];
+    UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
+    
+    
+    UITabBarController *mainTabsController = [[UITabBarController alloc] init];
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,nil];
+    
+    [mainTabsController setViewControllers:viewControllers];
+        
+    [self.window setRootViewController:mainTabsController];
+    
+    
+}
+
 
 #pragma mark - Core Data stack
 

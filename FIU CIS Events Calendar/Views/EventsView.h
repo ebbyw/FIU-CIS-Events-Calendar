@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Event.h"
 
-@interface EventsView : UITableViewController
+@interface EventsView : UITableViewController{
+    NSDateFormatter* df_local;
+}
 
 @end

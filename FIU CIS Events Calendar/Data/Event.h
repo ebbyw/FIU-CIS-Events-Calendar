@@ -24,4 +24,5 @@
 @property (nonatomic, retain) NSNumber * canceled;
 @property (nonatomic, retain) EventSpeaker *speaker;
 
+
 @end

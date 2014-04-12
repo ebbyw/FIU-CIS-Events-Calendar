@@ -17,6 +17,8 @@
 @implementation Events
 
 @synthesize jsonObject;
+@synthesize progressValue;
+@synthesize loadingProgressBar;
 
 +(Events *) defaultEvents{
     static Events *defaultEvents = nil;
@@ -70,6 +72,15 @@
 }
 
 -(void) loadEventsList{
+    
+    float progressIncrement;
+    if(jsonObject == nil){
+        NSLog(@"JSON IS NIL");
+        progressIncrement = (1.0f - progressValue)/5.0f;
+    }else{
+        progressIncrement = (1.0f - progressValue)/([jsonObject count]+ 5);
+    }
+    
     currentSpeakers = [[NSMutableArray alloc] init];
     currentEvents = [[NSMutableArray alloc] init];
     // Set Up local app data with data from our stored database
@@ -92,9 +103,12 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [speakersError localizedDescription]];
         }else{
-            NSLog(@"Speaker fetch successful %d itmes", [speakersResult count]);
+            NSLog(@"Speaker fetch successful %lu itmes", (unsigned long)[speakersResult count]);
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
+        progressValue += progressIncrement;
+        [loadingProgressBar setProgress: progressValue animated:YES];
+
     }
     
     if(!allEvents){
@@ -115,53 +129,65 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [eventsError localizedDescription]];
         }else{
-            NSLog(@"Event fetch successful %d itmes", [eventsResult count]);
+            NSLog(@"Event fetch successful %lu itmes", (unsigned long)[eventsResult count]);
             [currentEvents addObjectsFromArray:eventsResult];
             
         }
+        progressValue += progressIncrement;
+        [loadingProgressBar setProgress: progressValue animated:YES];
+
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
     
-    if(jsonObject == nil){
-        NSLog(@"JSON IS NIL");
-    }
+   
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-ddHH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"EST"]];
     
     for(NSDictionary *eventInfo in jsonObject){
         //Event Date, formatted and converted  to NSDate
         NSMutableString *eventDate = [[NSMutableString alloc]initWithString:[eventInfo valueForKey:@"eventDate" ]];
         [eventDate appendString:[eventInfo valueForKey:@"eventTime"]];
         NSDate *eventTimeAndDate = [dateFormatter dateFromString: eventDate];
-        
         BOOL addTheEvent = ![self checkIfEventExists:eventInfo andDate:eventTimeAndDate];
         
         if(addTheEvent){
-//            NSLog(@"Adding Event %@", getValue(eventInfo, @"eventType"));
             if(![self addEvent:eventInfo andDate:eventTimeAndDate]){
                 NSLog(@"Event Not Added");
             }
         }
+        progressValue += progressIncrement;
+        [loadingProgressBar setProgress: progressValue animated:YES];
+
+
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
+    progressValue += progressIncrement;
+    [loadingProgressBar setProgress: progressValue animated:YES];
+
     
     allSpeakers = [NSArray arrayWithArray:currentSpeakers];
+    progressValue += progressIncrement;
+    [loadingProgressBar setProgress: progressValue animated:YES];
+
+//    NSLog(@"progress bar value = %f", progressValue);
     appDelegate(saveContext);
-    
-    for(EventSpeaker *speaker in allSpeakers){
-        NSLog(@"%@", [speaker speakerName]);
-    }
+    progressValue = 1.0f;
+    [loadingProgressBar setProgress: progressValue animated:YES];
+
 }
 
 -(BOOL) checkIfEventExists: (NSDictionary *) eventData andDate: (NSDate *) date{
     //Check for existing speaker
     for(EventSpeaker *speaker in currentSpeakers){
-        if([speaker.speakerName localizedCaseInsensitiveCompare: getValue(eventData,@"speakerName") ] == NSOrderedSame){
+        NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
+        speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if([speaker.speakerName localizedCaseInsensitiveCompare: speakerNameTrimmed ] == NSOrderedSame){
             //We've found a speaker in our speakers list that matches the speaker of the current event
-            
+//            NSLog(@"Identical Speaker");
             //Update Speaker Information if needed
             if([speaker.speakerDepartment localizedCaseInsensitiveCompare:getValue(eventData, @"speakerDepartment")] !=NSOrderedSame){
                 [speaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
@@ -179,6 +205,7 @@
             // Check if this speaker already has this event under their events set
             for(Event *speakerEvent in currentEvents ){
                 if([speakerEvent.eventName localizedCaseInsensitiveCompare: getValue(eventData, @"eventName")] == NSOrderedSame){
+//                    NSLog(@"Identical Event");
                     //Identical Event Name found in speakers events list
                     //Check if any info needs to be updated
                     //TODO Consider adding an "updated" property/flag to Events to let users know the event has been updated
@@ -219,24 +246,21 @@
 -(BOOL) addEvent: (NSDictionary *) eventData andDate:(NSDate *) date{
     EventSpeaker *theSpeaker;
     
+    NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
+    speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     for(EventSpeaker *speaker in currentSpeakers){
-        if([speaker.speakerName localizedCaseInsensitiveCompare:getValue(eventData, @"speakerName")] == NSOrderedSame){
+        if([speaker.speakerName localizedCaseInsensitiveCompare:speakerNameTrimmed] == NSOrderedSame){
             theSpeaker = speaker;
-            NSLog(@"Found Duplicate Speaker, %@", [theSpeaker speakerName]);
             break;
         }
     }
     
-    NSLog(@"Number of current speakers %d", [currentSpeakers count]);
-    NSLog(@"Number of current events %d", [currentEvents count]);
-
-    
     if(theSpeaker == nil){
-        NSLog(@"Creating New Speaker %@", getValue(eventData, @"speakerName"));
         //Create a new speaker
         theSpeaker = [NSEntityDescription insertNewObjectForEntityForName:@"EventSpeaker"
                                                              inManagedObjectContext:context];
-        [theSpeaker setSpeakerName:getValue(eventData, @"speakerName")];
+        [theSpeaker setSpeakerName:speakerNameTrimmed];
         [theSpeaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
         [theSpeaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
         [theSpeaker setImageLink:getValue(eventData, @"imageLink")];
@@ -256,7 +280,6 @@
     [[theSpeaker events] addObject:newEvent];
     [newEvent setSpeaker:theSpeaker];
     
-//    NSLog(@"Event Added: %@", [newEvent eventName]);
     return YES;
 }
 

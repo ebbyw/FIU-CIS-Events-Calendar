@@ -25,9 +25,11 @@
 }
 
 @property (nonatomic, strong) NSArray *jsonObject;
+@property (nonatomic) float progressValue;
+@property (nonatomic, weak) IBOutlet UIProgressView *loadingProgressBar;
+
 
 +(Events *) defaultEvents;
-
 -(NSArray *) allEvents;
 -(NSArray *) allSpeakers;
 

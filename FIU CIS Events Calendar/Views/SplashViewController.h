@@ -13,17 +13,15 @@
     //View Related Properties
     IBOutlet UILabel *loadingLabel;
     IBOutlet UIProgressView *loadingProgressBar;
-    UIViewController *nextView;
     
     //Data Acquring Related Properties
     NSURLConnection *connection;
     NSMutableData *jsonData;
     NSMutableArray *jsonReceivedData;
+    float progressValue;
     
 }
 
 -(void) fetchEvents;
-
-- (IBAction)goToNextView:(id)sender;
 
 @end

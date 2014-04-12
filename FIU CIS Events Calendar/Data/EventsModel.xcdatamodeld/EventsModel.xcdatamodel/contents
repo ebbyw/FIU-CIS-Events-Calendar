@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="iOS 5.0">
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="canceled" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="eventDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,20 +8,20 @@
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventTimeAndDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="speaker" optional="YES" transient="YES" syncable="YES"/>
         <attribute name="userNotes" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="speaker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventSpeaker" inverseName="events" inverseEntity="EventSpeaker" syncable="YES"/>
     </entity>
     <entity name="EventSpeaker" representedClassName="EventSpeaker" syncable="YES">
         <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="events" optional="YES" transient="YES" syncable="YES"/>
         <attribute name="imageLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="speakerDepartment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="speakerName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="speakerOrganization" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Event" inverseName="speaker" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="Event" positionX="-63" positionY="-18" width="128" height="178"/>
         <element name="EventSpeaker" positionX="-54" positionY="-9" width="128" height="148"/>
     </elements>
 </model>

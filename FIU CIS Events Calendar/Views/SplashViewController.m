@@ -9,6 +9,7 @@
 #import "SplashViewController.h"
 #import "EventsView.h"
 #import "Events.h"
+#import "AppDelegate.h"
 
 #define kJSONKey  "Th@nkY0uJ05H"
 
@@ -22,7 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self fetchEvents];
+        
     }
     return self;
 }
@@ -31,6 +32,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self fetchEvents];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,6 +46,8 @@
 #pragma mark Retrieve Events Data from FIU Servers
 
 -(void) fetchEvents{
+    progressValue = 0;
+    [loadingProgressBar setProgress: progressValue animated:YES];
     jsonData = [[NSMutableData alloc] init];
     
     NSURL *url = [NSURL URLWithString:
@@ -53,7 +58,8 @@
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
-    
+    progressValue += 0.2f;
+    [loadingProgressBar setProgress: progressValue animated:YES];
 }
 
 -(void) connection: (NSURLConnection *) conn didReceiveData:(NSData *)data{
@@ -73,7 +79,8 @@
         
         //check if dictionary exists
         if(jsonReceivedData){
-           
+            progressValue += 0.2f;
+            [loadingProgressBar setProgress: progressValue animated:YES];
             //Display what values we have
             for(NSDictionary* dict in jsonReceivedData){
                 NSLog(@"%@",[dict allKeys]);
@@ -83,11 +90,19 @@
             Events *eventsData = [Events defaultEvents];
             //Send the JSON Object to Our Events Class
             [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
+            [eventsData setProgressValue:progressValue];
+            [eventsData setLoadingProgressBar:loadingProgressBar];
             [eventsData loadEventsList];
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
             jsonData = nil;
             connection = nil;
+            
+            [loadingProgressBar setProgress: 1.0f animated:YES];
+            while ([loadingProgressBar progress] < 1.0f){
+                NSLog(@"waiting");
+            }
+            [self callNextView];
         }
     }
 }
@@ -105,27 +120,10 @@
     [av show];
 }
 
--(void) setUpMainAppView{
-    EventsView *eventsView = [[EventsView alloc] init];
-    UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
-    
-    
-    UITabBarController *mainTabsController = [[UITabBarController alloc] init];
-    
-    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,nil];
-    
-    [mainTabsController setViewControllers:viewControllers];
-    
-    nextView = mainTabsController;
-    
-}
+
 
 -(void) callNextView{
-    [[[[UIApplication sharedApplication] delegate] window] setRootViewController: nextView];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] callMainAppView];
 }
 
-- (IBAction)goToNextView:(id)sender {
-    [self setUpMainAppView];
-    [self callNextView];
-}
 @end
