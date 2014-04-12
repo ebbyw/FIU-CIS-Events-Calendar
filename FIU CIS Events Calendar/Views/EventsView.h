@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "DSLCalendarView.h"
 
-@interface EventsView : UITableViewController{
+@interface EventsView : UITableViewController <DSLCalendarViewDelegate>{
     NSDateFormatter* df_local;
+    IBOutlet DSLCalendarView *headerView;
 }
-
+-(UIView *) headerView;
 @end
