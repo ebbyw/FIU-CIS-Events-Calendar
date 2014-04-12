@@ -35,7 +35,7 @@
         [[self tabBarItem] setImage:[UIImage imageNamed:@"appbar.calendar.day.png"]];
         df_local = [[NSDateFormatter alloc] init] ;
         [df_local setTimeZone:[NSTimeZone localTimeZone]];
-        //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
+//        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
         [df_local setDateFormat:@"MMM - dd"];
         currentEvents = [[Events defaultEvents] allEvents];
     }
@@ -54,35 +54,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Header View Methods
-
--(UIView *) headerView{
-    if(!headerView){
-        CGRect headerRect = CGRectMake(0, 0, 320, 420);
-        headerView = [[DSLCalendarView alloc] initWithFrame:headerRect];
-        [headerView setDelegate:self];
-    }
-    
-    return headerView;
-}
-
--(void) resizeHeaderViewToFit{
-    CGRect headerFrame = self.headerView.frame;
-    headerFrame.size.height = self.headerView.bounds.size.height;
-    self.headerView.frame = headerFrame;
-}
-
--(UIView *) tableView:(UITableView *)tableView
-viewForHeaderInSection:(NSInteger)section{
-    NSLog(@"View for Header Called");
-    return [self headerView];
-}
-
--(CGFloat) tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section{
-    return [[self headerView] bounds].size.height;
 }
 
 #pragma mark - Table view data source
@@ -107,6 +78,7 @@ heightForHeaderInSection:(NSInteger)section{
     }
     
     Event *theEvent = [ [ [Events defaultEvents] allEvents] objectAtIndex:[indexPath row]];
+<<<<<<< HEAD
     
     [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
     
@@ -115,10 +87,18 @@ heightForHeaderInSection:(NSInteger)section{
     //    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
     
     [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
+=======
+    NSMutableString *cellText = [[NSMutableString alloc]init];
+    [cellText appendString:[df_local stringFromDate:[theEvent eventTimeAndDate]]];
+    [cellText appendString:[NSString stringWithFormat:@": %@",[theEvent eventType]]];
+//    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
+    [ [cell textLabel] setText: cellText];
+>>>>>>> FETCH_HEAD
     
     return cell;
 }
 
+<<<<<<< HEAD
 -(void) getEventsForRange{
     
     NSPredicate *filter = [NSPredicate predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
@@ -196,4 +176,6 @@ heightForHeaderInSection:(NSInteger)section{
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
+=======
+>>>>>>> FETCH_HEAD
 @end

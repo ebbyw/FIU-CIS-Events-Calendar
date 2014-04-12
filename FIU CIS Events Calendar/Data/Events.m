@@ -259,7 +259,6 @@
         [theSpeaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
         [theSpeaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
         [theSpeaker setImageLink:getValue(eventData, @"imageLink")];
-        [theSpeaker downloadAndStoreImage];
         [currentSpeakers addObject:theSpeaker];
     }
     
