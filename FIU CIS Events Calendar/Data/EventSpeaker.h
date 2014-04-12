@@ -10,11 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface EventSpeaker : NSManagedObject{
-    NSURLConnection *connection;
-    NSMutableData *imageData;
-
-}
+@interface EventSpeaker : NSManagedObject
 
 @property (nonatomic, retain) NSString * bio;
 @property (nonatomic, retain) NSString * imageLink;
@@ -31,6 +27,5 @@
 - (void)removeEventsObject:(NSManagedObject *)value;
 - (void)addEvents:(NSSet *)values;
 - (void)removeEvents:(NSSet *)values;
-- (void) downloadAndStoreImage;
 
 @end
