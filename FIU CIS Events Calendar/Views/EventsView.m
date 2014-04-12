@@ -34,7 +34,7 @@
         [[self tabBarItem] setTitle:@"Events"];
         [[self tabBarItem] setImage:[UIImage imageNamed:@"appbar.calendar.day.png"]];
         df_local = [[NSDateFormatter alloc] init] ;
-        [df_local setTimeZone:[NSTimeZone localTimeZone]];
+        [df_local setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]];
         //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
         [df_local setDateFormat:@"MMM - dd"];
         currentEvents = [[Events defaultEvents] allEvents];
@@ -106,7 +106,7 @@ heightForHeaderInSection:(NSInteger)section{
         cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
     }
     
-    Event *theEvent = [ [ [Events defaultEvents] allEvents] objectAtIndex:[indexPath row]];
+    Event *theEvent = [ currentEvents objectAtIndex:[indexPath row]];
     
     [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
     
@@ -134,6 +134,10 @@ heightForHeaderInSection:(NSInteger)section{
     Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return 
+//}
 
 #pragma mark - DSLCalendarViewDelegate methods
 
