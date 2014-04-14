@@ -12,6 +12,7 @@
 #import "Events.h"
 #import "EventCellTableViewCell.h"
 #import "AppDelegate.h"
+#import "TestView.h"
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 
@@ -179,9 +180,17 @@ heightForHeaderInSection:(NSInteger)section{
     if(!noEvents){
     Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
+<<<<<<< HEAD
     [theEvent setAddedToUser:[NSNumber numberWithBool:YES]];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+=======
+    
+    TestView *theTestView = [[TestView alloc] initWithEvent:theEvent];
+    
+    [self.navigationController pushViewController:theTestView animated:YES];
+    
+>>>>>>> FETCH_HEAD
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

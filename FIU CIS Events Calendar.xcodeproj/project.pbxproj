@@ -63,6 +63,8 @@
 		62CBE9CF18F86C4A00375C96 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CE18F86C4A00375C96 /* Event.m */; };
 		62CBE9D218F86CCF00375C96 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9D118F86CCF00375C96 /* Events.m */; };
 		62CBE9D418F8716800375C96 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62CBE9D318F8716800375C96 /* CoreData.framework */; };
+		EF0C389618FADD05004755D7 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0C389418FADD05004755D7 /* TestView.m */; };
+		EF0C389718FADD05004755D7 /* TestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF0C389518FADD05004755D7 /* TestView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +144,9 @@
 		62CBE9D018F86CCF00375C96 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Events.h; path = "FIU CIS Events Calendar/Data/Events.h"; sourceTree = "<group>"; };
 		62CBE9D118F86CCF00375C96 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Events.m; path = "FIU CIS Events Calendar/Data/Events.m"; sourceTree = "<group>"; };
 		62CBE9D318F8716800375C96 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EF0C389318FADD05004755D7 /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestView.h; path = "FIU CIS Events Calendar/Views/TestView.h"; sourceTree = "<group>"; };
+		EF0C389418FADD05004755D7 /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestView.m; path = "FIU CIS Events Calendar/Views/TestView.m"; sourceTree = "<group>"; };
+		EF0C389518FADD05004755D7 /* TestView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestView.xib; path = "FIU CIS Events Calendar/Views/TestView.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,8 +299,14 @@
 				622AC69718F9A7E400FA40DA /* EventCellTableViewCell.h */,
 				622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */,
 				622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */,
+<<<<<<< HEAD
 				4DB3B03A18FAE682001F1364 /* MyEventsView.h */,
 				4DB3B03B18FAE682001F1364 /* MyEventsView.m */,
+=======
+				EF0C389318FADD05004755D7 /* TestView.h */,
+				EF0C389418FADD05004755D7 /* TestView.m */,
+				EF0C389518FADD05004755D7 /* TestView.xib */,
+>>>>>>> FETCH_HEAD
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -398,6 +409,7 @@
 				4D1A2D3B18F98B9E00250270 /* DSLCalendarDaySelection.png in Resources */,
 				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
 				4D1A2D3518F98B9E00250270 /* DSLCalendarDaySelection-left.png in Resources */,
+				EF0C389718FADD05004755D7 /* TestView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +438,7 @@
 				4D1A2D2A18F98B9E00250270 /* DSLCalendarMonthSelectorView.m in Sources */,
 				62CBE9B218F84A7000375C96 /* EventsView.m in Sources */,
 				62CBE9CF18F86C4A00375C96 /* Event.m in Sources */,
+				EF0C389618FADD05004755D7 /* TestView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
