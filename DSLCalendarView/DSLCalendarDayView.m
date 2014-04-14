@@ -142,9 +142,11 @@
 
 -(void) markDate{
     NSLog(@"Mark Date Called");
-    UIImage *markedImage = [UIImage imageNamed:@"DSLCalendarDayMarked"];
-    [self addSubview:[[UIImageView alloc] initWithImage: markedImage]];
-//    [[[UIImage imageNamed:@"DSLCalendarDayMarked"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+    if(!markedView){
+        UIImage *markedImage = [UIImage imageNamed:@"DSLCalendarDayMarked"];
+        markedView = [[UIImageView alloc] initWithImage: markedImage];
+        [self addSubview:markedView];
+    }
 }
 
 - (void)drawBorders {
