@@ -140,6 +140,15 @@
     }
 }
 
+-(void) markDate{
+    NSLog(@"Mark Date Called");
+    if(!markedView){
+        UIImage *markedImage = [UIImage imageNamed:@"DSLCalendarDayMarked"];
+        markedView = [[UIImageView alloc] initWithImage: markedImage];
+        [self addSubview:markedView];
+    }
+}
+
 - (void)drawBorders {
     CGContextRef context = UIGraphicsGetCurrentContext();
     

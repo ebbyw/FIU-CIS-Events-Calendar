@@ -207,7 +207,6 @@
 }
 
 - (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month {
-    NSLog(@"Calling Month Creation");
     month = [month.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSCalendarCalendarUnit fromDate:month.date];
     
     NSString *monthViewKey = [self monthViewKeyForMonth:month];
@@ -219,6 +218,17 @@
         
         [monthView updateDaySelectionStatesForRange:self.selectedRange];
     }
+    
+    return monthView;
+}
+
+- (DSLCalendarMonthView*)currentMonthView{
+    NSDateComponents *month = [_visibleMonth copy];
+    NSLog(@"Calling Month View");
+    month = [month.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSCalendarCalendarUnit fromDate:month.date];
+    
+    NSString *monthViewKey = [self monthViewKeyForMonth:month];
+    DSLCalendarMonthView *monthView = [self.monthViews objectForKey:monthViewKey];
     
     return monthView;
 }
@@ -485,6 +495,7 @@
     
     // Check if the touch is within the month container
     if (!CGRectContainsPoint(self.monthContainerView.frame, [touch locationInView:self.monthContainerView.superview])) {
+        NSLog(@"Touched Outside of Month Container");
         return nil;
     }
     

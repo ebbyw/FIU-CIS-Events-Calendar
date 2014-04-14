@@ -59,6 +59,13 @@
                                     }
                                     ];
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
+    
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                               ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
+    [allUserEvents sortUsingDescriptors:sortDescriptors];
+    
+    
     NSLog(@"All Events Size is %d", [allUserEvents count]);
     return (NSArray *) allUserEvents;
 }

@@ -34,6 +34,7 @@
 #import "NSDate+DSLCalendarView.h"
 @protocol DSLCalendarViewDelegate;
 
+@class DSLCalendarMonthView;
 
 @interface DSLCalendarView : UIView<UIAccelerometerDelegate>{
     //Accelerometer Variables
@@ -56,7 +57,7 @@
 //Accelerometer Related
 -(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 -(void) resetAccelerometerBool;
-
+- (DSLCalendarMonthView*)currentMonthView;
 
 @end
 
