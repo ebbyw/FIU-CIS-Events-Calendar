@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarDayView.h"
+#import "EventDetailView.h"
 
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
@@ -204,7 +205,9 @@ heightForHeaderInSection:(NSInteger)section{
     if(!noEvents){
     Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
-    [theEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+//    [theEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+        EventDetailView *detailView = [[EventDetailView alloc] initWithEvent:theEvent];
+        [self.navigationController pushViewController:detailView animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

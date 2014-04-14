@@ -39,6 +39,8 @@
 		4D94BA5018E37490002ADF90 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA4F18E37490002ADF90 /* Default.png */; };
 		4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5118E37490002ADF90 /* Default@2x.png */; };
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
+		4D9F7A2418FC9BFC0011A89E /* EventDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9F7A2218FC9BFC0011A89E /* EventDetailView.m */; };
+		4D9F7A2518FC9BFC0011A89E /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9F7A2318FC9BFC0011A89E /* EventDetailView.xib */; };
 		4DB3B03C18FAE682001F1364 /* MyEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B03B18FAE682001F1364 /* MyEventsView.m */; };
 		4DB3B04218FAEF79001F1364 /* EventsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B04018FAEF79001F1364 /* EventsModel.xcdatamodeld */; };
 		4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */; };
@@ -113,6 +115,9 @@
 		4D94BA4F18E37490002ADF90 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4D94BA5118E37490002ADF90 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4D9F7A2118FC9BFC0011A89E /* EventDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailView.h; path = "FIU CIS Events Calendar/Views/EventDetailView.h"; sourceTree = "<group>"; };
+		4D9F7A2218FC9BFC0011A89E /* EventDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailView.m; path = "FIU CIS Events Calendar/Views/EventDetailView.m"; sourceTree = "<group>"; };
+		4D9F7A2318FC9BFC0011A89E /* EventDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventDetailView.xib; path = "FIU CIS Events Calendar/Views/EventDetailView.xib"; sourceTree = "<group>"; };
 		4DB3B03A18FAE682001F1364 /* MyEventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEventsView.h; path = "FIU CIS Events Calendar/Views/MyEventsView.h"; sourceTree = "<group>"; };
 		4DB3B03B18FAE682001F1364 /* MyEventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEventsView.m; path = "FIU CIS Events Calendar/Views/MyEventsView.m"; sourceTree = "<group>"; };
 		4DB3B04118FAEF79001F1364 /* EventsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventsModel.xcdatamodel; sourceTree = "<group>"; };
@@ -292,6 +297,9 @@
 		62CBE9B318F84A7A00375C96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D9F7A2118FC9BFC0011A89E /* EventDetailView.h */,
+				4D9F7A2218FC9BFC0011A89E /* EventDetailView.m */,
+				4D9F7A2318FC9BFC0011A89E /* EventDetailView.xib */,
 				4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */,
 				4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */,
 				622AC69518F9A4D200FA40DA /* placeholder.png */,
@@ -374,6 +382,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9F7A2518FC9BFC0011A89E /* EventDetailView.xib in Resources */,
 				4D1A2D2B18F98B9E00250270 /* DSLCalendarMonthSelectorView.xib in Resources */,
 				4D94BA4818E37490002ADF90 /* InfoPlist.strings in Resources */,
 				4D94BA5018E37490002ADF90 /* Default.png in Resources */,
@@ -431,6 +440,7 @@
 				4DB3B04218FAEF79001F1364 /* EventsModel.xcdatamodeld in Sources */,
 				4DB3B03C18FAE682001F1364 /* MyEventsView.m in Sources */,
 				4D1A2D2718F98B9E00250270 /* DSLCalendarDayCalloutView.m in Sources */,
+				4D9F7A2418FC9BFC0011A89E /* EventDetailView.m in Sources */,
 				4D1A2D2C18F98B9E00250270 /* DSLCalendarMonthView.m in Sources */,
 				4D94BA4E18E37490002ADF90 /* AppDelegate.m in Sources */,
 				4DB3B04D18FB5313001F1364 /* NSDate+Reporting.m in Sources */,
