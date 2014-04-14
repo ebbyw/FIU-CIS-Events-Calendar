@@ -35,18 +35,28 @@
 @protocol DSLCalendarViewDelegate;
 
 
-@interface DSLCalendarView : UIView
+@interface DSLCalendarView : UIView<UIAccelerometerDelegate>{
+    //Accelerometer Variables
+    float filteredX;
+    BOOL accelorometerChangingDate;
+}
 
 @property (nonatomic, weak) id<DSLCalendarViewDelegate>delegate;
 @property (nonatomic, copy) NSDateComponents *visibleMonth;
 @property (nonatomic, strong) DSLCalendarRange *selectedRange;
 @property (nonatomic, assign) BOOL showDayCalloutView;
 
+
 + (Class)monthSelectorViewClass;
 + (Class)monthViewClass;
 + (Class)dayViewClass;
 
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
+
+//Accelerometer Related
+-(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
+-(void) resetAccelerometerBool;
+
 
 @end
 

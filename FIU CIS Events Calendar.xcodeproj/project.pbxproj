@@ -39,12 +39,16 @@
 		4D94BA5018E37490002ADF90 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA4F18E37490002ADF90 /* Default.png */; };
 		4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5118E37490002ADF90 /* Default@2x.png */; };
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
+		4DB3B03C18FAE682001F1364 /* MyEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B03B18FAE682001F1364 /* MyEventsView.m */; };
+		4DB3B04218FAEF79001F1364 /* EventsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B04018FAEF79001F1364 /* EventsModel.xcdatamodeld */; };
+		4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */; };
+		4DB3B04A18FB1291001F1364 /* MyEventsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */; };
+		4DB3B04D18FB5313001F1364 /* NSDate+Reporting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B04C18FB5313001F1364 /* NSDate+Reporting.m */; };
 		4DC28C1B18EA262B006BB5E8 /* SplashScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */; };
 		4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */; };
 		622AC69618F9A4D200FA40DA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 622AC69518F9A4D200FA40DA /* placeholder.png */; };
 		622AC69A18F9A7E400FA40DA /* EventCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */; };
 		622AC69B18F9A7E400FA40DA /* EventCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */; };
-		62CBE9AF18F8465F00375C96 /* EventsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */; };
 		62CBE9B218F84A7000375C96 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9B118F84A7000375C96 /* EventsView.m */; };
 		62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */; };
 		62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */; };
@@ -106,13 +110,19 @@
 		4D94BA4F18E37490002ADF90 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4D94BA5118E37490002ADF90 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4DB3B03A18FAE682001F1364 /* MyEventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEventsView.h; path = "FIU CIS Events Calendar/Views/MyEventsView.h"; sourceTree = "<group>"; };
+		4DB3B03B18FAE682001F1364 /* MyEventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEventsView.m; path = "FIU CIS Events Calendar/Views/MyEventsView.m"; sourceTree = "<group>"; };
+		4DB3B04118FAEF79001F1364 /* EventsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventsModel.xcdatamodel; sourceTree = "<group>"; };
+		4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EventsIcon@2x.png"; path = "FIU CIS Events Calendar/Views/EventsIcon@2x.png"; sourceTree = "<group>"; };
+		4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MyEventsIcon@2x.png"; path = "FIU CIS Events Calendar/Views/MyEventsIcon@2x.png"; sourceTree = "<group>"; };
+		4DB3B04B18FB5313001F1364 /* NSDate+Reporting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Reporting.h"; path = "FIU CIS Events Calendar/Data/NSDate+Reporting.h"; sourceTree = "<group>"; };
+		4DB3B04C18FB5313001F1364 /* NSDate+Reporting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Reporting.m"; path = "FIU CIS Events Calendar/Data/NSDate+Reporting.m"; sourceTree = "<group>"; };
 		4DC28C1A18EA262B006BB5E8 /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashScreen.xib; path = "FIU CIS Events Calendar/Views/SplashScreen.xib"; sourceTree = "<group>"; };
 		4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogo.png; sourceTree = "<group>"; };
 		622AC69518F9A4D200FA40DA /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = "FIU CIS Events Calendar/Views/placeholder.png"; sourceTree = "<group>"; };
 		622AC69718F9A7E400FA40DA /* EventCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventCellTableViewCell.h; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.h"; sourceTree = "<group>"; };
 		622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventCellTableViewCell.m; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.m"; sourceTree = "<group>"; };
 		622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventCellTableViewCell.xib; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.xib"; sourceTree = "<group>"; };
-		62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventsModel.xcdatamodel; sourceTree = "<group>"; };
 		62CBE9B018F84A7000375C96 /* EventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsView.h; path = "FIU CIS Events Calendar/Views/EventsView.h"; sourceTree = "<group>"; };
 		62CBE9B118F84A7000375C96 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsView.m; path = "FIU CIS Events Calendar/Views/EventsView.m"; sourceTree = "<group>"; };
 		62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPad.png"; sourceTree = "<group>"; };
@@ -256,7 +266,9 @@
 		4DE3AFFF18F778310087336A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */,
+				4DB3B04B18FB5313001F1364 /* NSDate+Reporting.h */,
+				4DB3B04C18FB5313001F1364 /* NSDate+Reporting.m */,
+				4DB3B04018FAEF79001F1364 /* EventsModel.xcdatamodeld */,
 				62CBE9CA18F86B8800375C96 /* EventSpeaker.h */,
 				62CBE9CB18F86B8800375C96 /* EventSpeaker.m */,
 				62CBE9CD18F86C4A00375C96 /* Event.h */,
@@ -270,6 +282,8 @@
 		62CBE9B318F84A7A00375C96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */,
+				4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */,
 				622AC69518F9A4D200FA40DA /* placeholder.png */,
 				62CBE9C318F8563600375C96 /* appbar.calendar.day.png */,
 				62CBE9B018F84A7000375C96 /* EventsView.h */,
@@ -280,6 +294,8 @@
 				622AC69718F9A7E400FA40DA /* EventCellTableViewCell.h */,
 				622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */,
 				622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */,
+				4DB3B03A18FAE682001F1364 /* MyEventsView.h */,
+				4DB3B03B18FAE682001F1364 /* MyEventsView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -354,6 +370,8 @@
 				62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */,
 				4D1A2D3718F98B9E00250270 /* DSLCalendarDaySelection-middle.png in Resources */,
 				62CBE9C918F8586D00375C96 /* SplashViewController.xib in Resources */,
+				4DB3B04A18FB1291001F1364 /* MyEventsIcon@2x.png in Resources */,
+				4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */,
 				4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */,
 				4D1A2D3318F98B9E00250270 /* DSLCalendarDayCallout.png in Resources */,
 				4D1A2D3C18F98B9E00250270 /* DSLCalendarDaySelection@2x.png in Resources */,
@@ -397,11 +415,13 @@
 				4D1A2D3D18F98B9E00250270 /* NSDate+DSLCalendarView.m in Sources */,
 				4D94BA4A18E37490002ADF90 /* main.m in Sources */,
 				4D1A2D2D18F98B9E00250270 /* DSLCalendarRange.m in Sources */,
-				62CBE9AF18F8465F00375C96 /* EventsModel.xcdatamodeld in Sources */,
 				622AC69A18F9A7E400FA40DA /* EventCellTableViewCell.m in Sources */,
+				4DB3B04218FAEF79001F1364 /* EventsModel.xcdatamodeld in Sources */,
+				4DB3B03C18FAE682001F1364 /* MyEventsView.m in Sources */,
 				4D1A2D2718F98B9E00250270 /* DSLCalendarDayCalloutView.m in Sources */,
 				4D1A2D2C18F98B9E00250270 /* DSLCalendarMonthView.m in Sources */,
 				4D94BA4E18E37490002ADF90 /* AppDelegate.m in Sources */,
+				4DB3B04D18FB5313001F1364 /* NSDate+Reporting.m in Sources */,
 				4D1A2D2E18F98B9E00250270 /* DSLCalendarView.m in Sources */,
 				4D1A2D2A18F98B9E00250270 /* DSLCalendarMonthSelectorView.m in Sources */,
 				62CBE9B218F84A7000375C96 /* EventsView.m in Sources */,
@@ -541,12 +561,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		62CBE9AD18F8465F00375C96 /* EventsModel.xcdatamodeld */ = {
+		4DB3B04018FAEF79001F1364 /* EventsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */,
+				4DB3B04118FAEF79001F1364 /* EventsModel.xcdatamodel */,
 			);
-			currentVersion = 62CBE9AE18F8465F00375C96 /* EventsModel.xcdatamodel */;
+			currentVersion = 4DB3B04118FAEF79001F1364 /* EventsModel.xcdatamodel */;
 			name = EventsModel.xcdatamodeld;
 			path = "FIU CIS Events Calendar/Data/EventsModel.xcdatamodeld";
 			sourceTree = "<group>";

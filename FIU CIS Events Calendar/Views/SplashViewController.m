@@ -81,8 +81,8 @@
         
         //check if dictionary exists
         if(jsonReceivedData){
-            progressValue += 0.2f;
-            [loadingProgressBar setProgress: progressValue animated:YES];
+//            progressValue += 0.2f;
+//            [loadingProgressBar setProgress: progressValue animated:YES];
             //Display what values we have
             for(NSDictionary* dict in jsonReceivedData){
                 NSLog(@"%@",[dict allKeys]);
@@ -90,16 +90,18 @@
             }
             
             Events *eventsData = [Events defaultEvents];
+            
             //Send the JSON Object to Our Events Class
             [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
             [eventsData setSplashView:self];
             [eventsData loadEventsList];
+            
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
             jsonData = nil;
             connection = nil;
             
-            [loadingProgressBar setProgress: 1.0f animated:YES];
+//            [loadingProgressBar setProgress: 1.0f animated:YES];
             [self callNextView];
         }
     }

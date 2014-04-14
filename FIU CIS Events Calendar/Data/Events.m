@@ -51,6 +51,23 @@
     return allSpeakers;
 }
 
+-(NSArray *) allUserEvents{
+    NSPredicate *userAddedFilter = [NSPredicate
+                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                                    {
+                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
+                                    }
+                                    ];
+    allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
+    NSLog(@"All Events Size is %d", [allUserEvents count]);
+    return (NSArray *) allUserEvents;
+}
+
+-(void) addEventToUserList: (Event *) eventToAdd{
+    [allUserEvents addObject:eventToAdd];
+}
+
+
 -(EventSpeaker *) createSpeaker{
     return nil;
 }
@@ -114,7 +131,7 @@
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
         [splashView incrementProgressBar:progressIncrement];
-
+        
     }
     
     if(!allEvents){
@@ -140,7 +157,7 @@
             
         }
         [splashView incrementProgressBar:progressIncrement];
-
+        
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
@@ -162,19 +179,29 @@
             }
         }
         [splashView incrementProgressBar:progressIncrement];
-
+        
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
+    
+    NSPredicate *userAddedFilter = [NSPredicate
+                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                                    {
+                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
+                                    }
+                                    ];
+    
+    allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
+    
     [splashView incrementProgressBar:progressIncrement];
     
     allSpeakers = [NSArray arrayWithArray:currentSpeakers];
     [splashView incrementProgressBar:progressIncrement];
-
-//    NSLog(@"progress bar value = %f", progressValue);
+    
+    //    NSLog(@"progress bar value = %f", progressValue);
     appDelegate(saveContext);
     [splashView incrementProgressBar:progressIncrement];
-
+    
 }
 
 -(BOOL) checkIfEventExists: (NSDictionary *) eventData andDate: (NSDate *) date{
@@ -184,7 +211,7 @@
         speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if([speaker.speakerName localizedCaseInsensitiveCompare: speakerNameTrimmed ] == NSOrderedSame){
             //We've found a speaker in our speakers list that matches the speaker of the current event
-//            NSLog(@"Identical Speaker");
+            //            NSLog(@"Identical Speaker");
             //Update Speaker Information if needed
             if([speaker.speakerDepartment localizedCaseInsensitiveCompare:getValue(eventData, @"speakerDepartment")] !=NSOrderedSame){
                 [speaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
@@ -200,7 +227,7 @@
             // Check if this speaker already has this event under their events set
             for(Event *speakerEvent in currentEvents ){
                 if([speakerEvent.eventName localizedCaseInsensitiveCompare: getValue(eventData, @"eventName")] == NSOrderedSame){
-//                    NSLog(@"Identical Event");
+                    //                    NSLog(@"Identical Event");
                     //Identical Event Name found in speakers events list
                     //Check if any info needs to be updated
                     //TODO Consider adding an "updated" property/flag to Events to let users know the event has been updated
@@ -254,7 +281,7 @@
     if(theSpeaker == nil){
         //Create a new speaker
         theSpeaker = [NSEntityDescription insertNewObjectForEntityForName:@"EventSpeaker"
-                                                             inManagedObjectContext:context];
+                                                   inManagedObjectContext:context];
         [theSpeaker setSpeakerName:speakerNameTrimmed];
         [theSpeaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
         [theSpeaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];

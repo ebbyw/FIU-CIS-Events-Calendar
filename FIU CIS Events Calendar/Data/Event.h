@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * eventName;
 @property (nonatomic, retain) NSString * userNotes;
 @property (nonatomic, retain) NSString * eventType;
+@property (nonatomic, retain) NSNumber * addedToUser;
 @property (nonatomic, retain) NSNumber * canceled;
 @property (nonatomic, retain) EventSpeaker *speaker;
 

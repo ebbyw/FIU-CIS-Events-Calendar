@@ -14,6 +14,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+//    NSLog(@"INIT FOR CELL CALLED");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
