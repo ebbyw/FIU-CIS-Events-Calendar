@@ -54,4 +54,6 @@ enum {
 
 @property (nonatomic, strong, readonly) NSDate *dayAsDate;
 
+-(void) markDate;
+
 @end

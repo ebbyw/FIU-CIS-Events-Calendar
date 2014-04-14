@@ -66,6 +66,7 @@
         _dayViewClass = dayViewClass;
         
         [self createDayViews];
+        NSLog(@"Creating Days");
     }
 
     return self;

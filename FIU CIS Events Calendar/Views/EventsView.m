@@ -12,6 +12,9 @@
 #import "Events.h"
 #import "EventCellTableViewCell.h"
 #import "AppDelegate.h"
+#import "DSLCalendarMonthView.h"
+#import "DSLCalendarDayView.h"
+
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 
@@ -159,6 +162,21 @@ heightForHeaderInSection:(NSInteger)section{
     
     currentRangeFilter = [[DSLCalendarRange alloc] initWithStartDay:firstOfMonth endDay:lastOfMonth];
     [self getEventsForRange];
+    
+    DSLCalendarMonthView *thisMonthView = [(DSLCalendarView* )headerView currentMonthView];
+    
+    NSSet *allDayViews = [thisMonthView dayViews];
+    
+    for(Event *event in currentEvents){
+        NSDateComponents *day = [cal components: unitFlags fromDate:[event eventTimeAndDate]];
+        
+        for (DSLCalendarDayView *dayView in allDayViews) {
+            if([dayView day].day  == day.day){
+                [dayView markDate];
+            }
+        }
+    }
+    
 }
 
 -(void) getEventsForRange{
@@ -169,9 +187,16 @@ heightForHeaderInSection:(NSInteger)section{
                                return [currentRangeFilter containsDate: [(Event *) evaluatedObject eventTimeAndDate]];
                            }
                            ];
-    NSLog(@"Current Event Count Prior To Filter %d", [currentEvents count]);
+//    NSLog(@"Current Event Count Prior To Filter %d", [currentEvents count]);
+    
     currentEvents = [[[Events defaultEvents] allEvents] filteredArrayUsingPredicate:filter];
-    NSLog(@"Received %d Events", [currentEvents count]);
+    
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                                ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
+    currentEvents = [currentEvents sortedArrayUsingDescriptors:sortDescriptors];
+    
+//    NSLog(@"Received %d Events", [currentEvents count]);
     [self.tableView reloadData];
 }
 

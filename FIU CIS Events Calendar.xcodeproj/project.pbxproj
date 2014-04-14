@@ -49,6 +49,8 @@
 		622AC69618F9A4D200FA40DA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 622AC69518F9A4D200FA40DA /* placeholder.png */; };
 		622AC69A18F9A7E400FA40DA /* EventCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */; };
 		622AC69B18F9A7E400FA40DA /* EventCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */; };
+		6230389E18FC3475002DBC47 /* DSLCalendarDayMarked.png in Resources */ = {isa = PBXBuildFile; fileRef = 6230389D18FC3475002DBC47 /* DSLCalendarDayMarked.png */; };
+		623038A018FC3B55002DBC47 /* DSLCalendarDayMarked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6230389F18FC3B55002DBC47 /* DSLCalendarDayMarked@2x.png */; };
 		62CBE9B218F84A7000375C96 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9B118F84A7000375C96 /* EventsView.m */; };
 		62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */; };
 		62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */; };
@@ -123,6 +125,8 @@
 		622AC69718F9A7E400FA40DA /* EventCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventCellTableViewCell.h; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.h"; sourceTree = "<group>"; };
 		622AC69818F9A7E400FA40DA /* EventCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventCellTableViewCell.m; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.m"; sourceTree = "<group>"; };
 		622AC69918F9A7E400FA40DA /* EventCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventCellTableViewCell.xib; path = "FIU CIS Events Calendar/Views/EventCellTableViewCell.xib"; sourceTree = "<group>"; };
+		6230389D18FC3475002DBC47 /* DSLCalendarDayMarked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSLCalendarDayMarked.png; sourceTree = "<group>"; };
+		6230389F18FC3B55002DBC47 /* DSLCalendarDayMarked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DSLCalendarDayMarked@2x.png"; sourceTree = "<group>"; };
 		62CBE9B018F84A7000375C96 /* EventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsView.h; path = "FIU CIS Events Calendar/Views/EventsView.h"; sourceTree = "<group>"; };
 		62CBE9B118F84A7000375C96 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsView.m; path = "FIU CIS Events Calendar/Views/EventsView.m"; sourceTree = "<group>"; };
 		62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPad.png"; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		4D1A2D1618F98B9E00250270 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6230389F18FC3B55002DBC47 /* DSLCalendarDayMarked@2x.png */,
+				6230389D18FC3475002DBC47 /* DSLCalendarDayMarked.png */,
 				4D1A2D1718F98B9E00250270 /* DSLCalendar-nextMonth.png */,
 				4D1A2D1818F98B9E00250270 /* DSLCalendar-nextMonth@2x.png */,
 				4D1A2D1918F98B9E00250270 /* DSLCalendar-previousMonth.png */,
@@ -371,6 +377,7 @@
 				4D1A2D3718F98B9E00250270 /* DSLCalendarDaySelection-middle.png in Resources */,
 				62CBE9C918F8586D00375C96 /* SplashViewController.xib in Resources */,
 				4DB3B04A18FB1291001F1364 /* MyEventsIcon@2x.png in Resources */,
+				6230389E18FC3475002DBC47 /* DSLCalendarDayMarked.png in Resources */,
 				4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */,
 				4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */,
 				4D1A2D3318F98B9E00250270 /* DSLCalendarDayCallout.png in Resources */,
@@ -390,6 +397,7 @@
 				4D1A2D3418F98B9E00250270 /* DSLCalendarDayCallout@2x.png in Resources */,
 				4D1A2D3618F98B9E00250270 /* DSLCalendarDaySelection-left@2x.png in Resources */,
 				62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */,
+				623038A018FC3B55002DBC47 /* DSLCalendarDayMarked@2x.png in Resources */,
 				4D1A2D3018F98B9E00250270 /* DSLCalendar-nextMonth@2x.png in Resources */,
 				4D1A2D3918F98B9E00250270 /* DSLCalendarDaySelection-right.png in Resources */,
 				62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */,
@@ -513,7 +521,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -532,7 +540,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
