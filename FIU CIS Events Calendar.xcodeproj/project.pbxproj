@@ -61,7 +61,6 @@
 		62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */; };
 		62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */; };
 		62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */; };
-		62CBE9C418F8563600375C96 /* appbar.calendar.day.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C318F8563600375C96 /* appbar.calendar.day.png */; };
 		62CBE9C818F8586D00375C96 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9C618F8586D00375C96 /* SplashViewController.m */; };
 		62CBE9C918F8586D00375C96 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C718F8586D00375C96 /* SplashViewController.xib */; };
 		62CBE9CC18F86B8800375C96 /* EventSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CB18F86B8800375C96 /* EventSpeaker.m */; };
@@ -142,7 +141,6 @@
 		62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogoSquare.png; sourceTree = "<group>"; };
 		62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPhoneRetina.png"; sourceTree = "<group>"; };
 		62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPad.png"; sourceTree = "<group>"; };
-		62CBE9C318F8563600375C96 /* appbar.calendar.day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appbar.calendar.day.png; path = "FIU CIS Events Calendar/Views/appbar.calendar.day.png"; sourceTree = "<group>"; };
 		62CBE9C518F8586D00375C96 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashViewController.h; path = "FIU CIS Events Calendar/Views/SplashViewController.h"; sourceTree = "<group>"; };
 		62CBE9C618F8586D00375C96 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplashViewController.m; path = "FIU CIS Events Calendar/Views/SplashViewController.m"; sourceTree = "<group>"; };
 		62CBE9C718F8586D00375C96 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashViewController.xib; path = "FIU CIS Events Calendar/Views/SplashViewController.xib"; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */,
 				4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */,
 				622AC69518F9A4D200FA40DA /* placeholder.png */,
-				62CBE9C318F8563600375C96 /* appbar.calendar.day.png */,
 				62CBE9B018F84A7000375C96 /* EventsView.h */,
 				62CBE9B118F84A7000375C96 /* EventsView.m */,
 				62CBE9C518F8586D00375C96 /* SplashViewController.h */,
@@ -415,7 +412,6 @@
 				4D1A2D3918F98B9E00250270 /* DSLCalendarDaySelection-right.png in Resources */,
 				62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */,
 				622AC69618F9A4D200FA40DA /* placeholder.png in Resources */,
-				62CBE9C418F8563600375C96 /* appbar.calendar.day.png in Resources */,
 				4D1A2D3B18F98B9E00250270 /* DSLCalendarDaySelection.png in Resources */,
 				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
 				4D1A2D3518F98B9E00250270 /* DSLCalendarDaySelection-left.png in Resources */,
@@ -531,11 +527,11 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FIU CIS Events Calendar/FIU CIS Events Calendar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -550,11 +546,11 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FIU CIS Events Calendar/FIU CIS Events Calendar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

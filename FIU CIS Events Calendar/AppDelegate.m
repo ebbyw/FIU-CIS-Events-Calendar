@@ -73,8 +73,20 @@
     NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];
     
     [mainTabsController setViewControllers:viewControllers];
+    
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
         
-    [self.window setRootViewController:mainTabsController];
+        UINavigationController *mainView = [[UINavigationController alloc] init];
+        
+        splitViewController.viewControllers = [NSArray arrayWithObjects:mainTabsController, mainView, nil];
+        
+        [self.window setRootViewController:splitViewController];
+    }else{
+        [self.window setRootViewController:mainTabsController];
+    }
+    
     
     
 }
