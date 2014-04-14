@@ -57,11 +57,13 @@
     
     self = [super init];
     if (self != nil) {
+        NSCalendar *cal = [NSCalendar currentCalendar];
         // Initialise properties
         _startDay = [start copy];
-        _startDate = [start date];
+        _startDate = [cal dateFromComponents:start];
         _endDay = [end copy];
-        _endDate = [end date];
+        _endDate = [cal dateFromComponents:end];
+//        NSLog(@"values are %@, %@, %@, %@", _startDay,_startDate, _endDay, _endDate);
     }
 
     return self;
@@ -88,14 +90,29 @@
 }
 
 - (BOOL)containsDate:(NSDate*)date {
-    if ([_startDate compare:date] == NSOrderedDescending) {
+
+//    NSLog(@"Start Date: %@\nEnd Date %@",_startDate,_endDate);
+    
+    if([_endDate compare:_startDate] == NSOrderedSame){//Range is only one day
+//        NSLog(@"Same day");
+        if([_startDate compare:date] != NSOrderedDescending){
+            //The day selected is before the date in question
+            NSDate *endOfDay = [_startDate dateByAddingTimeInterval: 86400];
+            return [endOfDay compare:date] == NSOrderedDescending;
+        }
+    }
+    
+    if ([_endDate compare:date] == NSOrderedAscending) {
+//        NSLog(@"%@ is later than %@",_endDate, date);
         return NO;
     }
-    else if ([_endDate compare:date] == NSOrderedAscending) {
+    else if ([_startDate compare:date] == NSOrderedDescending) {
+//        NSLog(@"%@ is earlier than %@",_startDate, date);
         return NO;
     }
     
     return YES;
 }
+
 
 @end

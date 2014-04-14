@@ -81,7 +81,7 @@
     if (self != nil) {
         [self commonInit];
     }
-
+    
     return self;
 }
 
@@ -100,7 +100,7 @@
     
     [self.monthSelectorView.backButton addTarget:self action:@selector(didTapMonthBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.monthSelectorView.forwardButton addTarget:self action:@selector(didTapMonthForward:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     // Month views are contained in a content view inside a container view - like a scroll view, but not a scroll view so we can have proper control over animations
     CGRect frame = self.bounds;
     frame.origin.x = 0;
@@ -114,9 +114,17 @@
     [self.monthContainerView addSubview:self.monthContainerViewContentView];
     
     self.monthViews = [[NSMutableDictionary alloc] init];
-
+    
     [self updateMonthLabelMonth:_visibleMonth];
     [self positionViewsForMonth:_visibleMonth fromMonth:_visibleMonth animated:NO];
+    
+    // Accelerometer Related
+    
+    UIAccelerometer *myAccelorometer =[UIAccelerometer sharedAccelerometer];
+    
+    [myAccelorometer setUpdateInterval:0.03];
+    
+    [myAccelorometer setDelegate:self];
 }
 
 
@@ -160,7 +168,7 @@
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated {
     NSDateComponents *fromMonth = [_visibleMonth copy];
     _visibleMonth = [visibleMonth.date dslCalendarView_monthWithCalendar:self.visibleMonth.calendar];
-
+    
     [self updateMonthLabelMonth:_visibleMonth];
     [self positionViewsForMonth:_visibleMonth fromMonth:fromMonth animated:animated];
 }
@@ -171,7 +179,7 @@
 - (void)didTapMonthBack:(id)sender {
     NSDateComponents *newMonth = self.visibleMonth;
     newMonth.month--;
-
+    
     [self setVisibleMonth:newMonth animated:YES];
 }
 
@@ -183,7 +191,7 @@
 }
 
 
-#pragma mark - 
+#pragma mark -
 
 - (void)updateMonthLabelMonth:(NSDateComponents*)month {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -199,15 +207,16 @@
 }
 
 - (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month {
+    NSLog(@"Calling Month Creation");
     month = [month.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSCalendarCalendarUnit fromDate:month.date];
-
+    
     NSString *monthViewKey = [self monthViewKeyForMonth:month];
     DSLCalendarMonthView *monthView = [self.monthViews objectForKey:monthViewKey];
     if (monthView == nil) {
         monthView = [[[[self class] monthViewClass] alloc] initWithMonth:month width:self.bounds.size.width dayViewClass:[[self class] dayViewClass] dayViewHeight:_dayViewHeight];
         [self.monthViews setObject:monthView forKey:monthViewKey];
         [self.monthContainerViewContentView addSubview:monthView];
-
+        
         [monthView updateDaySelectionStatesForRange:self.selectedRange];
     }
     
@@ -243,12 +252,12 @@
         DSLCalendarMonthView *monthView = [self cachedOrCreatedMonthViewForMonth:offsetMonth];
         [activeMonthViews addObject:monthView];
         [monthView.superview bringSubviewToFront:monthView];
-
+        
         CGRect frame = monthView.frame;
         frame.origin.y = nextVerticalPosition;
         nextVerticalPosition += frame.size.height;
         monthView.frame = frame;
-
+        
         // Check if this view is where we should animate to or from
         if (monthOffset == 0) {
             // This is the target month so we can use it to determine where to scroll to
@@ -271,7 +280,7 @@
                 startingVerticalPostion -= _dayViewHeight;
             }
         }
-
+        
         // Check if the active or following month start on the first day of the week
         if (monthOffset == 0 && [self monthStartsOnFirstDayOfWeek:offsetMonth]) {
             // If the active month starts on a monday, add a day view height to the resting height and move the resting position up so the user can drag into that previous month
@@ -310,12 +319,12 @@
     [UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         for (NSInteger index = 0; index < activeMonthViews.count; index++) {
             DSLCalendarMonthView *monthView = [activeMonthViews objectAtIndex:index];
-             for (DSLCalendarDayView *dayView in monthView.dayViews) {
-                 // Use a transition so it fades between states nicely
-                 [UIView transitionWithView:dayView duration:animationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                     dayView.inCurrentMonth = (index == 2);
-                 } completion:NULL];
-             }
+            for (DSLCalendarDayView *dayView in monthView.dayViews) {
+                // Use a transition so it fades between states nicely
+                [UIView transitionWithView:dayView duration:animationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    dayView.inCurrentMonth = (index == 2);
+                } completion:NULL];
+            }
         }
         
         // Animate the content view to show the target month
@@ -339,7 +348,7 @@
         }
     } completion:^(BOOL finished) {
         self.userInteractionEnabled = YES;
-
+        
         if (finished) {
             // Tell the delegate method that we've animated to a new month
             if (monthComparisonResult != NSOrderedSame && [self.delegate respondsToSelector:@selector(calendarView:didChangeToVisibleMonth:)]) {
@@ -410,18 +419,18 @@
     else {
         newRange = [[DSLCalendarRange alloc] initWithStartDay:self.draggingFixedDay endDay:touchedView.day];
     }
-
+    
     if ([self.delegate respondsToSelector:@selector(calendarView:didDragToDay:selectingRange:)]) {
         newRange = [self.delegate calendarView:self didDragToDay:touchedView.day selectingRange:newRange];
     }
     self.selectedRange = newRange;
-
+    
     if (!self.draggedOffStartDay) {
         if (![self.draggingStartDay isEqual:touchedView.day]) {
             self.draggedOffStartDay = YES;
         }
     }
-
+    
     [self positionCalloutViewForDayView:touchedView];
 }
 
@@ -463,7 +472,7 @@
     if ([self.delegate respondsToSelector:@selector(calendarView:didSelectRange:)]) {
         [self.delegate calendarView:self didSelectRange:self.selectedRange];
     }
-
+    
 }
 
 
@@ -471,7 +480,7 @@
     if (touches.count != 1) {
         return nil;
     }
-
+    
     UITouch *touch = [touches anyObject];
     
     // Check if the touch is within the month container
@@ -513,7 +522,7 @@
         if (self.dayCalloutView == nil) {
             self.dayCalloutView = [DSLCalendarDayCalloutView view];
         }
-
+        
         self.dayCalloutView.frame = calloutFrame;
         [self.dayCalloutView configureForDay:dayView.day];
         
@@ -524,6 +533,45 @@
             [self bringSubviewToFront:self.dayCalloutView];
         }
     }
+}
+
+#pragma mark - Accelerometer Methods
+
+-(void) resetAccelerometerBool{
+    [NSTimer scheduledTimerWithTimeInterval:.5f
+                                     target:self
+                                   selector:@selector(resetAccelerometerBoolValue)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+-(void) resetAccelerometerBoolValue{
+    accelorometerChangingDate =NO;
+}
+
+-(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
+
+{
+    if(!accelorometerChangingDate){
+        filteredX = acceleration.x * 0.2 +(0.2 *(1.0 - 0.2));
+        
+        if ( acceleration.x < -.200)
+        {
+            accelorometerChangingDate = YES;
+            NSDateComponents *newMonth = self.visibleMonth;
+            newMonth.month--;
+            [self setVisibleMonth:newMonth animated:YES];
+        }
+        
+        if (filteredX > 0.2)
+        {
+            accelorometerChangingDate = YES;
+            NSDateComponents *newMonth = self.visibleMonth;
+            newMonth.month++;
+            [self setVisibleMonth:newMonth animated:YES];
+        }
+    }
+    
 }
 
 @end

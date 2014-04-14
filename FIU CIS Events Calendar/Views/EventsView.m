@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Ebby Wahman. All rights reserved.
 //
 
+#import "NSDate+Reporting.h"
 #import "EventsView.h"
+#import "Event.h"
 #import "Events.h"
 #import "EventCellTableViewCell.h"
 #import "AppDelegate.h"
@@ -32,7 +34,7 @@
     if (self) {
         [[self navigationItem] setTitle:@"Events"];
         [[self tabBarItem] setTitle:@"Events"];
-        [[self tabBarItem] setImage:[UIImage imageNamed:@"appbar.calendar.day.png"]];
+        [[self tabBarItem] setImage:[UIImage imageNamed:@"EventsIcon"]];
         df_local = [[NSDateFormatter alloc] init] ;
         [df_local setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]];
         //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
@@ -47,7 +49,11 @@
     [super viewDidLoad];
     UINib *nib = [UINib nibWithNibName:@"EventCellTableViewCell" bundle:nil];
     [[self tableView] registerNib:nib forCellReuseIdentifier:@"eventCell"];
-    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self getThisMonthsEvents];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +76,7 @@
 
 -(void) resizeHeaderViewToFit{
     CGRect headerFrame = self.headerView.frame;
-    headerFrame.size.height = self.headerView.bounds.size.height;
+    headerFrame.size.height = self.headerView.bounds.size.height +5 ;
     self.headerView.frame = headerFrame;
 }
 
@@ -82,7 +88,7 @@ viewForHeaderInSection:(NSInteger)section{
 
 -(CGFloat) tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return [[self headerView] bounds].size.height;
+    return [[self headerView] bounds].size.height +5 ;
 }
 
 #pragma mark - Table view data source
@@ -94,15 +100,22 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [currentEvents count];
+    if([currentEvents count] > 0){
+        noEvents = NO;
+     return [currentEvents count];
+    }
+    noEvents = YES;
+    return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(!noEvents){
     EventCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
     
     if(!cell){
+        NSLog(@"Creating Cell for Events");
         cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
     }
     
@@ -117,26 +130,62 @@ heightForHeaderInSection:(NSInteger)section{
     [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
     
     return cell;
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noEvents"];
+    
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noEvents"];
+    }
+    
+    [[cell textLabel] setText:@"No events!"];
+    
+    return cell;
+    
+    
+}
+
+-(void) getThisMonthsEvents{
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    
+    NSCalendar * cal = [NSCalendar currentCalendar];
+    
+    NSDate *thisMonth = [[(DSLCalendarView *)headerView visibleMonth] date];
+    thisMonth = [NSDate midnightOfDate:thisMonth];
+    NSLog(@"This month is %@,",thisMonth);
+    
+    NSDateComponents *firstOfMonth = [cal components:unitFlags fromDate:[NSDate firstDayOfMonthFromDate:thisMonth]];
+    NSDateComponents *lastOfMonth = [cal components:unitFlags fromDate:[NSDate firstDayOfNextMonthFromDate:thisMonth]];
+    
+    currentRangeFilter = [[DSLCalendarRange alloc] initWithStartDay:firstOfMonth endDay:lastOfMonth];
+    [self getEventsForRange];
 }
 
 -(void) getEventsForRange{
+    NSLog(@"Called Get Events For Range %@ - %@", currentRangeFilter.startDay, currentRangeFilter.endDay);
     
-    NSPredicate *filter = [NSPredicate predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
-        return [currentRangeFilter containsDate: [(Event *) evaluatedObject eventTimeAndDate]];
-    }];
-    
+    NSPredicate *filter = [NSPredicate
+                           predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
+                               return [currentRangeFilter containsDate: [(Event *) evaluatedObject eventTimeAndDate]];
+                           }
+                           ];
+    NSLog(@"Current Event Count Prior To Filter %d", [currentEvents count]);
     currentEvents = [[[Events defaultEvents] allEvents] filteredArrayUsingPredicate:filter];
-
+    NSLog(@"Received %d Events", [currentEvents count]);
     [self.tableView reloadData];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(!noEvents){
     Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
+    [theEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 
+//    return
 //}
 
 #pragma mark - DSLCalendarViewDelegate methods
@@ -153,7 +202,7 @@ heightForHeaderInSection:(NSInteger)section{
 }
 
 - (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView didDragToDay:(NSDateComponents *)day selectingRange:(DSLCalendarRange *)range {
-    if (NO) { // Only select a single day
+    if (YES) { // Only select a single day
         return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
     }
     else if (NO) { // Don't allow selections before today
@@ -177,14 +226,15 @@ heightForHeaderInSection:(NSInteger)section{
         }
     }
     
-//    currentRangeFilter = range;
-//    [self getEventsForRange];
+    //    currentRangeFilter = range;
+    //    [self getEventsForRange];
     return range;
 }
 
 - (void)calendarView:(DSLCalendarView *)calendarView willChangeToVisibleMonth:(NSDateComponents *)month duration:(NSTimeInterval)duration {
     
     NSLog(@"Will show %@ in %.3f seconds", month, duration);
+    [self getThisMonthsEvents];
 }
 
 - (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents *)month {
@@ -192,6 +242,7 @@ heightForHeaderInSection:(NSInteger)section{
     [self.tableView reloadData];
     
     NSLog(@"Now showing %@", month);
+    [calendarView resetAccelerometerBool];
 }
 
 

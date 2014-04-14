@@ -19,10 +19,10 @@
     
     NSArray *allEvents;
     NSArray *allSpeakers;
+    NSMutableArray *allUserEvents;
     
     NSMutableArray *currentSpeakers;
     NSMutableArray *currentEvents;
-    
     
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
@@ -33,9 +33,11 @@
 +(Events *) defaultEvents;
 -(NSArray *) allEvents;
 -(NSArray *) allSpeakers;
+-(NSArray *) allUserEvents;
 
 -(EventSpeaker *) createSpeaker;
 -(Event *) createEvent;
+-(void) addEventToUserList: (Event *) eventToAdd;
 -(NSString *) dataStoragePath;
 -(BOOL) saveChanges;
 -(void) loadEventsList;

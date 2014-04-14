@@ -19,6 +19,7 @@
 @dynamic eventName;
 @dynamic userNotes;
 @dynamic eventType;
+@dynamic addedToUser;
 @dynamic canceled;
 @dynamic speaker;
 

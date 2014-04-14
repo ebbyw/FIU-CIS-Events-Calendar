@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Event.h"
 #import "DSLCalendarView.h"
 
 @interface EventsView : UITableViewController <DSLCalendarViewDelegate>{
+    BOOL noEvents;
     NSDateFormatter* df_local;
     IBOutlet DSLCalendarView *headerView;
     NSArray *currentEvents;

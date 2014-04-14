@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SplashViewController.h"
 #import "EventsView.h"
+#import "MyEventsView.h"
 
 @implementation AppDelegate
 
@@ -61,12 +62,15 @@
 
 -(void) callMainAppView{
     EventsView *eventsView = [[EventsView alloc] init];
+    MyEventsView *myEventsView = [[MyEventsView alloc] init];
+    
     UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
     
-    
+    UINavigationController *myEventsNavigation = [[UINavigationController alloc]initWithRootViewController:myEventsView];
+        
     UITabBarController *mainTabsController = [[UITabBarController alloc] init];
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];
     
     [mainTabsController setViewControllers:viewControllers];
         
