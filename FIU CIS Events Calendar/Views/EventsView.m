@@ -106,7 +106,7 @@ heightForHeaderInSection:(NSInteger)section{
 {
     if([currentEvents count] > 0){
         noEvents = NO;
-     return [currentEvents count];
+        return [currentEvents count];
     }
     noEvents = YES;
     return 1;
@@ -116,24 +116,24 @@ heightForHeaderInSection:(NSInteger)section{
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(!noEvents){
-    EventCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
-    
-    if(!cell){
-        NSLog(@"Creating Cell for Events");
-        cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
-    }
-    
-    Event *theEvent = [ currentEvents objectAtIndex:[indexPath row]];
-    
-    [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
-    
-    [[cell cellEventTitle] setText:[NSString stringWithFormat:@"%@",[theEvent eventType]]];
-    
-    //    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
-    
-    [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
-    
-    return cell;
+        EventCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
+        
+        if(!cell){
+            NSLog(@"Creating Cell for Events");
+            cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
+        }
+        
+        Event *theEvent = [ currentEvents objectAtIndex:[indexPath row]];
+        
+        [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
+        
+        [[cell cellEventTitle] setText:[NSString stringWithFormat:@"%@",[theEvent eventType]]];
+        
+        //    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
+        
+        [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
+        
+        return cell;
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noEvents"];
@@ -181,33 +181,39 @@ heightForHeaderInSection:(NSInteger)section{
 }
 
 -(void) getEventsForRange{
-    NSLog(@"Called Get Events For Range %@ - %@", currentRangeFilter.startDay, currentRangeFilter.endDay);
+//    NSLog(@"Called Get Events For Range %@ - %@", currentRangeFilter.startDay, currentRangeFilter.endDay);
     
     NSPredicate *filter = [NSPredicate
                            predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
                                return [currentRangeFilter containsDate: [(Event *) evaluatedObject eventTimeAndDate]];
                            }
                            ];
-//    NSLog(@"Current Event Count Prior To Filter %d", [currentEvents count]);
+    //    NSLog(@"Current Event Count Prior To Filter %d", [currentEvents count]);
     
     currentEvents = [[[Events defaultEvents] allEvents] filteredArrayUsingPredicate:filter];
     
     NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
-                                                                ascending:YES];
+                                                               ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
     currentEvents = [currentEvents sortedArrayUsingDescriptors:sortDescriptors];
     
-//    NSLog(@"Received %d Events", [currentEvents count]);
+    //    NSLog(@"Received %d Events", [currentEvents count]);
     [self.tableView reloadData];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(!noEvents){
-    Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
-    NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
-//    [theEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+        Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
+//        NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
         EventDetailView *detailView = [[EventDetailView alloc] initWithEvent:theEvent];
-        [self.navigationController pushViewController:detailView animated:YES];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+            UINavigationController *detailViewNavController = [[UINavigationController alloc] initWithRootViewController:detailView];
+            NSMutableArray *controllers = [[NSMutableArray alloc] initWithArray:[self.splitViewController viewControllers]];
+            [controllers setObject:detailViewNavController atIndexedSubscript:1];
+            self.splitViewController.viewControllers = (NSArray *)controllers;
+        }else{
+           [self.navigationController pushViewController:detailView animated:YES];
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -26,7 +26,9 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
             }
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(addToUsersList)];
     self.navigationItem.rightBarButtonItem = rightButton;
   
     return self;
@@ -109,6 +111,11 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void) addToUsersList{
+    NSLog(@"Added to Users List");
+    [currentEvent setAddedToUser: [NSNumber numberWithBool:YES]];
+}
 
 
 
