@@ -27,18 +27,26 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
     firstView = eventDetailView.view;
     firstView.bounds = self.view.frame;
     
     notesView = [[UIView alloc] initWithFrame:self.view.frame];
     
-    CGRect thisFrame = self.view.frame;
+    CGRect thisFrame = CGRectMake(321, 0, 1024, 768);
+    thisFrame.origin.x = 321;
     NSLog(@"Frame Origin is: %f %f", thisFrame.origin.x, thisFrame.origin.y);
     
     CGRect scrollViewFrame = thisFrame;
     
     scrollViewFrame.size = CGSizeMake(2*thisFrame.size.width,
-                                       thisFrame.size.height);
+                                      thisFrame.size.height);
     
     scrollView = [[UIScrollView alloc] initWithFrame: thisFrame];
     
@@ -48,12 +56,6 @@
     [scrollView addSubview:firstView];
     [scrollView addSubview:notesView];
     self.view = scrollView;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
 }
 
 - (void)didReceiveMemoryWarning

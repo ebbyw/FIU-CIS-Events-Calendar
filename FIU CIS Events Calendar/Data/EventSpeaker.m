@@ -26,9 +26,9 @@
    [self setPhoto:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self imageLink]]]];
     result = [UIImage imageWithData:[self photo]];
     if(result != nil){
-        NSLog(@"SUCCESS");
+        NSLog(@"IMAGE DOWNLOAD SUCCESS");
     }else{
-        NSLog(@"FAIL");
+        NSLog(@"IMAGE DOWNLOAD FAIL");
         [self setPhoto:UIImageJPEGRepresentation([UIImage imageNamed:@"FIUCISLogoSquare"], 0.5)];
     }
 }
