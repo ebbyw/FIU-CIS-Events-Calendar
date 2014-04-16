@@ -39,7 +39,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
                                                      delegate:self
                                             cancelButtonTitle:@"Cancel"
                                        destructiveButtonTitle:nil
-                                            otherButtonTitles:@"Email", @"iCal", @"Twitter", @"Facebook", nil];
+                                                    otherButtonTitles:@"Add To My Events",@"Email", @"iCal", @"Twitter", @"Facebook", nil];
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
@@ -53,17 +53,20 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 {
     NSLog(@"Entered actionsheet");
             switch (buttonIndex) {
-                case 0: //Email
+                case 0: //Add to My Events
+                    [currentEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+                    break;
+                case 1: //Email
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
                     
                     break;
-                case 1: //iCal
+                case 2: //iCal
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
                     break;
-                case 2: //Twitter
+                case 3: //Twitter
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
                     break;
-                case 3: //Facebook
+                case 4: //Facebook
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
                     break;
                 default: //Out of bounds
