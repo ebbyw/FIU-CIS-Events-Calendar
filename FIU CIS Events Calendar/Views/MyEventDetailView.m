@@ -19,43 +19,12 @@
 -(id) initWithDetailView:(EventDetailView *) detailView {
     self = [super init];
     if(self){
+        [[self navigationItem] setTitle:@"My Event Details"];
         eventDetailView = detailView;
+        notesVieController = [[UIViewController alloc] initWithNibName:@"MyEventDetailViewNotes" bundle:nil];
     }
     
     return self;
-}
-
--(void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear: animated];
-    
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    firstView = eventDetailView.view;
-    firstView.bounds = self.view.frame;
-    
-    notesView = [[UIView alloc] initWithFrame:self.view.frame];
-    
-    CGRect thisFrame = CGRectMake(321, 0, 1024, 768);
-    thisFrame.origin.x = 321;
-    NSLog(@"Frame Origin is: %f %f", thisFrame.origin.x, thisFrame.origin.y);
-    
-    CGRect scrollViewFrame = thisFrame;
-    
-    scrollViewFrame.size = CGSizeMake(2*thisFrame.size.width,
-                                      thisFrame.size.height);
-    
-    scrollView = [[UIScrollView alloc] initWithFrame: thisFrame];
-    
-    scrollView.contentSize = scrollViewFrame.size ;
-    scrollView.showsHorizontalScrollIndicator = YES;
-    [scrollView setPagingEnabled:YES];
-    [scrollView addSubview:firstView];
-    [scrollView addSubview:notesView];
-    self.view = scrollView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,15 +33,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    
+    if(viewController == notesVieController){
+        return eventDetailView;
+    }
+    
+    return nil;
 }
-*/
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    
+    if(viewController == eventDetailView){
+        return notesVieController;
+    }
+    
+    return nil;
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    return 2;
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
+    // The selected item reflected in the page indicator.
+    return 0;
+}
 
 @end
