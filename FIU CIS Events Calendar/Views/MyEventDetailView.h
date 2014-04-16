@@ -10,11 +10,13 @@
 @class EventDetailView;
 
 
-@interface MyEventDetailView : UIViewController{
+@interface MyEventDetailView : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>{
     EventDetailView *eventDetailView;
-    UIScrollView *scrollView;
+    UIViewController *notesVieController;
     UIView *firstView;
     UIView *notesView;
+    __weak IBOutlet UIImageView *eventImage;
+    __weak IBOutlet UITextView *notesField;
 }
 
 -(id) initWithDetailView:(EventDetailView *) detailView;

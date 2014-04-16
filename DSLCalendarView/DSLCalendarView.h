@@ -39,6 +39,7 @@
 @interface DSLCalendarView : UIView<UIAccelerometerDelegate>{
     //Accelerometer Variables
     float filteredX;
+    float filteredY;
     BOOL accelorometerChangingDate;
 }
 

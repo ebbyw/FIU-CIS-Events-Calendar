@@ -564,22 +564,45 @@
 
 {
     if(!accelorometerChangingDate){
-        filteredX = acceleration.x * 0.2 +(0.2 *(1.0 - 0.2));
         
-        if ( acceleration.x < -.200)
-        {
-            accelorometerChangingDate = YES;
-            NSDateComponents *newMonth = self.visibleMonth;
-            newMonth.month--;
-            [self setVisibleMonth:newMonth animated:YES];
-        }
-        
-        if (filteredX > 0.2)
-        {
-            accelorometerChangingDate = YES;
-            NSDateComponents *newMonth = self.visibleMonth;
-            newMonth.month++;
-            [self setVisibleMonth:newMonth animated:YES];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+            filteredY = acceleration.y * 0.2 +(0.2 *(1.0 - 0.2));
+            
+            if ( acceleration.y < -.200)
+            {
+                accelorometerChangingDate = YES;
+                NSDateComponents *newMonth = self.visibleMonth;
+                newMonth.month--;
+                [self setVisibleMonth:newMonth animated:YES];
+            }
+            
+            if (filteredY > 0.2)
+            {
+                accelorometerChangingDate = YES;
+                NSDateComponents *newMonth = self.visibleMonth;
+                newMonth.month++;
+                [self setVisibleMonth:newMonth animated:YES];
+            }
+            
+        }else{
+            
+            filteredX = acceleration.x * 0.2 +(0.2 *(1.0 - 0.2));
+            
+            if ( acceleration.x < -.200)
+            {
+                accelorometerChangingDate = YES;
+                NSDateComponents *newMonth = self.visibleMonth;
+                newMonth.month--;
+                [self setVisibleMonth:newMonth animated:YES];
+            }
+            
+            if (filteredX > 0.2)
+            {
+                accelorometerChangingDate = YES;
+                NSDateComponents *newMonth = self.visibleMonth;
+                newMonth.month++;
+                [self setVisibleMonth:newMonth animated:YES];
+            }
         }
     }
     
