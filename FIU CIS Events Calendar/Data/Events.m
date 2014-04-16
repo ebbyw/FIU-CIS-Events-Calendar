@@ -170,14 +170,12 @@
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-ddHH:mm:ss"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"EST"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     for(NSDictionary *eventInfo in jsonObject){
         //Event Date, formatted and converted  to NSDate
-        NSMutableString *eventDate = [[NSMutableString alloc]initWithString:[eventInfo valueForKey:@"eventDate" ]];
-        [eventDate appendString:[eventInfo valueForKey:@"eventTime"]];
-        NSDate *eventTimeAndDate = [dateFormatter dateFromString: eventDate];
+        NSDate *eventTimeAndDate = [dateFormatter dateFromString: [eventInfo valueForKey:@"eventDate" ]];
         BOOL addTheEvent = ![self checkIfEventExists:eventInfo andDate:eventTimeAndDate];
         
         if(addTheEvent){
