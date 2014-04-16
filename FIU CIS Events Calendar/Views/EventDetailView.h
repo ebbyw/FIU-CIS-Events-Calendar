@@ -10,15 +10,17 @@
 #import "Event.h"
 #import "EventSpeaker.h"
 
-@interface EventDetailView : UIViewController{
+@interface EventDetailView : UIViewController<UIActionSheetDelegate>
+{
     
     __weak IBOutlet UIImageView *theImage;
     Event *currentEvent;
     __weak IBOutlet UILabel *lbEvent;
+    //__weak IBOutlet UIActionSheet *act;
 }
 
 
 
 -(id) initWithEvent: (Event *) theEvent;
-
+-(void) showActionSheet: (id) sender;
 @end

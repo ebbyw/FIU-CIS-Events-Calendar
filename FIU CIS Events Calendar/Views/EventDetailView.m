@@ -25,12 +25,53 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
         [[self navigationItem] setTitle:[currentEvent eventType]];
             }
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.rightBarButtonItem = rightButton;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                  style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
+    self.navigationItem.rightBarButtonItem = addButton;
   
     return self;
 }
+
+-(void) showActionSheet: (id) sender
+{
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                     delegate:self
+                                            cancelButtonTitle:@"Cancel"
+                                       destructiveButtonTitle:nil
+                                            otherButtonTitles:@"Email", @"iCal", @"Twitter", @"Facebook", nil];
+    actionSheet.tag = 1;
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+    //[act showInView:[UIApplication sharedApplication].keyWindow];
+
+}
+
+//RAUL MODIFY THE BELOW METHOD
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Entered actionsheet");
+            switch (buttonIndex) {
+                case 0: //Email
+                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    
+                    break;
+                case 1: //iCal
+                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    break;
+                case 2: //Twitter
+                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    break;
+                case 3: //Facebook
+                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    break;
+                default: //Out of bounds
+                    break;
+            }
+
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

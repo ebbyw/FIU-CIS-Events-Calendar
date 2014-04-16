@@ -73,8 +73,34 @@
     NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];
     
     [mainTabsController setViewControllers:viewControllers];
+    
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
         
-    [self.window setRootViewController:mainTabsController];
+        UIViewController *mainView = [[UIViewController alloc] init];
+        [mainView.view setBackgroundColor:[UIColor colorWithRed:20.0/255.0
+                                                          green:38.0/255.0
+                                                           blue:74.0/255.0
+                                                          alpha:255]];
+        
+        UIImageView *fiuLogo = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"FIUCISLogo"]];
+        
+        CGPoint center = CGPointMake((mainView.view.bounds.size.width/2),
+                                     (mainView.view.bounds.size.height/2) - fiuLogo.frame.size.height);
+        
+        [fiuLogo setCenter:center];
+        
+        [mainView.view addSubview:fiuLogo];
+        
+        
+        splitViewController.viewControllers = [NSArray arrayWithObjects:mainTabsController, mainView, nil];
+        
+        [self.window setRootViewController:splitViewController];
+    }else{
+        [self.window setRootViewController:mainTabsController];
+    }
+    
     
     
 }
