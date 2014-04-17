@@ -8,6 +8,8 @@
 
 #import "EventDetailView.h"
 #import "EventsView.h"
+#import <QuartzCore/QuartzCore.h>
+
 typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 
 @interface EventDetailView ()
@@ -25,6 +27,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
         [[self navigationItem] setTitle:[currentEvent eventType]];
             }
     
+    //create and add button to open an actionsheet with social media choices to pick from
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add"
                                                                   style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -42,7 +45,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
                                                     otherButtonTitles:@"Add To My Events",@"Email", @"iCal", @"Twitter", @"Facebook", nil];
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    [actionSheet showInView:self.view];
+    [actionSheet showInView:[self.view window]];
     //[act showInView:[UIApplication sharedApplication].keyWindow];
 
 }
@@ -87,12 +90,21 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Add picture from the class
     UIImage *image = [UIImage imageWithData:[[currentEvent speaker] photo]];
     [theImage setImage:image];
+                                                                    //x, y   Width lenght
+    UILabel *lbEventName = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 170, 110)];
+    lbEventName.numberOfLines = 0;
+    lbEventName.textAlignment = NSTextAlignmentLeft;
+    //lbEventName.layer.borderColor = [UIColor blackColor].CGColor;
+    //lbEventName.layer.borderWidth = 1.0;
+    //lbEventName.textColor = [UIColor blueColor];
+    lbEventName.font = [UIFont fontWithName:@"ArialMT" size:15];
     
-    UILabel *lbEventName = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 180, 50)];
-    lbEventName.lineBreakMode = YES;
-    lbEventName.text = [currentEvent eventType];
+    
+    //lbEventName.lineBreakMode = YES;
+    lbEventName.text = [currentEvent eventName];
     [self.view addSubview:lbEventName];
    
        // Do any additional setup after loading the view from its nib.
@@ -119,33 +131,54 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        cell.textLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
+        cell.textLabel.textColor = [UIColor blueColor];
+        cell.textLabel.numberOfLines = 0;
     }
     
     NSString *stringForCell;
     
+    
     if (indexPath.section == 0)
     {
         NSDateFormatter *dformat = [[NSDateFormatter alloc]init];
-        [dformat setDateFormat:@"yyyy-MM-dd' @ 'HH:mm:ss"];
+        [dformat setDateFormat:@"MM-dd-yyyy' @ 'HH:mm:ss"];
         
         NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
         
         stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
+       
     }    //cell.textLabel.text = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
     else if (indexPath.section == 1)
             {
                 stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
+              
             }
         else
         {
-           NSString *getString = [NSString stringWithFormat: @ "%@ \n %@ %@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
+           NSString *getString = [NSString stringWithFormat: @ "\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
             
-            stringForCell = [@"Speaker: " stringByAppendingString:getString];
+//            stringForCell =getString;
+            stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
+            
         }
     
     [cell.textLabel setText:stringForCell];
+
+    
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if(indexPath.section == 2){
+        return 100;
+    }
+    return 44;
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {

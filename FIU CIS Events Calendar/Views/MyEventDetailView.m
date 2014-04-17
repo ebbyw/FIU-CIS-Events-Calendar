@@ -17,11 +17,38 @@
 
 
 -(id) initWithDetailView:(EventDetailView *) detailView {
-    self = [super init];
+    self = [self initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                    navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                  options:nil];
     if(self){
         [[self navigationItem] setTitle:@"My Event Details"];
         eventDetailView = detailView;
-        notesVieController = [[UIViewController alloc] initWithNibName:@"MyEventDetailViewNotes" bundle:nil];
+        notesViewController = [[UIViewController alloc] init];
+        [notesViewController.view setBackgroundColor:[UIColor colorWithWhite:1 alpha:1]];
+        UIScrollView *textFieldScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+
+        UITextField *textField = [[UITextField alloc] initWithFrame:
+        CGRectMake(0,
+                   0,
+                   320,
+                   320)];
+        [textField setText:@""];
+        [textField setBackgroundColor:[UIColor grayColor]];
+        [textField.layer setCornerRadius:5.0f];
+        [textField setDelegate:self];
+        
+        [textFieldScrollView addSubview:textField];
+        [notesViewController.view  addSubview:textFieldScrollView];
+        
+        NSArray *viewControllers = [[NSArray alloc] initWithObjects:eventDetailView, nil];
+        [self setViewControllers: viewControllers
+                       direction:UIPageViewControllerNavigationDirectionForward
+                        animated:YES
+                      completion:nil];
+        
+        [self setDelegate:self];
+        [self setDataSource:self];
+
     }
     
     return self;
@@ -35,7 +62,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
-    if(viewController == notesVieController){
+    if(viewController == notesViewController){
         return eventDetailView;
     }
     
@@ -45,7 +72,7 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
     if(viewController == eventDetailView){
-        return notesVieController;
+        return notesViewController;
     }
     
     return nil;

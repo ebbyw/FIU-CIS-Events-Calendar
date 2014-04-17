@@ -101,15 +101,15 @@
     Event *thisCellEvent = [[[Events defaultEvents] allUserEvents] objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[thisCellEvent eventTimeAndDate]);
     EventDetailView *detailView = [[EventDetailView alloc] initWithEvent:thisCellEvent];
+    MyEventDetailView *myEventsDetailView = [[MyEventDetailView alloc] initWithDetailView:detailView];
 
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
-        MyEventDetailView *myEventsDetailView = [[MyEventDetailView alloc] initWithDetailView:detailView];
         UINavigationController *detailViewNavController = [[UINavigationController alloc] initWithRootViewController:myEventsDetailView];
         NSMutableArray *controllers = [[NSMutableArray alloc] initWithArray:[self.splitViewController viewControllers]];
         [controllers setObject:detailViewNavController atIndexedSubscript:1];
         self.splitViewController.viewControllers = (NSArray *)controllers;
     }else{
-        [self.navigationController pushViewController:detailView animated:YES];
+        [self.navigationController pushViewController:myEventsDetailView animated:YES];
     }
 }
 

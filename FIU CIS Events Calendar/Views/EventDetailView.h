@@ -23,4 +23,5 @@
 
 -(id) initWithEvent: (Event *) theEvent;
 -(void) showActionSheet: (id) sender;
+
 @end
