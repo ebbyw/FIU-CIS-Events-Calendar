@@ -41,6 +41,7 @@
 		4D94BA5018E37490002ADF90 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA4F18E37490002ADF90 /* Default.png */; };
 		4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5118E37490002ADF90 /* Default@2x.png */; };
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
+		4D9E502D190309FE00D80FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9E502C190309FE00D80FEF /* EventKit.framework */; };
 		4D9F7A2418FC9BFC0011A89E /* EventDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9F7A2218FC9BFC0011A89E /* EventDetailView.m */; };
 		4D9F7A2518FC9BFC0011A89E /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9F7A2318FC9BFC0011A89E /* EventDetailView.xib */; };
 		4DB3B03C18FAE682001F1364 /* MyEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B03B18FAE682001F1364 /* MyEventsView.m */; };
@@ -119,6 +120,7 @@
 		4D94BA4F18E37490002ADF90 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4D94BA5118E37490002ADF90 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4D9E502C190309FE00D80FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		4D9F7A2118FC9BFC0011A89E /* EventDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailView.h; path = "FIU CIS Events Calendar/Views/EventDetailView.h"; sourceTree = "<group>"; };
 		4D9F7A2218FC9BFC0011A89E /* EventDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailView.m; path = "FIU CIS Events Calendar/Views/EventDetailView.m"; sourceTree = "<group>"; };
 		4D9F7A2318FC9BFC0011A89E /* EventDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventDetailView.xib; path = "FIU CIS Events Calendar/Views/EventDetailView.xib"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9E502D190309FE00D80FEF /* EventKit.framework in Frameworks */,
 				4D8D058418FCB5D70044D523 /* MessageUI.framework in Frameworks */,
 				4DE81B9D18FC98D00015A42E /* Social.framework in Frameworks */,
 				62CBE9D418F8716800375C96 /* CoreData.framework in Frameworks */,
@@ -248,6 +251,7 @@
 		4D94BA3C18E37490002ADF90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D9E502C190309FE00D80FEF /* EventKit.framework */,
 				4D8D058318FCB5D70044D523 /* MessageUI.framework */,
 				4DE81B9C18FC98D00015A42E /* Social.framework */,
 				4D1A2D0318F97BD400250270 /* libKal.a */,

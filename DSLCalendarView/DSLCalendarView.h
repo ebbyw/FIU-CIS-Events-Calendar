@@ -54,11 +54,11 @@
 + (Class)dayViewClass;
 
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
+- (DSLCalendarMonthView*)currentMonthView;
 
 //Accelerometer Related
 -(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 -(void) resetAccelerometerBool;
-- (DSLCalendarMonthView*)currentMonthView;
 
 @end
 

@@ -1,5 +1,5 @@
 //
-//  TestView.h
+//  EventDetailView.h
 //  FIU CIS Events Calendar
 //
 //  Created by ebtissam ahmed wahman on 4/13/14.
@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Event.h"
 #import "EventSpeaker.h"
+#import <MessageUI/MessageUI.h>
 
-@interface EventDetailView : UIViewController<UIActionSheetDelegate>
+
+@interface EventDetailView : UIViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
 {
     
     __weak IBOutlet UIImageView *theImage;

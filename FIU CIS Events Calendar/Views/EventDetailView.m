@@ -1,5 +1,5 @@
 //
-//  TestView.m
+//  EventDetailView.m
 //  FIU CIS Events Calendar
 //
 //  Created by ebtissam ahmed wahman on 4/13/14.
@@ -8,7 +8,9 @@
 
 #import "EventDetailView.h"
 #import "EventsView.h"
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
+#import <Social/Social.h>
+#import <EventKit/EventKit.h>
 
 typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 
@@ -55,29 +57,172 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"Entered actionsheet");
+    NSURL *theEventLink = [NSURL URLWithString:[currentEvent eventLink]];
             switch (buttonIndex) {
                 case 0: //Add to My Events
                     [currentEvent setAddedToUser:[NSNumber numberWithBool:YES]];
                     break;
                 case 1: //Email
-                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                {
+                    //Email Subject
+                    NSString *emailTitle =@"Test Email";
+                    //Email Content
+                    NSString *messageBody = [NSString stringWithFormat:@"Thinking of attending: %@", theEventLink];
+                    
+                    
+                    //to address
+//                    NSArray *toRecipient =[NSArray arrayWithObject:@"rcarv006@fiu.edu"];
+                    MFMailComposeViewController *mc =[[MFMailComposeViewController alloc]init];
+                    mc.mailComposeDelegate = self;
+                    
+                    [mc setSubject:emailTitle];
+                    [mc setMessageBody:messageBody isHTML:NO];
+//                    [mc setToRecipients:toRecipient];
+                    if (mc!=nil)
+                    {
+                        [self presentViewController:mc animated:YES completion:NULL];
+                    }
+                    
+                    NSLog(@"*/*/*/*/*/The %@ button was tapped*/*/*/*/*/*/*/", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    
+                }
                     
                     break;
                 case 2: //iCal
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    [self setiCalEvent];
                     break;
                 case 3: //Twitter
+                {// I added these curly braces
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    //Twitter code copyPasta
+                    //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+                    //                    {
+                    SLComposeViewController *tweetSheet =
+                    [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+                    
+                    [tweetSheet setInitialText:@"@FIUSCIS I'm thinking of attending:"];
+                    [tweetSheet addURL:theEventLink];
+                    
+                    tweetSheet.completionHandler =^(SLComposeViewControllerResult res)
+                    {
+                        if (res == SLComposeViewControllerResultDone)
+                        {
+                            UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Success" message:@"Tweet Posted Successfully" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
+                            
+                            [alert show];
+                        }
+                        if(res == SLComposeViewControllerResultCancelled)
+                        {
+                            
+                            UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Cancelled" message:@"Tweet Cancelled" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
+                            [alert show];
+                        }
+                        
+                    };
+                    
+                    [self presentViewController:tweetSheet animated:YES completion:nil];
+                    //                    }
+                    
+                    
+                    
+                }//and these curly braces
                     break;
                 case 4: //Facebook
+                {
                     NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                    //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+                    //                    {
+                    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+                    
+                    [controller setInitialText:@"I'm thinking of attending:"];
+                    [controller addURL:theEventLink];
+                    [self presentViewController:controller animated:YES completion:Nil];
+                    //                    }
+                    
+                }
                     break;
                 default: //Out of bounds
+                    NSLog(@"Error, button is out of scope");
                     break;
             }
 
 }
 
+// iCal Event
+
+-(void) setiCalEvent {
+    
+    // Set iCal Event
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    
+    EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+    event.title = [NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName];
+    
+    event.startDate = currentEvent.eventTimeAndDate;
+    event.endDate = [[NSDate alloc] initWithTimeInterval:3599 sinceDate:event.startDate];
+    
+    // Check if App has Permission to Post to the Calendar
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (granted){
+            //---- code here when user allows your app to access their calendar.
+            [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+            NSError *err;
+            [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
+        }else
+        {
+            //----- code here when user does NOT allow your app to access their calendar.
+            [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+            NSError *err;
+            [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
+        }
+    }];
+}
+
+/*  Mail composer Helper Method*/
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultCancelled:
+        {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Email Canceled" message:@"Email has been canceled"delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            
+            [alert show];
+        }
+            break;
+        case MFMailComposeResultSaved:
+        {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Email saved" message:@"Unsent email saved as draft"delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            
+            [alert show];
+            
+        }
+            break;
+        case MFMailComposeResultSent:
+        {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Mail sent" message:@"Email has been sent"delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            
+            [alert show];
+        }
+            break;
+        case MFMailComposeResultFailed:
+        {
+            
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Mail sent Failure" message:@"Mail not sent" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            
+            [alert show];
+            
+            NSLog(@"Mail Sent Failure: %@", [error localizedDescription]);
+        }
+            
+            break;
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+/*  Mail Composer Helper method End   */
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

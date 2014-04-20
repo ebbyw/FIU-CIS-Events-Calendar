@@ -73,6 +73,14 @@
         CGRect headerRect = CGRectMake(0, 0, 320, 420);
         headerView = [[DSLCalendarView alloc] initWithFrame:headerRect];
         [headerView setDelegate:self];
+        NSCalendar *cal = [NSCalendar currentCalendar];
+        unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+        [headerView setSelectedRange:[ [DSLCalendarRange alloc]
+                                      initWithStartDay: [cal components:unitFlags
+                                                               fromDate:[NSDate date] ]
+                                      endDay:[cal components:unitFlags
+                                                    fromDate:[NSDate date] ]
+                                      ]];
     }
     
     return headerView;
