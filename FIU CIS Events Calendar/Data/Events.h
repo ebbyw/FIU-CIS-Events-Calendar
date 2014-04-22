@@ -38,8 +38,9 @@
 -(EventSpeaker *) createSpeaker;
 -(Event *) createEvent;
 -(void) addEventToUserList: (Event *) eventToAdd;
+-(void) removeEventFromUserList: (Event *) eventToRemove;
 -(NSString *) dataStoragePath;
--(BOOL) saveChanges;
+-(void) saveChanges;
 -(void) loadEventsList;
 -(void) setSplashView: (SplashViewController *) controller;
 @end
