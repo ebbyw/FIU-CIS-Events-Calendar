@@ -566,22 +566,22 @@
     if(!accelorometerChangingDate){
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
-            filteredY = acceleration.y * 0.2 +(0.2 *(1.0 - 0.2));
             
-            if ( acceleration.y < -.200)
-            {
-                accelorometerChangingDate = YES;
-                NSDateComponents *newMonth = self.visibleMonth;
-                newMonth.month--;
-                [self setVisibleMonth:newMonth animated:YES];
-            }
-            
-            if (filteredY > 0.2)
+            if ( acceleration.y < -.65)
             {
                 accelorometerChangingDate = YES;
                 NSDateComponents *newMonth = self.visibleMonth;
                 newMonth.month++;
                 [self setVisibleMonth:newMonth animated:YES];
+            }
+            
+            if (acceleration.y > 0.65)
+            {
+                accelorometerChangingDate = YES;
+                NSDateComponents *newMonth = self.visibleMonth;
+                newMonth.month--;
+                [self setVisibleMonth:newMonth animated:YES];
+                
             }
             
         }else{
