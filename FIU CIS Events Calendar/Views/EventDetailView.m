@@ -8,7 +8,10 @@
 
 #import "EventDetailView.h"
 #import "EventsView.h"
-//#import <QuartzCore/QuartzCore.h>
+#import "Event.h"
+#import "Events.h"
+#import "EventSpeaker.h"
+#import "MyEventsView.h"
 #import <Social/Social.h>
 #import <EventKit/EventKit.h>
 
@@ -22,33 +25,41 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 
 -(id) initWithEvent: (Event *) theEvent{
     
-    self = [self initWithNibName:@"EventDetailView" bundle:nil];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     
     if(self){
         currentEvent = theEvent;
+        notesMode = NO;
         [[self navigationItem] setTitle:[currentEvent eventType]];
+        self.view = self.tableView;
+        
+        //create and add button to open an actionsheet with social media choices to pick from
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Options"
+                                                                      style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
+        self.navigationItem.rightBarButtonItem = addButton;
     }
-    
-    //create and add button to open an actionsheet with social media choices to pick from
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Options"
-                                                                  style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     
     return self;
 }
 
 -(id) initAsMyEvent: (Event *) theEvent{
-    self = [self initWithNibName:@"EventDetailView" bundle:nil];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     
     if(self){
         currentEvent = theEvent;
+        notesMode = NO;
         [[self navigationItem] setTitle:@"My Event Details"];
         
-        UIBarButtonItem *notesButton = [[UIBarButtonItem alloc] initWithTitle:@"Notes"
-                                                                        style:UIBarButtonItemStylePlain
-                                                                       target:self
-                                                                       action:@selector(showNotes)];
-        self.navigationItem.rightBarButtonItem = notesButton;
+        notesButton = [[UIBarButtonItem alloc] initWithTitle:@"Notes"
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(showNotes)];
+        self.navigationItem.leftBarButtonItem = notesButton;
+        
+        //create and add button to open an actionsheet with social media choices to pick from
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Options"
+                                                                      style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
+        self.navigationItem.rightBarButtonItem = addButton;
     }
     
     return self;
@@ -65,7 +76,6 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:[self.view window]];
-    //[act showInView:[UIApplication sharedApplication].keyWindow];
     
 }
 
@@ -76,8 +86,11 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     NSLog(@"Entered actionsheet");
     NSURL *theEventLink = [NSURL URLWithString:[currentEvent eventLink]];
     switch (buttonIndex) {
-        case 0: //Add to My Events
-            [currentEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+        case 0:{ //Add to My Events
+            [[Events defaultEvents] addEventToUserList:currentEvent];
+            MyEventsView *myEventsView = (MyEventsView *)[[self.tabBarController viewControllers] objectAtIndex:1];
+            [myEventsView.tableView reloadData];
+        }
             break;
         case 1: //Email
         {
@@ -241,170 +254,162 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 }
 /*  Mail Composer Helper method End   */
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //Add picture from the class
+    
     UIImage *image = [UIImage imageWithData:[[currentEvent speaker] photo]];
     [theImage setImage:image];
-    //x, y   Width lenght
-    UILabel *lbEventName = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 170, 110)];
-    lbEventName.numberOfLines = 0;
-    lbEventName.textAlignment = NSTextAlignmentLeft;
-    //lbEventName.layer.borderColor = [UIColor blackColor].CGColor;
-    //lbEventName.layer.borderWidth = 1.0;
-    //lbEventName.textColor = [UIColor blueColor];
-    lbEventName.font = [UIFont fontWithName:@"ArialMT" size:15];
-    
-    
-    //lbEventName.lineBreakMode = YES;
     lbEventName.text = [currentEvent eventName];
-    [self.view addSubview:lbEventName];
     
-    // Do any additional setup after loading the view from its nib.
 }
 
+#pragma mark - Header Methods
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self updateHeaderValues];
+}
+
+
+-(UIView *) headerView{
+    if(!headerView){
+        [[NSBundle mainBundle] loadNibNamed:@"EventDetailHeader"
+                                      owner:self
+                                    options:nil];
+        [self updateHeaderValues];
+    }
+    
+    return headerView;
+}
+
+-(void) updateHeaderValues{
+    
+    [lbEventName  setText:[currentEvent eventName]];
+    
+    if([[currentEvent speaker] photo] != nil){
+        [theImage setImage:[UIImage imageWithData:[[currentEvent speaker] photo]]];
+    }
+}
+
+-(UIView *) tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section{
+    if(section == 0){
+        return [self headerView];
+    }
+    return nil;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    if(section == 0){
+        return [[self headerView] bounds].size.height;
+    }
+    return UITableViewAutomaticDimension;
+}
+
+#pragma mark -
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(notesMode){
+        return 1;
+    }
     return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    //switch (section) {
-    //    case 0: return 4;
     return 1;
-    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+    static NSString *textCellIdentifier = @"TextViewCell";
+    
+    if(!notesMode){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            
+            cell.textLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
+            cell.textLabel.textColor = [UIColor blueColor];
+            cell.textLabel.numberOfLines = 0;
+        }
+        
+        NSString *stringForCell;
+        
+        
+        if (indexPath.section == 0)
+        {
+            NSDateFormatter *dformat = [[NSDateFormatter alloc]init];
+            [dformat setDateFormat:@"MM-dd-yyyy' @ 'HH:mm:ss"];
+            
+            NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
+            
+            stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
+            
+        }    //cell.textLabel.text = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
+        else if (indexPath.section == 1)
+        {
+            stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
+            
+        }
+        else
+        {
+            NSString *getString = [NSString stringWithFormat: @ "\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
+            
+            //            stringForCell =getString;
+            stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
+            
+        }
+        
+        [cell.textLabel setText:stringForCell];
+        
+        return cell;
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textCellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellIdentifier];
         cell.textLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
         cell.textLabel.textColor = [UIColor blueColor];
         cell.textLabel.numberOfLines = 0;
     }
     
-    NSString *stringForCell;
-    
-    
-    if (indexPath.section == 0)
-    {
-        NSDateFormatter *dformat = [[NSDateFormatter alloc]init];
-        [dformat setDateFormat:@"MM-dd-yyyy' @ 'HH:mm:ss"];
-        
-        NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
-        
-        stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
-        
-    }    //cell.textLabel.text = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
-    else if (indexPath.section == 1)
-    {
-        stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
-        
+    cellTextView = [[UITextView alloc] initWithFrame:cell.contentView.bounds];
+    cellTextView.backgroundColor = [UIColor clearColor];
+    cellTextView.textColor = [UIColor blackColor];
+    cellTextView.returnKeyType = UIReturnKeySend;
+    cellTextView.enablesReturnKeyAutomatically = YES;
+    cellTextView.editable = YES;
+    cellTextView.scrollEnabled = YES;
+    cellTextView.opaque =YES;
+    cellTextView.clipsToBounds = YES;
+    cellTextView.autocorrectionType = UITextAutocorrectionTypeNo;
+    cellTextView.delegate = self;
+    cellTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    cellTextView.font = [UIFont systemFontOfSize:18];
+    cellTextView.text = [currentEvent userNotes];
+    if(cellTextView.text.length < 1){
+        cellTextView.text = @"Type any notes here";
     }
-    else
-    {
-        NSString *getString = [NSString stringWithFormat: @ "\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
-        
-        //            stringForCell =getString;
-        stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
-        
-    }
-    
-    [cell.textLabel setText:stringForCell];
-    
+    [cell.contentView addSubview: cellTextView];
     
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    if(indexPath.section == 2){
-        return 100;
-    }
-    return 44;
     
 }
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void) showNotes{
-    
-    UIViewController *notesViewController =  [[UIViewController alloc] init];
-    
-    [[notesViewController navigationItem] setTitle:@"My Notes"];
-    
-    CGRect textViewFrame = CGRectMake(self.view.bounds.size.width*0.1f, self.view.bounds.size.height*0.2f, self.view.bounds.size.width*0.8f, self.view.bounds.size.height*0.7f);
-    
-    CGRect labelFrame = textViewFrame;
-    labelFrame.origin.y -= 44;
-    labelFrame.size.height = 44;
-    
-    UILabel *notesLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    [notesLabel setText:@"Notes"];
-
-    UITextView *textView = [[UITextView alloc] initWithFrame:textViewFrame];
-    [textView setText:[currentEvent userNotes]];
-    [textView setBackgroundColor:[UIColor whiteColor]];
-    textView.returnKeyType = UIReturnKeyDone;
-    textView.layer.cornerRadius = 10.0f;
-    textView.delegate = self;
-    [notesViewController.view addSubview:textView];
-    [notesViewController.view addSubview:notesLabel];
-    
-    [[self navigationController] pushViewController:notesViewController
-                                           animated:YES];
-    [textView setBackgroundColor:[UIColor grayColor]];
-    
-}
-
-#pragma mark - Text View Delegate Methods
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touchesBegan:withEvent:");
-    [self.view endEditing:YES];
+    //    NSLog(@"touchesBegan:withEvent:");
+    [cellTextView resignFirstResponder];
+    
     [super touchesBegan:touches withEvent:event];
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    NSLog(@"textViewShouldBeginEditing:");
-    return YES;
-}
-
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    NSLog(@"textViewDidBeginEditing:");
-    //    textView.backgroundColor = [UIColor greenColor];
-}
-
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
-    NSLog(@"textViewShouldEndEditing:");
-    //    textView.backgroundColor = [UIColor whiteColor];
-    return YES;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView{
-    NSLog(@"textViewDidEndEditing:");
-    [currentEvent setUserNotes:textView.text];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -425,13 +430,62 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView{
-    NSLog(@"textViewDidChange:");
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(notesMode){
+        [cellTextView becomeFirstResponder];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
-- (void)textViewDidChangeSelection:(UITextView *)textView{
-    NSLog(@"textViewDidChangeSelection:");
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    if([cellTextView.text compare:@"Type any notes here"] == NSOrderedSame){
+        cellTextView.text = @"";
+    }
+    return YES;
 }
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [currentEvent setUserNotes:[textView text]];
+    if(cellTextView.text.length < 1){
+        cellTextView.text = @"Type any notes here";
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if(!notesMode){
+        if(indexPath.section == 2){
+            return 100;
+        }
+        return 44;
+    }
+    return 320;
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void) showNotes{
+    notesMode = YES;
+    [[self navigationItem] setTitle:@"Notes"];
+    [notesButton setTitle:@"Details"];
+    [notesButton setAction:@selector(showEventDetails)];
+    [self.tableView reloadData];
+}
+
+-(void) showEventDetails{
+    notesMode = NO;
+    [[self navigationItem] setTitle:@"My Event Details"];
+    [notesButton setTitle:@"Notes"];
+    [notesButton setAction:@selector(showNotes)];
+    [self.tableView reloadData];
+    
+}
+
 
 
 @end

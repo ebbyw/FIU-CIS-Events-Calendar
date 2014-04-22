@@ -11,6 +11,10 @@
 #import "EventsView.h"
 #import "MyEventsView.h"
 
+#define kDarkBlueColor [UIColor colorWithRed:32/255.0f green:55/255.0f blue:106/255.0f alpha:1.0f]
+#define kGoldColor [UIColor colorWithRed:203/255.0f green:183/255.0f blue:72/255.0f alpha:1.0f]
+
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -26,6 +30,10 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [[UIBarButtonItem appearance] setTintColor:kGoldColor];
+    [[UINavigationBar appearance] setTintColor:kDarkBlueColor];
+    
     return YES;
 }
 
@@ -64,10 +72,11 @@
     EventsView *eventsView = [[EventsView alloc] init];
     MyEventsView *myEventsView = [[MyEventsView alloc] init];
     
+    
     UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
     
     UINavigationController *myEventsNavigation = [[UINavigationController alloc]initWithRootViewController:myEventsView];
-        
+
     UITabBarController *mainTabsController = [[UITabBarController alloc] init];
     
     NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];

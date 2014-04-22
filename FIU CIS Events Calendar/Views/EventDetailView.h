@@ -7,24 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Event.h"
-#import "EventSpeaker.h"
 #import <MessageUI/MessageUI.h>
 
+@class Event;
+@class EventSpeaker;
 
-@interface EventDetailView : UIViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate>
+@interface EventDetailView : UITableViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate>
 {
-    
     __weak IBOutlet UIImageView *theImage;
+    __weak IBOutlet UILabel *lbEventName;
+    IBOutlet UIView *headerView;
     Event *currentEvent;
-    __weak IBOutlet UILabel *lbEvent;
-    //__weak IBOutlet UIActionSheet *act;
+    BOOL notesMode;
+    UIBarButtonItem *notesButton;
+    UITextView *cellTextView;
 }
-
-
 
 -(id) initWithEvent: (Event *) theEvent;
 -(id) initAsMyEvent: (Event *) theEvent;
+-(UIView *) headerView;
 -(void) showActionSheet: (id) sender;
+
 
 @end

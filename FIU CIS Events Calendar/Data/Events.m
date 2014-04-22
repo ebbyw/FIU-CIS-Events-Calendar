@@ -71,7 +71,15 @@
 }
 
 -(void) addEventToUserList: (Event *) eventToAdd{
-    [allUserEvents addObject:eventToAdd];
+    [eventToAdd setAddedToUser:[NSNumber numberWithBool:YES]];
+    [self saveChanges];
+    [self allUserEvents];
+}
+
+-(void) removeEventFromUserList: (Event *) eventToRemove{
+    [eventToRemove setAddedToUser:[NSNumber numberWithBool:NO]];
+    [self saveChanges];
+    [self allUserEvents];
 }
 
 
@@ -90,8 +98,8 @@
     return [documentDirectory stringByAppendingPathComponent:@"eventsData.data"];
 }
 
--(BOOL) saveChanges{
-    return NO;
+-(void) saveChanges{
+    appDelegate(saveContext);
 }
 
 -(void) setSplashView: (SplashViewController *) controller{

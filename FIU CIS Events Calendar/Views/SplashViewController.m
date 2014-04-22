@@ -60,7 +60,7 @@
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
-    progressValue += 0.2f;
+    progressValue += 0.8f;
     [loadingProgressBar setProgress: progressValue animated:YES];
 }
 
@@ -128,6 +128,7 @@
 
 
 -(void) callNextView{
+    [loadingProgressBar setProgress: 1 animated:YES];
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] callMainAppView];
 }
 

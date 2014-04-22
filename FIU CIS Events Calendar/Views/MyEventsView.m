@@ -34,6 +34,8 @@
         [self.navigationItem setTitle:@"My Events"];
         [[self tabBarItem] setTitle:@"MyEvents"];
         [[self tabBarItem] setImage:[UIImage imageNamed:@"MyEventsIcon"]];
+        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
+
         df_local = [[NSDateFormatter alloc] init] ;
         [df_local setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]];
         //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
@@ -62,6 +64,17 @@
 }
 
 #pragma mark - Table view data source
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[Events defaultEvents]removeEventFromUserList:[[[Events defaultEvents]allUserEvents] objectAtIndex:[indexPath row]]];
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
