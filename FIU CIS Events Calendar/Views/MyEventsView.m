@@ -11,7 +11,6 @@
 #import "Event.h"
 #import "EventCellTableViewCell.h"
 #import "EventDetailView.h"
-#import "MyEventDetailView.h"
 
 @interface MyEventsView ()
 
@@ -100,8 +99,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Event *thisCellEvent = [[[Events defaultEvents] allUserEvents] objectAtIndex:[indexPath row]];
     NSLog(@"Date for this Event is: %@",[thisCellEvent eventTimeAndDate]);
-    EventDetailView *detailView = [[EventDetailView alloc] initWithEvent:thisCellEvent];
-    MyEventDetailView *myEventsDetailView = [[MyEventDetailView alloc] initWithDetailView:detailView];
+    EventDetailView *myEventsDetailView = [[EventDetailView alloc] initAsMyEvent:thisCellEvent];
 
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
         UINavigationController *detailViewNavController = [[UINavigationController alloc] initWithRootViewController:myEventsDetailView];

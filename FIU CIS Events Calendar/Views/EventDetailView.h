@@ -12,7 +12,7 @@
 #import <MessageUI/MessageUI.h>
 
 
-@interface EventDetailView : UIViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+@interface EventDetailView : UIViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate>
 {
     
     __weak IBOutlet UIImageView *theImage;
@@ -24,6 +24,7 @@
 
 
 -(id) initWithEvent: (Event *) theEvent;
+-(id) initAsMyEvent: (Event *) theEvent;
 -(void) showActionSheet: (id) sender;
 
 @end

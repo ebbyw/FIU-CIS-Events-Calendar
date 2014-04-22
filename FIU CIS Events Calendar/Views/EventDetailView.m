@@ -27,13 +27,30 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     if(self){
         currentEvent = theEvent;
         [[self navigationItem] setTitle:[currentEvent eventType]];
-            }
+    }
     
     //create and add button to open an actionsheet with social media choices to pick from
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Options"
                                                                   style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
     self.navigationItem.rightBarButtonItem = addButton;
-  
+    
+    return self;
+}
+
+-(id) initAsMyEvent: (Event *) theEvent{
+    self = [self initWithNibName:@"EventDetailView" bundle:nil];
+    
+    if(self){
+        currentEvent = theEvent;
+        [[self navigationItem] setTitle:@"My Event Details"];
+        
+        UIBarButtonItem *notesButton = [[UIBarButtonItem alloc] initWithTitle:@"Notes"
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(showNotes)];
+        self.navigationItem.rightBarButtonItem = notesButton;
+    }
+    
     return self;
 }
 
@@ -41,15 +58,15 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 {
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                     delegate:self
-                                            cancelButtonTitle:@"Cancel"
-                                       destructiveButtonTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
                                                     otherButtonTitles:@"Add To My Events",@"Email", @"iCal", @"Twitter", @"Facebook", nil];
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:[self.view window]];
     //[act showInView:[UIApplication sharedApplication].keyWindow];
-
+    
 }
 
 //RAUL MODIFY THE BELOW METHOD
@@ -58,95 +75,95 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
 {
     NSLog(@"Entered actionsheet");
     NSURL *theEventLink = [NSURL URLWithString:[currentEvent eventLink]];
-            switch (buttonIndex) {
-                case 0: //Add to My Events
-                    [currentEvent setAddedToUser:[NSNumber numberWithBool:YES]];
-                    break;
-                case 1: //Email
-                {
-                    //Email Subject
-                    NSString *emailTitle =@"Test Email";
-                    //Email Content
-                    NSString *messageBody = [NSString stringWithFormat:@"Thinking of attending: %@", theEventLink];
-                    
-                    
-                    //to address
-//                    NSArray *toRecipient =[NSArray arrayWithObject:@"rcarv006@fiu.edu"];
-                    MFMailComposeViewController *mc =[[MFMailComposeViewController alloc]init];
-                    mc.mailComposeDelegate = self;
-                    
-                    [mc setSubject:emailTitle];
-                    [mc setMessageBody:messageBody isHTML:NO];
-//                    [mc setToRecipients:toRecipient];
-                    if (mc!=nil)
-                    {
-                        [self presentViewController:mc animated:YES completion:NULL];
-                    }
-                    
-                    NSLog(@"*/*/*/*/*/The %@ button was tapped*/*/*/*/*/*/*/", [actionSheet buttonTitleAtIndex:buttonIndex]);
-                    
-                }
-                    
-                    break;
-                case 2: //iCal
-                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
-                    [self setiCalEvent];
-                    break;
-                case 3: //Twitter
-                {// I added these curly braces
-                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
-                    //Twitter code copyPasta
-                    //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-                    //                    {
-                    SLComposeViewController *tweetSheet =
-                    [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-                    
-                    [tweetSheet setInitialText:@"@FIUSCIS I'm thinking of attending:"];
-                    [tweetSheet addURL:theEventLink];
-                    
-                    tweetSheet.completionHandler =^(SLComposeViewControllerResult res)
-                    {
-                        if (res == SLComposeViewControllerResultDone)
-                        {
-                            UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Success" message:@"Tweet Posted Successfully" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
-                            
-                            [alert show];
-                        }
-                        if(res == SLComposeViewControllerResultCancelled)
-                        {
-                            
-                            UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Cancelled" message:@"Tweet Cancelled" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
-                            [alert show];
-                        }
-                        
-                    };
-                    
-                    [self presentViewController:tweetSheet animated:YES completion:nil];
-                    //                    }
-                    
-                    
-                    
-                }//and these curly braces
-                    break;
-                case 4: //Facebook
-                {
-                    NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
-                    //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-                    //                    {
-                    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-                    
-                    [controller setInitialText:@"I'm thinking of attending:"];
-                    [controller addURL:theEventLink];
-                    [self presentViewController:controller animated:YES completion:Nil];
-                    //                    }
-                    
-                }
-                    break;
-                default: //Out of bounds
-                    NSLog(@"Error, button is out of scope");
-                    break;
+    switch (buttonIndex) {
+        case 0: //Add to My Events
+            [currentEvent setAddedToUser:[NSNumber numberWithBool:YES]];
+            break;
+        case 1: //Email
+        {
+            //Email Subject
+            NSString *emailTitle =@"Test Email";
+            //Email Content
+            NSString *messageBody = [NSString stringWithFormat:@"Thinking of attending: %@", theEventLink];
+            
+            
+            //to address
+            //                    NSArray *toRecipient =[NSArray arrayWithObject:@"rcarv006@fiu.edu"];
+            MFMailComposeViewController *mc =[[MFMailComposeViewController alloc]init];
+            mc.mailComposeDelegate = self;
+            
+            [mc setSubject:emailTitle];
+            [mc setMessageBody:messageBody isHTML:NO];
+            //                    [mc setToRecipients:toRecipient];
+            if (mc!=nil)
+            {
+                [self presentViewController:mc animated:YES completion:NULL];
             }
-
+            
+            NSLog(@"*/*/*/*/*/The %@ button was tapped*/*/*/*/*/*/*/", [actionSheet buttonTitleAtIndex:buttonIndex]);
+            
+        }
+            
+            break;
+        case 2: //iCal
+            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+            [self setiCalEvent];
+            break;
+        case 3: //Twitter
+        {// I added these curly braces
+            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+            //Twitter code copyPasta
+            //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+            //                    {
+            SLComposeViewController *tweetSheet =
+            [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+            
+            [tweetSheet setInitialText:@"@FIUSCIS I'm thinking of attending:"];
+            [tweetSheet addURL:theEventLink];
+            
+            tweetSheet.completionHandler =^(SLComposeViewControllerResult res)
+            {
+                if (res == SLComposeViewControllerResultDone)
+                {
+                    UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Success" message:@"Tweet Posted Successfully" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
+                    
+                    [alert show];
+                }
+                if(res == SLComposeViewControllerResultCancelled)
+                {
+                    
+                    UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Cancelled" message:@"Tweet Cancelled" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            };
+            
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+            //                    }
+            
+            
+            
+        }//and these curly braces
+            break;
+        case 4: //Facebook
+        {
+            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+            //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+            //                    {
+            SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+            [controller setInitialText:@"I'm thinking of attending:"];
+            [controller addURL:theEventLink];
+            [self presentViewController:controller animated:YES completion:Nil];
+            //                    }
+            
+        }
+            break;
+        default: //Out of bounds
+            NSLog(@"Error, button is out of scope");
+            break;
+    }
+    
 }
 
 // iCal Event
@@ -238,7 +255,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     //Add picture from the class
     UIImage *image = [UIImage imageWithData:[[currentEvent speaker] photo]];
     [theImage setImage:image];
-                                                                    //x, y   Width lenght
+    //x, y   Width lenght
     UILabel *lbEventName = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 170, 110)];
     lbEventName.numberOfLines = 0;
     lbEventName.textAlignment = NSTextAlignmentLeft;
@@ -251,8 +268,8 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     //lbEventName.lineBreakMode = YES;
     lbEventName.text = [currentEvent eventName];
     [self.view addSubview:lbEventName];
-   
-       // Do any additional setup after loading the view from its nib.
+    
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -263,7 +280,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     // Return the number of rows in the section.
     //switch (section) {
     //    case 0: return 4;
-       return 1;
+    return 1;
     
 }
 
@@ -293,24 +310,24 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
         NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
         
         stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
-       
+        
     }    //cell.textLabel.text = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
     else if (indexPath.section == 1)
-            {
-                stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
-              
-            }
-        else
-        {
-           NSString *getString = [NSString stringWithFormat: @ "\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
-            
-//            stringForCell =getString;
-            stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
-            
-        }
+    {
+        stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
+        
+    }
+    else
+    {
+        NSString *getString = [NSString stringWithFormat: @ "\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@ \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
+        
+        //            stringForCell =getString;
+        stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
+        
+    }
     
     [cell.textLabel setText:stringForCell];
-
+    
     
     return cell;
 }
@@ -331,7 +348,90 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     // Dispose of any resources that can be recreated.
 }
 
+-(void) showNotes{
+    
+    UIViewController *notesViewController =  [[UIViewController alloc] init];
+    
+    [[notesViewController navigationItem] setTitle:@"My Notes"];
+    
+    CGRect textViewFrame = CGRectMake(self.view.bounds.size.width*0.1f, self.view.bounds.size.height*0.2f, self.view.bounds.size.width*0.8f, self.view.bounds.size.height*0.7f);
+    
+    CGRect labelFrame = textViewFrame;
+    labelFrame.origin.y -= 44;
+    labelFrame.size.height = 44;
+    
+    UILabel *notesLabel = [[UILabel alloc] initWithFrame:labelFrame];
+    [notesLabel setText:@"Notes"];
 
+    UITextView *textView = [[UITextView alloc] initWithFrame:textViewFrame];
+    [textView setText:[currentEvent userNotes]];
+    [textView setBackgroundColor:[UIColor whiteColor]];
+    textView.returnKeyType = UIReturnKeyDone;
+    textView.layer.cornerRadius = 10.0f;
+    textView.delegate = self;
+    [notesViewController.view addSubview:textView];
+    [notesViewController.view addSubview:notesLabel];
+    
+    [[self navigationController] pushViewController:notesViewController
+                                           animated:YES];
+    [textView setBackgroundColor:[UIColor grayColor]];
+    
+}
+
+#pragma mark - Text View Delegate Methods
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesBegan:withEvent:");
+    [self.view endEditing:YES];
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    NSLog(@"textViewShouldBeginEditing:");
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    NSLog(@"textViewDidBeginEditing:");
+    //    textView.backgroundColor = [UIColor greenColor];
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    NSLog(@"textViewShouldEndEditing:");
+    //    textView.backgroundColor = [UIColor whiteColor];
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    NSLog(@"textViewDidEndEditing:");
+    [currentEvent setUserNotes:textView.text];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    
+    if (textView.text.length + text.length > 140){
+        if (location != NSNotFound){
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    else if (location != NSNotFound){
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    NSLog(@"textViewDidChange:");
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView{
+    NSLog(@"textViewDidChangeSelection:");
+}
 
 
 @end
