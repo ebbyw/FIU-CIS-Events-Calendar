@@ -16,7 +16,6 @@
 #import "DSLCalendarDayView.h"
 #import "EventDetailView.h"
 
-
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 
 
