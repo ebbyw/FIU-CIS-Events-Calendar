@@ -4,7 +4,7 @@
 //
 //The MIT License (MIT)
 //
-//Copyright (c) <2014> <Raul Carvajal, Eduardo Toledo, Ebtissam Wahman>
+//Copyright (c) 2014 Raul Carvajal, Eduardo Toledo, Ebtissam Wahman
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 #import <Social/Social.h>
 #import <EventKit/EventKit.h>
 
-typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
+typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } Sections;
 
 @interface EventDetailView ()
 
@@ -51,8 +51,10 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
         self.view = self.tableView;
         
         //create and add button to open an actionsheet with social media choices to pick from
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Options"
-                                                                      style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet:)];
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAction
+                                                                                   target:self
+                                                                                   action:@selector(showActionSheet:)];
         self.navigationItem.rightBarButtonItem = addButton;
     }
     
@@ -350,7 +352,7 @@ heightForHeaderInSection:(NSInteger)section{
     if(notesMode){
         return 1;
     }
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -378,29 +380,34 @@ heightForHeaderInSection:(NSInteger)section{
         
         NSString *stringForCell;
         
-        
-        if (indexPath.section == 0)
-        {
-            NSDateFormatter *dformat = [[NSDateFormatter alloc]init];
-            [dformat setDateFormat:@"MM-dd-yyyy' @ 'HH:mm:ss"];
-            
-            NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
-            
-            stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
-            
-        }    //cell.textLabel.text = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
-        else if (indexPath.section == 1)
-        {
-            stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
-            
-        }
-        else
-        {
-            NSString *getString = [NSString stringWithFormat: @ "\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
-            
-            //            stringForCell =getString;
-            stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
-            
+        switch (indexPath.section) {
+            case SectionDateTime:
+            {
+                NSDateFormatter *dformat = [[NSDateFormatter alloc]init];
+                [dformat setDateFormat:@"MM-dd-yyyy' @ 'HH:mm:ss"];
+                
+                NSString *myDate = [dformat stringFromDate:[currentEvent eventTimeAndDate]];
+                
+                stringForCell = [@"Date / Time: " stringByAppendingString: [NSString stringWithFormat:@"%@", myDate]];
+            }
+                break;
+            case SectionWhere:
+                stringForCell = [@"Where: " stringByAppendingString:[currentEvent eventLocation]];
+                break;
+            case SectionSpeaker:
+            {
+                NSString *getString = [NSString stringWithFormat: @ "\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t%@", [[currentEvent speaker] speakerName], [[currentEvent speaker] speakerOrganization], [[currentEvent speaker ]speakerDepartment]];
+                
+                //            stringForCell =getString;
+                stringForCell = [@"Speaker:\t" stringByAppendingString:getString];
+                
+            }
+                break;
+            case SectionMoreInfo:
+                stringForCell = @"More Info..";
+                break;
+            default:
+                break;
         }
         
         [cell.textLabel setText:stringForCell];
@@ -469,6 +476,17 @@ heightForHeaderInSection:(NSInteger)section{
     if(notesMode){
         [cellTextView becomeFirstResponder];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }else{
+        if(indexPath.section == SectionMoreInfo){
+            UIViewController *webViewController = [[UIViewController alloc] init];
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];  //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[currentEvent eventLink]]]];
+            webView.scalesPageToFit = YES;
+            [webViewController setView:webView];
+            [webViewController.navigationItem setTitle:@"Website Details"];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self.navigationController pushViewController:webViewController animated:YES];
+        }
     }
 }
 
