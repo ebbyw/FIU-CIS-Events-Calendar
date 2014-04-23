@@ -42,7 +42,7 @@
     UIAlertView *alertView;
 }
 
-@property BOOL iCAlSuccess;
+@property BOOL iCalSuccess;
 
 -(id) initWithEvent: (Event *) theEvent;
 -(id) initAsMyEvent: (Event *) theEvent;

@@ -37,7 +37,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } 
 
 @implementation EventDetailView
 
-@synthesize iCAlSuccess;
+@synthesize iCalSuccess;
 
 -(id) initWithEvent: (Event *) theEvent{
     
@@ -226,16 +226,16 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } 
             NSError *err;
             [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
             if(err){
-                self.iCAlSuccess = NO;
+                self.iCalSuccess = NO;
                 NSLog(@"iCal Success set to NO");
 
             }else{
-                self.iCAlSuccess = YES;
+                self.iCalSuccess = YES;
                 NSLog(@"iCal Success set to YES");
             }
         }else
         {
-            self.iCAlSuccess = NO;
+            self.iCalSuccess = NO;
             NSLog(@"iCal Success set to NO");
 
             //----- code here when user does NOT allow your app to access their calendar.
@@ -254,7 +254,7 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } 
     
     UIAlertView *iCalAlert;
     
-    if(iCAlSuccess){
+    if(self.iCalSuccess){
         iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
                                                message:[NSString stringWithFormat:@"Event added as \"%@\"",[NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName]]
                                               delegate:self
