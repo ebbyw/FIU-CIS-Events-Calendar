@@ -34,11 +34,10 @@
 
 typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } Sections;
 
-@interface EventDetailView ()
-
-@end
 
 @implementation EventDetailView
+
+@synthesize iCAlSuccess;
 
 -(id) initWithEvent: (Event *) theEvent{
     
@@ -98,7 +97,6 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } 
     
 }
 
-//RAUL MODIFY THE BELOW METHOD
 
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -212,38 +210,66 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker, SectionMoreInfo } 
     event.endDate = [[NSDate alloc] initWithTimeInterval:3599 sinceDate:event.startDate];
     
     // Check if App has Permission to Post to the Calendar
+    alertView = [[UIAlertView alloc] initWithTitle:@"Please Wait"
+                                                        message:@"One moment please..."
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil];
+    
+    [alertView show];
+    
     [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
         if (granted){
-            UIAlertView *iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
-                                                                message:[NSString stringWithFormat:@"Event added as \"%@\"",event.title]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
             
             //---- code here when user allows your app to access their calendar.
             [event setCalendar:[eventStore defaultCalendarForNewEvents]];
             NSError *err;
             [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
-            if(!err){
-                [iCalAlert show];
+            if(err){
+                self.iCAlSuccess = NO;
+                NSLog(@"iCal Success set to NO");
+
             }else{
-                [iCalAlert setTitle:@"Error Occurred"];
-                [iCalAlert setMessage:@"Sorry, an error occurred while trying to add this event to iCal"];
+                self.iCAlSuccess = YES;
+                NSLog(@"iCal Success set to YES");
             }
         }else
         {
-            UIAlertView *iCalAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Add to iCal"
-                                                                message:@"Sorry, this app was not granted permission to add events to iCal"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-            [iCalAlert show];
+            self.iCAlSuccess = NO;
+            NSLog(@"iCal Success set to NO");
+
             //----- code here when user does NOT allow your app to access their calendar.
             [event setCalendar:[eventStore defaultCalendarForNewEvents]];
             NSError *err;
             [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
         }
+
+        [self displayiCalAlert];
     }];
+    
+}
+
+-(void) displayiCalAlert{
+    [alertView dismissWithClickedButtonIndex:-1 animated:YES];
+    
+    UIAlertView *iCalAlert;
+    
+    if(iCAlSuccess){
+        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
+                                               message:[NSString stringWithFormat:@"Event added as \"%@\"",[NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName]]
+                                              delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+        
+    }else{
+        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Add to iCal"
+                                               message:@"Sorry, an error occured and the event was not added to iCal"
+                                              delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+    }
+    
+    [iCalAlert show];
 }
 
 /*  Mail composer Helper Method*/
