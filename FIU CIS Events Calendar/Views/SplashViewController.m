@@ -37,8 +37,6 @@
 
 @implementation SplashViewController
 
-@synthesize progressValue;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,8 +64,10 @@
 #pragma mark Retrieve Events Data from FIU Servers
 
 -(void) fetchEvents{
-    progressValue = 0;
-    [loadingProgressBar setProgress: progressValue animated:YES];
+    eventsData = [Events defaultEvents];
+    
+    [loadingProgressBar setProgress: 0 animated:YES];
+    
     jsonData = [[NSMutableData alloc] init];
     
     NSURL *url = [NSURL URLWithString:
@@ -78,8 +78,9 @@
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
-    progressValue += 0.8f;
-    [loadingProgressBar setProgress: progressValue animated:YES];
+    
+    [loadingProgressBar setProgress: 0.8 animated:YES];
+    [eventsData setCurrentProgress:[loadingProgressBar progress]];
 }
 
 -(void) connection: (NSURLConnection *) conn didReceiveData:(NSData *)data{
@@ -87,8 +88,6 @@
 }
 
 -(void) connectionDidFinishLoading: (NSURLConnection *) conn{
-    //    NSString *jsonCheck = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    //    NSLog(@"JSON Check = %@",jsonCheck);
     NSError *error;
     jsonReceivedData = [NSJSONSerialization JSONObjectWithData:jsonData
                                                        options:NSJSONReadingMutableContainers
@@ -99,35 +98,28 @@
         
         //check if dictionary exists
         if(jsonReceivedData){
-//            progressValue += 0.2f;
-//            [loadingProgressBar setProgress: progressValue animated:YES];
+
             //Display what values we have
             for(NSDictionary* dict in jsonReceivedData){
                 NSLog(@"%@",[dict allKeys]);
                 break;
             }
             
-            Events *eventsData = [Events defaultEvents];
-            
             //Send the JSON Object to Our Events Class
             [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
-            [eventsData setSplashView:self];
+            
             [eventsData loadEventsList];
+            
+            [loadingProgressBar setProgress: [eventsData currentProgress]];
             
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
             jsonData = nil;
             connection = nil;
             
-//            [loadingProgressBar setProgress: 1.0f animated:YES];
             [self callNextView];
         }
     }
-}
-
--(void) incrementProgressBar: (float) increment{
-    progressValue += increment;
-    [loadingProgressBar setProgress: progressValue animated:NO];
 }
 
 -(void) connection: (NSURLConnection *) conn didFailWithError:(NSError *)error{

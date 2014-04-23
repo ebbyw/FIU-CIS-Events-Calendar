@@ -26,6 +26,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class Events;
+
 @interface SplashViewController : UIViewController{
     
     //View Related Properties
@@ -37,10 +39,9 @@
     NSMutableData *jsonData;
     NSMutableArray *jsonReceivedData;
     
+    Events *eventsData;
+    
 }
-
-@property (nonatomic) float progressValue;
--(void) incrementProgressBar: (float) increment;
 
 -(void) fetchEvents;
 
