@@ -39,7 +39,10 @@
     BOOL notesMode;
     UIBarButtonItem *notesButton;
     UITextView *cellTextView;
+    UIAlertView *alertView;
 }
+
+@property BOOL iCAlSuccess;
 
 -(id) initWithEvent: (Event *) theEvent;
 -(id) initAsMyEvent: (Event *) theEvent;
