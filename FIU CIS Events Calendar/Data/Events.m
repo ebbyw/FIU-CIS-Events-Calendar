@@ -36,6 +36,7 @@
 @implementation Events
 
 @synthesize jsonObject;
+@synthesize currentProgress;
 
 +(Events *) defaultEvents{
     static Events *defaultEvents = nil;
@@ -120,22 +121,17 @@
     appDelegate(saveContext);
 }
 
--(void) setSplashView: (SplashViewController *) controller{
-    splashView = controller;
-}
+//-(void) setSplashView: (SplashViewController *) controller{
+//    splashView = controller;
+//}
 
 -(void) loadEventsList{
-    if(splashView == nil){
-        NSLog(@"SPLASH VIEW IS NIL");
-    }else{
-        NSLog(@"Current Progress is %f", [splashView progressValue]);
-    }
-    float progressIncrement;
+      
     if(jsonObject == nil){
         NSLog(@"JSON IS NIL");
-        progressIncrement = (1.0f -  [splashView progressValue])/5.0f;
+        progressIncrement = (1.0f -  currentProgress)/5.0f;
     }else{
-        progressIncrement = (1.0f - [splashView progressValue])/([jsonObject count]+ 5);
+        progressIncrement = (1.0f - currentProgress)/([jsonObject count]+ 5);
     }
     
     currentSpeakers = [[NSMutableArray alloc] init];
@@ -163,7 +159,8 @@
             NSLog(@"Speaker fetch successful %lu itmes", (unsigned long)[speakersResult count]);
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
-        [splashView incrementProgressBar:progressIncrement];
+        
+        currentProgress += progressIncrement;
         
     }
     
@@ -189,8 +186,8 @@
             [currentEvents addObjectsFromArray:eventsResult];
             
         }
-        [splashView incrementProgressBar:progressIncrement];
         
+        currentProgress += progressIncrement;
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
@@ -209,8 +206,8 @@
                 NSLog(@"Event Not Added");
             }
         }
-        [splashView incrementProgressBar:progressIncrement];
         
+        currentProgress += progressIncrement;
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
@@ -224,15 +221,14 @@
     
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
     
-    [splashView incrementProgressBar:progressIncrement];
+    currentProgress += progressIncrement;
     
     allSpeakers = [NSArray arrayWithArray:currentSpeakers];
-    [splashView incrementProgressBar:progressIncrement];
+    currentProgress += progressIncrement;
     
     //    NSLog(@"progress bar value = %f", progressValue);
     appDelegate(saveContext);
-    [splashView incrementProgressBar:progressIncrement];
-    
+    currentProgress += progressIncrement;
 }
 
 -(BOOL) checkIfEventExists: (NSDictionary *) eventData andDate: (NSDate *) date{
