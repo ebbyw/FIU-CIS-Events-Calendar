@@ -567,7 +567,7 @@
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
             
-            if ( acceleration.y < -.65)
+            if ( acceleration.y < -.45)
             {
                 accelorometerChangingDate = YES;
                 NSDateComponents *newMonth = self.visibleMonth;
@@ -575,7 +575,7 @@
                 [self setVisibleMonth:newMonth animated:YES];
             }
             
-            if (acceleration.y > 0.65)
+            if (acceleration.y > 0.45)
             {
                 accelorometerChangingDate = YES;
                 NSDateComponents *newMonth = self.visibleMonth;

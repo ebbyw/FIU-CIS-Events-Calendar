@@ -2,15 +2,32 @@
 //  EventDetailView.m
 //  FIU CIS Events Calendar
 //
-//  Created by ebtissam ahmed wahman on 4/13/14.
-//  Copyright (c) 2014 Ebby Wahman. All rights reserved.
+//The MIT License (MIT)
 //
+//Copyright (c) <2014> <Raul Carvajal, Eduardo Toledo, Ebtissam Wahman>
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
+
 
 #import "EventDetailView.h"
-#import "EventsView.h"
 #import "Event.h"
 #import "Events.h"
-#import "EventSpeaker.h"
 #import "MyEventsView.h"
 #import <Social/Social.h>
 #import <EventKit/EventKit.h>
@@ -195,12 +212,30 @@ typedef enum { SectionDateTime, SectionWhere, SectionSpeaker } Sections;
     // Check if App has Permission to Post to the Calendar
     [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
         if (granted){
+            UIAlertView *iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
+                                                                message:[NSString stringWithFormat:@"Event added as \"%@\"",event.title]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            
             //---- code here when user allows your app to access their calendar.
             [event setCalendar:[eventStore defaultCalendarForNewEvents]];
             NSError *err;
             [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
+            if(!err){
+                [iCalAlert show];
+            }else{
+                [iCalAlert setTitle:@"Error Occurred"];
+                [iCalAlert setMessage:@"Sorry, an error occurred while trying to add this event to iCal"];
+            }
         }else
         {
+            UIAlertView *iCalAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Add to iCal"
+                                                                message:@"Sorry, this app was not granted permission to add events to iCal"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            [iCalAlert show];
             //----- code here when user does NOT allow your app to access their calendar.
             [event setCalendar:[eventStore defaultCalendarForNewEvents]];
             NSError *err;
