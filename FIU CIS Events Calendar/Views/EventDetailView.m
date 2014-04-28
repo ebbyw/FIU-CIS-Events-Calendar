@@ -501,7 +501,6 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(notesMode){
         [cellTextView becomeFirstResponder];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }else{
         if(indexPath.section == SectionMoreInfo){
             UIViewController *webViewController = [[UIViewController alloc] init];
@@ -510,10 +509,10 @@ heightForHeaderInSection:(NSInteger)section{
             webView.scalesPageToFit = YES;
             [webViewController setView:webView];
             [webViewController.navigationItem setTitle:@"Website Details"];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self.navigationController pushViewController:webViewController animated:YES];
         }
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
