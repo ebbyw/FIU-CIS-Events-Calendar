@@ -29,9 +29,12 @@
 
 @interface EventsView : UITableViewController <DSLCalendarViewDelegate>{
     BOOL noEvents;
+    BOOL upcomingEventsExist;
     NSDateFormatter* df_local;
     IBOutlet DSLCalendarView *headerView;
     NSArray *currentEvents;
+    NSMutableArray *pastEvents;
+    NSMutableArray *upcomingEvents;
     DSLCalendarRange *currentRangeFilter;
 }
 @end
