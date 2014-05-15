@@ -33,6 +33,7 @@
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarDayView.h"
 #import "EventDetailView.h"
+#import "UIImageView+Network.h"
 
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
@@ -62,6 +63,8 @@
         //        NSLog(@"Local Time Zone is %@", [NSTimeZone timeZoneWithName:@"EST"]);
         [df_local setDateFormat:@"MMM - dd"];
         currentEvents = [[Events defaultEvents] allEvents];
+        upcomingEventsExist = NO;
+        
     }
     return self;
 }
@@ -113,12 +116,18 @@
 -(UIView *) tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
     NSLog(@"View for Header Called");
-    return [self headerView];
+    if(section ==0){
+        return [self headerView];}
+    return  nil;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return [[self headerView] bounds].size.height +5 ;
+    if(section ==0){
+    return [[self headerView] bounds].size.height ;
+    }else{
+        return UITableViewAutomaticDimension;
+    }
 }
 
 #pragma mark - Table view data source
@@ -126,6 +135,9 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(upcomingEventsExist){
+        return 2;
+    }
     return 1;
 }
 
@@ -133,8 +145,12 @@ heightForHeaderInSection:(NSInteger)section{
 {
     if([currentEvents count] > 0){
         noEvents = NO;
-        return [currentEvents count];
+        if(upcomingEventsExist && section == 0){
+                return [upcomingEvents count];
+        }
+        return [pastEvents count];
     }
+    
     noEvents = YES;
     return 1;
 }
@@ -150,15 +166,23 @@ heightForHeaderInSection:(NSInteger)section{
             cell = [[EventCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eventCell"];
         }
         
-        Event *theEvent = [ currentEvents objectAtIndex:[indexPath row]];
+        Event *theEvent;
+        if(upcomingEventsExist && indexPath.section == 0){
+            theEvent = [upcomingEvents objectAtIndex:indexPath.row];
+        }else{
+            theEvent = [pastEvents objectAtIndex:indexPath.row];
+        }
+//        [theEvent.speaker downloadAndStoreImage];
         
         [[cell cellEventDate] setText: [df_local stringFromDate:[theEvent eventTimeAndDate]]];
         
-        [[cell cellEventTitle] setText:[NSString stringWithFormat:@"%@",[theEvent eventType]]];
+        [[cell cellEventTitle] setText:[NSString stringWithFormat:@"%@",[theEvent eventName]]];
         
         //    NSLog(@"Compare UTC: %@ to Local: %@",[theEvent eventTimeAndDate],localTime);
         
-        [ [cell cellEventPhoto] setImage:[UIImage imageWithData:[[theEvent speaker] photo] ]];
+        [ [cell cellEventPhoto] loadImageFromURL:[theEvent.speaker imageURL]
+                                placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
+                                      speaker:theEvent.speaker];
         
         return cell;
     }
@@ -194,6 +218,10 @@ heightForHeaderInSection:(NSInteger)section{
     DSLCalendarMonthView *thisMonthView = [(DSLCalendarView* )headerView currentMonthView];
     
     NSSet *allDayViews = [thisMonthView dayViews];
+    NSDate *currentDate = [NSDate dateWithYear:2014 month:04 day:14];
+    upcomingEvents = NO;
+    pastEvents = [[NSMutableArray alloc] init];
+    upcomingEvents = [[NSMutableArray alloc] init];
     
     for(Event *event in currentEvents){
         NSDateComponents *day = [cal components: unitFlags fromDate:[event eventTimeAndDate]];
@@ -203,12 +231,22 @@ heightForHeaderInSection:(NSInteger)section{
                 [dayView markDate];
             }
         }
+        
+        
+        if([event.eventTimeAndDate compare:currentDate] == NSOrderedSame ||
+           [event.eventTimeAndDate compare:currentDate] == NSOrderedDescending ){
+            upcomingEventsExist = YES;
+            NSLog(@"FOUND UPCOMING EVENT");
+            [upcomingEvents addObject:event];
+        }else{
+            [pastEvents addObject:event];
+        }
     }
     
 }
 
 -(void) getEventsForRange{
-//    NSLog(@"Called Get Events For Range %@ - %@", currentRangeFilter.startDay, currentRangeFilter.endDay);
+    //    NSLog(@"Called Get Events For Range %@ - %@", currentRangeFilter.startDay, currentRangeFilter.endDay);
     
     NSPredicate *filter = [NSPredicate
                            predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings){
@@ -231,7 +269,7 @@ heightForHeaderInSection:(NSInteger)section{
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(!noEvents){
         Event *theEvent = [currentEvents objectAtIndex:[indexPath row]];
-//        NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
+        //        NSLog(@"Date for this Event is: %@",[theEvent eventTimeAndDate]);
         EventDetailView *detailView = [[EventDetailView alloc] initWithEvent:theEvent];
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
             UINavigationController *detailViewNavController = [[UINavigationController alloc] initWithRootViewController:detailView];
@@ -239,7 +277,7 @@ heightForHeaderInSection:(NSInteger)section{
             [controllers setObject:detailViewNavController atIndexedSubscript:1];
             self.splitViewController.viewControllers = (NSArray *)controllers;
         }else{
-           [self.navigationController pushViewController:detailView animated:YES];
+            [self.navigationController pushViewController:detailView animated:YES];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -253,7 +291,7 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
     if (range != nil) {
-        NSLog( @"Selected %d/%d - %d/%d", range.startDay.day, range.startDay.month, range.endDay.day, range.endDay.month);
+        NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         currentRangeFilter = range;
         [self getEventsForRange];
     }

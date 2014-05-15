@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1072</int>
-		<string key="IBDocument.SystemVersion">13C64</string>
+		<string key="IBDocument.SystemVersion">13C1021</string>
 		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
 		<string key="IBDocument.AppKitVersion">1265.19</string>
 		<string key="IBDocument.HIToolboxVersion">697.40</string>
@@ -40,7 +40,7 @@
 					<object class="IBUIImageView" id="353915553">
 						<reference key="NSNextResponder" ref="908481972"/>
 						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{78, 124}, {165, 155}}</string>
+						<string key="NSFrame">{{78, 124}, {165, 165}}</string>
 						<reference key="NSSuperview" ref="908481972"/>
 						<reference key="NSNextKeyView" ref="525373183"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -49,7 +49,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">FIUCISLogo.png</string>
+							<string key="NSResourceName">FIUCISLogoSquare.png</string>
 						</object>
 					</object>
 					<object class="IBUIProgressView" id="20487044">
@@ -246,8 +246,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">FIUCISLogo.png</string>
-			<string key="NS.object.0">{165, 155}</string>
+			<string key="NS.key.0">FIUCISLogoSquare.png</string>
+			<string key="NS.object.0">{150, 150}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">3733</string>
 	</data>

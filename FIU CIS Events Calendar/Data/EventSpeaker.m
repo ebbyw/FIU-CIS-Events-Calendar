@@ -37,19 +37,8 @@
 @dynamic events;
 @dynamic photo;
 
-- (void) downloadAndStoreImage{
-
-    UIImage * result;
-    
-   [self setPhoto:[NSData dataWithContentsOfURL:[NSURL URLWithString:[self imageLink]]]];
-    result = [UIImage imageWithData:[self photo]];
-    if(result != nil){
-        NSLog(@"IMAGE DOWNLOAD SUCCESS");
-    }else{
-        NSLog(@"IMAGE DOWNLOAD FAIL");
-        [self setPhoto:UIImageJPEGRepresentation([UIImage imageNamed:@"FIUCISLogoSquare"], 0.5)];
-    }
+-(NSURL *) imageURL{
+    return [NSURL URLWithString:self.imageLink];
 }
-
 
 @end

@@ -45,6 +45,6 @@
 - (void)removeEventsObject:(NSManagedObject *)value;
 - (void)addEvents:(NSSet *)values;
 - (void)removeEvents:(NSSet *)values;
-- (void) downloadAndStoreImage;
+-(NSURL *) imageURL;
 
 @end
