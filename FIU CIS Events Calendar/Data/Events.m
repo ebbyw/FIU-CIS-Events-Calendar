@@ -29,6 +29,7 @@
 #import "EventSpeaker.h"
 #import "AppDelegate.h"
 #import "SplashViewController.h"
+#import "NSDate+Reporting.h"
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 #define getValue(x,y) (([ x valueForKey:y] == [NSNull null]) ? nil : [ x valueForKey:y])
@@ -70,6 +71,49 @@
     return allSpeakers;
 }
 
+-(NSArray *) upcomingEvents{
+    NSPredicate *userAddedFilter = [NSPredicate
+                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                                    {
+                                        if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                                            return YES;
+                                        }else{
+                                            return NO;
+                                        }
+                                        
+                                    }
+                                    ];
+    NSMutableArray *upcoming = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                               ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
+    [upcoming sortUsingDescriptors:sortDescriptors];
+    
+    return upcoming;
+
+}
+
+-(NSArray *) pastEvents{
+    NSPredicate *userAddedFilter = [NSPredicate
+                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                                    {
+                                        if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                                            return NO;
+                                        }else{
+                                            return YES;
+                                        }
+                                        
+                                    }
+                                    ];
+    NSMutableArray *past = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                               ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
+    [past sortUsingDescriptors:sortDescriptors];
+    
+    return past;
+}
+
 -(NSArray *) allUserEvents{
     NSPredicate *userAddedFilter = [NSPredicate
                                     predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
@@ -85,7 +129,7 @@
     [allUserEvents sortUsingDescriptors:sortDescriptors];
     
     
-    NSLog(@"All Events Size is %d", [allUserEvents count]);
+    NSLog(@"All Events Size is %lu", (unsigned long)[allUserEvents count]);
     return (NSArray *) allUserEvents;
 }
 

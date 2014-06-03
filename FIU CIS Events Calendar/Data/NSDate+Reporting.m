@@ -68,9 +68,23 @@
     return [self midnightOfDate:[NSDate date]];
 }
 
++(NSDate *)midnightYesterday{
+    return [self oneDayBefore:[self midnightToday]];
+}
+
 + (NSDate *)midnightTomorrow {
     NSDate *midnightToday = [self midnightToday];
     return [self oneDayAfter:midnightToday];
+}
+
++(NSDate *) oneDayBefore:(NSDate *) date{
+    NSDateComponents *oneDayComponent = [[NSDateComponents alloc] init];
+	[oneDayComponent setDay:-1];
+    
+	NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	return [gregorianCalendar dateByAddingComponents:oneDayComponent
+                                              toDate:date
+                                             options:0];
 }
 
 + (NSDate *)oneDayAfter:(NSDate *)date {
