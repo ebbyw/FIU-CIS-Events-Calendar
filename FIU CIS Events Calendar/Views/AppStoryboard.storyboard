@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="i3O-j7-Ele">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LnT-uF-9Z8">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -15,13 +15,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="F3c-lF-s0k">
                             <size key="itemSize" width="150" height="196"/>
-                            <size key="headerReferenceSize" width="320" height="60"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="8" minY="10" maxX="8" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EventID" id="FLX-MI-Nd4" customClass="EventCell">
-                                <rect key="frame" x="8" y="70" width="150" height="196"/>
+                                <rect key="frame" x="8" y="74" width="150" height="196"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="196"/>
@@ -96,40 +96,34 @@
                                     <outlet property="cellSpeakerName" destination="aVV-B2-Cez" id="8rN-XC-fbR"/>
                                     <outlet property="cellSpeakerPhoto" destination="KQw-3P-pCv" id="Tww-Gu-0Kb"/>
                                     <outlet property="cellYear" destination="wg3-7s-WNC" id="AMo-Tr-vi6"/>
-                                    <segue destination="LnT-uF-9Z8" kind="modal" identifier="DetailView" modalTransitionStyle="flipHorizontal" id="MfG-vf-KOL"/>
+                                    <segue destination="QW1-MG-J1r" kind="push" identifier="DetailView" id="i3L-Oe-dCt"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderID" id="e7F-EP-jxa" customClass="EventsViewHeader">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aMG-x6-kUI">
-                                    <rect key="frame" x="60" y="20" width="201" height="29"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <segments>
-                                        <segment title="Upcoming"/>
-                                        <segment title="Past"/>
-                                    </segments>
-                                    <color key="tintColor" red="0.12549019610000001" green="0.2156862745" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <connections>
-                                        <action selector="eventTypeChanged:" destination="i3O-j7-Ele" eventType="valueChanged" id="0C2-KH-TFw"/>
-                                    </connections>
-                                </segmentedControl>
-                            </subviews>
-                            <connections>
-                                <outlet property="eventFilterType" destination="aMG-x6-kUI" id="t09-oD-je8"/>
-                            </connections>
-                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="i3O-j7-Ele" id="uVg-ZB-6zk"/>
                             <outlet property="delegate" destination="i3O-j7-Ele" id="bxB-JE-R3X"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="Hm0-yF-WAm">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="KGl-dl-92s">
+                            <rect key="frame" x="60" y="8" width="201" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Upcoming"/>
+                                <segment title="Past"/>
+                            </segments>
+                            <color key="tintColor" red="0.12549019610000001" green="0.2156862745" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="eventTypeChanged:" destination="i3O-j7-Ele" eventType="valueChanged" id="9xI-zg-ywv"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfQ-Ta-0y6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1282" y="-745"/>
+            <point key="canvasLocation" x="1022" y="35"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2f1-Dv-nB2">
@@ -140,12 +134,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="QW1-MG-J1r" kind="relationship" relationship="rootViewController" id="nwX-WG-b9b"/>
+                        <segue destination="i3O-j7-Ele" kind="relationship" relationship="rootViewController" id="eZy-ry-ref"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1E-Xh-yOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="35"/>
+            <point key="canvasLocation" x="562" y="35"/>
         </scene>
         <!--Event Detail View Controller - EventDetail-->
         <scene sceneID="jAf-7Y-khj">
@@ -228,14 +222,14 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zKQ-QV-kYA"/>
                                     <barButtonItem title="Description" id="1EE-CP-oAa">
                                         <connections>
-                                            <segue destination="7xN-Qq-gkF" kind="push" id="XpC-cQ-NiX"/>
+                                            <segue destination="7xN-Qq-gkF" kind="push" identifier="EventDescription" id="XpC-cQ-NiX"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="w7f-Ye-3aw"/>
                                     <barButtonItem title="Biography" id="rn2-KJ-YTM">
                                         <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="8u1-eZ-lpc" kind="push" id="qdh-I6-5uv"/>
+                                            <segue destination="8u1-eZ-lpc" kind="push" identifier="SpeakerBio" id="qdh-I6-5uv"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bgz-Dg-YH9"/>
@@ -247,12 +241,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zdv-oy-4d6">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="vWs-ja-KHT">
-                            <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="i3O-j7-Ele" kind="modal" modalTransitionStyle="flipHorizontal" id="7xG-Gl-R2G"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="RlQ-dy-3D0"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="QbN-rW-QTS">
                             <connections>
                                 <action selector="presentActionMenu:" destination="QW1-MG-J1r" id="dDB-Nh-GBm"/>
@@ -273,10 +262,10 @@
             </objects>
             <point key="canvasLocation" x="1521" y="35"/>
         </scene>
-        <!--View Controller - Speaker Bio-->
+        <!--Right Pane Text Display View Controller - Speaker Bio-->
         <scene sceneID="FvD-54-a4v">
             <objects>
-                <viewController title="Speaker Bio" id="8u1-eZ-lpc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpeakerBio" title="Speaker Bio" id="8u1-eZ-lpc" customClass="RightPaneTextDisplayViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ad5-ow-Gxe"/>
                         <viewControllerLayoutGuide type="bottom" id="W8s-fp-Wwd"/>
@@ -284,25 +273,52 @@
                     <view key="view" contentMode="scaleToFill" id="xG6-qD-UX4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EQt-52-IoK">
+                                <rect key="frame" x="20" y="66" width="280" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Bacon ipsum dolor sit amet biltong hamburger shoulder rump brisket. Pork belly tail leberkas capicola fatback boudin porchetta shankle meatball sirloin. Landjaeger tenderloin tail, chuck cow bacon shoulder meatloaf. Pastrami salami t-bone turkey landjaeger spare ribs hamburger.
+
+Ham hock landjaeger leberkas t-bone bresaola swine kielbasa sirloin shoulder. Pork loin shankle rump sirloin strip steak meatloaf swine salami capicola boudin ham hock porchetta. Pastrami corned beef kielbasa andouille bacon. Chuck meatloaf beef ribs, tri-tip ham capicola boudin pork loin hamburger pancetta fatback turducken. Filet mignon jowl meatball drumstick, corned beef pork frankfurter beef ribs kielbasa. Pork loin shank short loin pork belly, filet mignon short ribs sausage andouille.
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RhR-a1-shd">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Erb-Dn-w5J">
-                            <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="QW1-MG-J1r" kind="push" id="xz0-z4-0GB"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Speaker Biography" id="RhR-a1-shd">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="jyo-2c-yfZ"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textViewField" destination="EQt-52-IoK" id="zvf-aX-gFP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVC-ZC-uGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="720"/>
+            <point key="canvasLocation" x="2148" y="432"/>
         </scene>
-        <!--View Controller - Event Description-->
+        <!--Right Pane Text Display View Controller - Event Description-->
         <scene sceneID="G9c-VW-nyH">
             <objects>
-                <viewController title="Event Description" id="7xN-Qq-gkF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventDescription" title="Event Description" id="7xN-Qq-gkF" customClass="RightPaneTextDisplayViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bX9-B6-YAX"/>
                         <viewControllerLayoutGuide type="bottom" id="3fy-t5-KsI"/>
@@ -310,20 +326,39 @@
                     <view key="view" contentMode="scaleToFill" id="FN9-kK-ZK0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UEV-5U-QOc">
+                                <rect key="frame" x="20" y="66" width="280" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Bacon ipsum dolor sit amet biltong hamburger shoulder rump brisket. Pork belly tail leberkas capicola fatback boudin porchetta shankle meatball sirloin. Landjaeger tenderloin tail, chuck cow bacon shoulder meatloaf. Pastrami salami t-bone turkey landjaeger spare ribs hamburger.
+
+Ham hock landjaeger leberkas t-bone bresaola swine kielbasa sirloin shoulder. Pork loin shankle rump sirloin strip steak meatloaf swine salami capicola boudin ham hock porchetta. Pastrami corned beef kielbasa andouille bacon. Chuck meatloaf beef ribs, tri-tip ham capicola boudin pork loin hamburger pancetta fatback turducken. Filet mignon jowl meatball drumstick, corned beef pork frankfurter beef ribs kielbasa. Pork loin shank short loin pork belly, filet mignon short ribs sausage andouille.
+
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="clU-F3-XJo">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="jsy-SD-0Hq">
-                            <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="QW1-MG-J1r" kind="push" identifier="" id="gFt-Kg-TxJ"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Event Description" id="clU-F3-XJo">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="x44-J2-KNm"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textViewField" destination="UEV-5U-QOc" id="DEW-WB-EnH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sr2-wb-Jac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2020" y="35"/>
+            <point key="canvasLocation" x="2148" y="-245"/>
         </scene>
     </scenes>
     <resources>
@@ -334,7 +369,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="gFt-Kg-TxJ"/>
-    </inferredMetricsTieBreakers>
 </document>

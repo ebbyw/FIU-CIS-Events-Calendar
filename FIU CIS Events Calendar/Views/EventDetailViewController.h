@@ -22,5 +22,6 @@
 
 -(void) receiveEventObject: (Event *) eventToDetail;
 - (IBAction)presentActionMenu:(id)sender;
+- (IBAction)goBack:(id)sender;
 
 @end
