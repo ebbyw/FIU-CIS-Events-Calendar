@@ -52,8 +52,10 @@
         NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
         [monthFormatter setDateFormat:@"MMM"];
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-        [timeFormatter setDateFormat:@"HH:mm a"];
-        
+        [timeFormatter setDateFormat:@"hh:mm a"];
+        [timeFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+
+        NSLog(@"%@",currentEvent.eventTimeAndDate);
         [self.eventDayAndMonth setText:[NSString stringWithFormat:@"%ld %@",(long)eventDate.day,
                                         [monthFormatter stringFromDate:currentEvent.eventTimeAndDate]]];
         [self.eventYear setText:[NSString stringWithFormat:@"%ld",(long)eventDate.year]];
