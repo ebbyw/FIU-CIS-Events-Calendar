@@ -313,7 +313,7 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		62CBE9B318F84A7A00375C96 /* Views */ = {
+		6258D4DA193FF24900BBD81F /* Old */ = {
 			isa = PBXGroup;
 			children = (
 				622AC69718F9A7E400FA40DA /* EventCellTableViewCell.h */,
@@ -326,6 +326,14 @@
 				62CBE9B118F84A7000375C96 /* EventsView.m */,
 				4DB3B03A18FAE682001F1364 /* MyEventsView.h */,
 				4DB3B03B18FAE682001F1364 /* MyEventsView.m */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		62CBE9B318F84A7A00375C96 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6258D4DA193FF24900BBD81F /* Old */,
 				62CBE9C518F8586D00375C96 /* SplashViewController.h */,
 				62CBE9C618F8586D00375C96 /* SplashViewController.m */,
 				62CBE9C718F8586D00375C96 /* SplashViewController.xib */,

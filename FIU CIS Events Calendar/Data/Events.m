@@ -34,7 +34,16 @@
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 #define getValue(x,y) (([ x valueForKey:y] == [NSNull null]) ? nil : [ x valueForKey:y])
 
-@implementation Events
+@implementation Events{
+    NSPredicate *upcomingEventFilter;
+    NSPredicate *pastEventFilter;
+    NSPredicate *userAddedFilter;
+    NSSortDescriptor *dateSortAscending;
+    NSSortDescriptor *dateSortDescending;
+    NSArray *dateAscendingSortDescriptor;
+    NSArray *dateDescendingSortDescriptor;
+    
+}
 
 @synthesize jsonObject;
 @synthesize currentProgress;
@@ -57,6 +66,41 @@
     if(self){
         model = appDelegate(managedObjectModel);
         context = appDelegate(managedObjectContext);
+        dateSortAscending = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                          ascending:YES];
+        dateSortDescending = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
+                                                           ascending:NO];
+        dateAscendingSortDescriptor = [NSArray arrayWithObject:dateSortAscending];
+        
+        dateDescendingSortDescriptor = [NSArray arrayWithObject:dateSortDescending];
+        upcomingEventFilter = [NSPredicate
+                               predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                               {
+                                   if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                                       return YES;
+                                   }else{
+                                       return NO;
+                                   }
+                                   
+                               }
+                               ];
+        pastEventFilter = [NSPredicate
+                           predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                           {
+                               if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                                   return NO;
+                               }else{
+                                   return YES;
+                               }
+                               
+                           }
+                           ];
+        userAddedFilter = [NSPredicate
+                                        predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                                        {
+                                            return [[(Event *) evaluatedObject addedToUser] boolValue];
+                                        }
+                                        ];
         
         NSLog(@"INITIALIZED EVENTS LIST HOLDER");
     }
@@ -72,44 +116,20 @@
 }
 
 -(NSArray *) upcomingEvents{
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
-                                            return YES;
-                                        }else{
-                                            return NO;
-                                        }
-                                        
-                                    }
-                                    ];
-    NSMutableArray *upcoming = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
-                                                               ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
-    [upcoming sortUsingDescriptors:sortDescriptors];
+    
+    NSMutableArray *upcoming = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:upcomingEventFilter]];
+    
+    [upcoming sortUsingDescriptors:dateAscendingSortDescriptor];
     
     return upcoming;
-
+    
 }
 
 -(NSArray *) pastEvents{
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
-                                            return NO;
-                                        }else{
-                                            return YES;
-                                        }
-                                        
-                                    }
-                                    ];
-    NSMutableArray *past = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
-                                                               ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:dateSort];
-    [past sortUsingDescriptors:sortDescriptors];
+    
+     NSMutableArray *past = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:pastEventFilter]];
+    
+    [past sortUsingDescriptors:dateDescendingSortDescriptor];
     
     return past;
 }
@@ -170,7 +190,7 @@
 //}
 
 -(void) loadEventsList{
-      
+    
     if(jsonObject == nil){
         NSLog(@"JSON IS NIL");
         progressIncrement = (1.0f -  currentProgress)/5.0f;
