@@ -41,10 +41,13 @@
 
 @interface EventSpeaker (CoreDataGeneratedAccessors)
 
++(EventSpeaker *) createSpeakerFromDictionary: (NSDictionary *) dict;
+
 - (void)addEventsObject:(NSManagedObject *)value;
 - (void)removeEventsObject:(NSManagedObject *)value;
 - (void)addEvents:(NSSet *)values;
 - (void)removeEvents:(NSSet *)values;
 -(NSURL *) imageURL;
+- (BOOL) updateSpeaker: (EventSpeaker *) otherSpeaker;
 
 @end

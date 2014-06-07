@@ -42,6 +42,7 @@
     NSSortDescriptor *dateSortDescending;
     NSArray *dateAscendingSortDescriptor;
     NSArray *dateDescendingSortDescriptor;
+    NSDateFormatter *dateFormatter;
     
 }
 
@@ -102,6 +103,10 @@
                                         }
                                         ];
         
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        
         NSLog(@"INITIALIZED EVENTS LIST HOLDER");
     }
     return self;
@@ -135,12 +140,7 @@
 }
 
 -(NSArray *) allUserEvents{
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
-                                    }
-                                    ];
+    
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
     
     NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
@@ -185,10 +185,6 @@
     appDelegate(saveContext);
 }
 
-//-(void) setSplashView: (SplashViewController *) controller{
-//    splashView = controller;
-//}
-
 -(void) loadEventsList{
     
     if(jsonObject == nil){
@@ -202,14 +198,14 @@
     currentEvents = [[NSMutableArray alloc] init];
     // Set Up local app data with data from our stored database
     
-    if(!allSpeakers){
+    if(!allSpeakers){ //if the allSpeakers array has not been initialized,
         NSFetchRequest *speakersRequest =[[NSFetchRequest alloc]init];
-        NSEntityDescription *speakerEntity = [[model entitiesByName] objectForKey:@"EventSpeaker"];
         
+        NSEntityDescription *speakerEntity = [[model entitiesByName] objectForKey:@"EventSpeaker"];
         [speakersRequest setEntity:speakerEntity];
         
         NSSortDescriptor *speakerSort = [NSSortDescriptor sortDescriptorWithKey:@"speakerName"
-                                                                      ascending:YES];
+                                                                    ascending:YES];
         [speakersRequest setSortDescriptors: [NSArray arrayWithObject:speakerSort]];
         
         NSError *speakersError;
@@ -220,7 +216,7 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [speakersError localizedDescription]];
         }else{
-            NSLog(@"Speaker fetch successful %lu itmes", (unsigned long)[speakersResult count]);
+            NSLog(@"Speaker fetch successful, %lu speakers previously present in Database.", (unsigned long)[speakersResult count]);
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
         
@@ -246,7 +242,7 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [eventsError localizedDescription]];
         }else{
-            NSLog(@"Event fetch successful %lu itmes", (unsigned long)[eventsResult count]);
+            NSLog(@"Event fetch successful %lu events previously present in Database.", (unsigned long)[eventsResult count]);
             [currentEvents addObjectsFromArray:eventsResult];
             
         }
@@ -255,10 +251,6 @@
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     for(NSDictionary *eventInfo in jsonObject){
         //Event Date, formatted and converted  to NSDate
@@ -275,13 +267,6 @@
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
-    
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
-                                    }
-                                    ];
     
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
     
@@ -302,7 +287,7 @@
         speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if([speaker.speakerName localizedCaseInsensitiveCompare: speakerNameTrimmed ] == NSOrderedSame){
             //We've found a speaker in our speakers list that matches the speaker of the current event
-            //            NSLog(@"Identical Speaker");
+            NSLog(@"%@ found in system", speaker.speakerName);
             //Update Speaker Information if needed
             if([speaker.speakerDepartment localizedCaseInsensitiveCompare:getValue(eventData, @"speakerDepartment")] !=NSOrderedSame){
                 [speaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];

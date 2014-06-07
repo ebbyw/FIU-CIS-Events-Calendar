@@ -58,7 +58,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM"];
     
-    [cell.cellDayValue setText:[NSString stringWithFormat:@"%ld",(long)eventDate.day]];
+    [cell.cellDayValue setText:[NSString stringWithFormat:@"%02ld",(long)eventDate.day]];
     [cell.cellYear setText:[NSString stringWithFormat:@"%ld",(long)eventDate.year]];
     [cell.cellMonth setText:[dateFormatter stringFromDate:cellEvent.eventTimeAndDate]];
     [cell.cellEventType setText:cellEvent.eventType];
