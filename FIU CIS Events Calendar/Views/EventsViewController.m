@@ -19,6 +19,7 @@
 
 @interface EventsViewController (){
     NSArray *dataSource;
+    NSDateFormatter *dateFormatter;
 }
 
 @end
@@ -39,6 +40,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     dataSource = [[Events defaultEvents] upcomingEvents];
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM"];
 }
 
 //-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
@@ -55,10 +58,8 @@
     Event *cellEvent = [dataSource objectAtIndex:indexPath.item];
 
     NSDateComponents *eventDate = [[NSCalendar currentCalendar] components:unitFlags fromDate:cellEvent.eventTimeAndDate];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM"];
     
-    [cell.cellDayValue setText:[NSString stringWithFormat:@"%ld",(long)eventDate.day]];
+    [cell.cellDayValue setText:[NSString stringWithFormat:@"%02ld",(long)eventDate.day]];
     [cell.cellYear setText:[NSString stringWithFormat:@"%ld",(long)eventDate.year]];
     [cell.cellMonth setText:[dateFormatter stringFromDate:cellEvent.eventTimeAndDate]];
     [cell.cellEventType setText:cellEvent.eventType];
@@ -67,7 +68,7 @@
     [cell.cellSpeakerPhoto loadImageFromURL:[cellEvent.speaker imageURL]
                             placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
                                      speaker:cellEvent.speaker];
-
+//    NSLog(@"Event returned: %@, %@", cellEvent.eventName, cellEvent.speaker.speakerName);
     return cell;
     
 }

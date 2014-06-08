@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+#import <EventKitUI/EventKitUI.h>
 
 @class Event;
 
-@interface EventDetailViewController : UIViewController<UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface EventDetailViewController : UIViewController<UIActionSheetDelegate, MFMailComposeViewControllerDelegate, EKEventEditViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *eventSpeakerPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *eventDayAndMonth;
 @property (weak, nonatomic) IBOutlet UILabel *eventYear;

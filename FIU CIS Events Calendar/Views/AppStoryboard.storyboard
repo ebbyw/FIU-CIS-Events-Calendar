@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LnT-uF-9Z8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0Mf-Vz-wUL">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="D69-0I-GuA">
+            <objects>
+                <viewController id="0Mf-Vz-wUL" customClass="SplashViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7we-bi-5GK"/>
+                        <viewControllerLayoutGuide type="bottom" id="agi-WU-NGx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mJ3-fC-k0e">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B9l-Ui-ILb">
+                                <rect key="frame" x="59" y="400" width="203" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FIUCISLogoSquare.png" translatesAutoresizingMaskIntoConstraints="NO" id="TWT-5V-23O">
+                                <rect key="frame" x="85" y="157" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Updating Events List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2A-7w-XzK">
+                                <rect key="frame" x="60" y="354" width="202" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.2156862745" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.078431372550000003" green="0.14901960780000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadingLabel" destination="I2A-7w-XzK" id="sVo-Vs-5sn"/>
+                        <outlet property="loadingProgressBar" destination="B9l-Ui-ILb" id="3m5-Pa-0BC"/>
+                        <segue destination="LnT-uF-9Z8" kind="modal" identifier="GoToMain" modalTransitionStyle="crossDissolve" id="hlV-sl-87z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CSj-SJ-uux" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="123" y="35"/>
+        </scene>
         <!--Events View Controller - Events Collection-->
         <scene sceneID="RVL-Xi-mHv">
             <objects>
@@ -128,7 +170,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2f1-Dv-nB2">
             <objects>
-                <navigationController definesPresentationContext="YES" id="LnT-uF-9Z8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainController" definesPresentationContext="YES" id="LnT-uF-9Z8" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="fvZ-uW-HEa"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5a-eY-YqJ">
                         <autoresizingMask key="autoresizingMask"/>

@@ -42,7 +42,7 @@ static char URL_KEY;
 					self.image = imageFromData;
 				});
 			} else {
-//				NSLog(@"urls are not the same, bailing out!");
+				NSLog(@"urls are not the same, bailing out!");
 			}
 		}
 		self.imageURL = nil;

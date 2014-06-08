@@ -25,7 +25,7 @@
 //THE SOFTWARE.
 
 #import "SplashViewController.h"
-#import "EventsView.h"
+//#import "EventsView.h"
 #import "Events.h"
 #import "AppDelegate.h"
 
@@ -64,7 +64,6 @@
 #pragma mark Retrieve Events Data from FIU Servers
 
 -(void) fetchEvents{
-    eventsData = [Events defaultEvents];
     
     [loadingProgressBar setProgress: 0 animated:YES];
     
@@ -80,7 +79,7 @@
                                          startImmediately:YES];
     
     [loadingProgressBar setProgress: 0.8 animated:YES];
-    [eventsData setCurrentProgress:[loadingProgressBar progress]];
+    [[Events defaultEvents] setCurrentProgress:[loadingProgressBar progress]];
 }
 
 -(void) connection: (NSURLConnection *) conn didReceiveData:(NSData *)data{
@@ -106,11 +105,11 @@
             }
             
             //Send the JSON Object to Our Events Class
-            [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
+            [[Events defaultEvents] setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
             
-            [eventsData loadEventsList];
+            [[Events defaultEvents] loadEventsList];
             
-            [loadingProgressBar setProgress: [eventsData currentProgress]];
+            [loadingProgressBar setProgress: [[Events defaultEvents] currentProgress]];
             
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
@@ -138,8 +137,8 @@
 
 
 -(void) callNextView{
-    [loadingProgressBar setProgress: 1 animated:YES];
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] callMainAppView];
+     [self performSegueWithIdentifier:@"GoToMain" sender:self];
 }
+
 
 @end

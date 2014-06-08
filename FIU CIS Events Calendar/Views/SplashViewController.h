@@ -38,9 +38,7 @@
     NSURLConnection *connection;
     NSMutableData *jsonData;
     NSMutableArray *jsonReceivedData;
-    
-    Events *eventsData;
-    
+        
 }
 
 -(void) fetchEvents;

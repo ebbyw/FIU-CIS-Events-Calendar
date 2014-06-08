@@ -42,7 +42,7 @@
     NSSortDescriptor *dateSortDescending;
     NSArray *dateAscendingSortDescriptor;
     NSArray *dateDescendingSortDescriptor;
-    
+    NSDateFormatter *dateFormatter;
 }
 
 @synthesize jsonObject;
@@ -76,7 +76,9 @@
         upcomingEventFilter = [NSPredicate
                                predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
                                {
-                                   if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                                   Event *currentEvaluatedEvent = (Event *) evaluatedObject;
+                                   if([[currentEvaluatedEvent eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+//                                       NSLog(@"Adding To Upcoming: %@, %@", currentEvaluatedEvent.speaker.speakerName, currentEvaluatedEvent.eventName);
                                        return YES;
                                    }else{
                                        return NO;
@@ -87,21 +89,26 @@
         pastEventFilter = [NSPredicate
                            predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
                            {
-                               if([[(Event *) evaluatedObject eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
+                               Event *currentEvaluatedEvent = (Event *) evaluatedObject;
+                               
+                               if([[currentEvaluatedEvent eventTimeAndDate] compare:[NSDate midnightYesterday]] == NSOrderedDescending){
                                    return NO;
                                }else{
+//                                   NSLog(@"Adding To Past: (%@) %@, %@",currentEvaluatedEvent.eventTimeAndDate, currentEvaluatedEvent.speaker.speakerName, currentEvaluatedEvent.eventName);
                                    return YES;
                                }
                                
                            }
                            ];
         userAddedFilter = [NSPredicate
-                                        predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                        {
-                                            return [[(Event *) evaluatedObject addedToUser] boolValue];
-                                        }
-                                        ];
-        
+                           predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
+                           {
+                               return [[(Event *) evaluatedObject addedToUser] boolValue];
+                           }
+                           ];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
         NSLog(@"INITIALIZED EVENTS LIST HOLDER");
     }
     return self;
@@ -127,7 +134,7 @@
 
 -(NSArray *) pastEvents{
     
-     NSMutableArray *past = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:pastEventFilter]];
+    NSMutableArray *past = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:pastEventFilter]];
     
     [past sortUsingDescriptors:dateDescendingSortDescriptor];
     
@@ -135,12 +142,7 @@
 }
 
 -(NSArray *) allUserEvents{
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
-                                    }
-                                    ];
+    
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
     
     NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"eventTimeAndDate"
@@ -185,17 +187,10 @@
     appDelegate(saveContext);
 }
 
-//-(void) setSplashView: (SplashViewController *) controller{
-//    splashView = controller;
-//}
-
 -(void) loadEventsList{
     
     if(jsonObject == nil){
         NSLog(@"JSON IS NIL");
-        progressIncrement = (1.0f -  currentProgress)/5.0f;
-    }else{
-        progressIncrement = (1.0f - currentProgress)/([jsonObject count]+ 5);
     }
     
     currentSpeakers = [[NSMutableArray alloc] init];
@@ -220,11 +215,10 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [speakersError localizedDescription]];
         }else{
-            NSLog(@"Speaker fetch successful %lu itmes", (unsigned long)[speakersResult count]);
+            NSLog(@"Speaker fetch successful %lu speakers previously stored in database.", (unsigned long)[speakersResult count]);
             [currentSpeakers addObjectsFromArray:speakersResult];
         }
         
-        currentProgress += progressIncrement;
         
     }
     
@@ -246,19 +240,14 @@
             [NSException raise:@"Fetch Failed"
                         format:@"Reason: %@", [eventsError localizedDescription]];
         }else{
-            NSLog(@"Event fetch successful %lu itmes", (unsigned long)[eventsResult count]);
+            NSLog(@"Event fetch successful %lu events previously stored in database.", (unsigned long)[eventsResult count]);
             [currentEvents addObjectsFromArray:eventsResult];
             
         }
         
-        currentProgress += progressIncrement;
     }
     
     //Now update currentEvents and currentSpeakers with data retrieved from JSON
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     for(NSDictionary *eventInfo in jsonObject){
         //Event Date, formatted and converted  to NSDate
@@ -268,91 +257,69 @@
         if(addTheEvent){
             if(![self addEvent:eventInfo andDate:eventTimeAndDate]){
                 NSLog(@"Event Not Added");
+            }else{
+//                NSLog(@"New Event Added: %@ on %@", getValue(eventInfo, @"eventName"), eventTimeAndDate);
             }
         }
         
-        currentProgress += progressIncrement;
     }
     
     allEvents = [NSArray arrayWithArray:currentEvents];
     
-    NSPredicate *userAddedFilter = [NSPredicate
-                                    predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings)
-                                    {
-                                        return [[(Event *) evaluatedObject addedToUser] boolValue];
-                                    }
-                                    ];
-    
     allUserEvents = [NSMutableArray arrayWithArray:[allEvents filteredArrayUsingPredicate:userAddedFilter]];
     
-    currentProgress += progressIncrement;
-    
     allSpeakers = [NSArray arrayWithArray:currentSpeakers];
-    currentProgress += progressIncrement;
     
-    //    NSLog(@"progress bar value = %f", progressValue);
     appDelegate(saveContext);
-    currentProgress += progressIncrement;
 }
 
 -(BOOL) checkIfEventExists: (NSDictionary *) eventData andDate: (NSDate *) date{
     //Check for existing speaker
+    NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
+    speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    EventSpeaker *existingSpeaker;
+    
     for(EventSpeaker *speaker in currentSpeakers){
-        NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
-        speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if([speaker.speakerName localizedCaseInsensitiveCompare: speakerNameTrimmed ] == NSOrderedSame){
             //We've found a speaker in our speakers list that matches the speaker of the current event
-            //            NSLog(@"Identical Speaker");
-            //Update Speaker Information if needed
-            if([speaker.speakerDepartment localizedCaseInsensitiveCompare:getValue(eventData, @"speakerDepartment")] !=NSOrderedSame){
-                [speaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
+            existingSpeaker = speaker;
+        }
+    }
+    
+    if(existingSpeaker){
+//        NSLog(@"Identical Speaker. %@", speakerNameTrimmed);
+        //Update Speaker Information if needed
+        if([existingSpeaker.speakerDepartment localizedCaseInsensitiveCompare:getValue(eventData, @"speakerDepartment")] !=NSOrderedSame){
+            [existingSpeaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
+        }
+        if([existingSpeaker.speakerOrganization localizedCaseInsensitiveCompare:getValue(eventData, @"speakerOrganization")] !=NSOrderedSame){
+            [existingSpeaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
+        }
+        
+        if([existingSpeaker.bio localizedCaseInsensitiveCompare:getValue(eventData, @"bio")]!=NSOrderedSame){
+            [existingSpeaker setBio: getValue(eventData, @"bio")];
+        }
+        
+        //Look through speakers events for this event
+        Event *duplicateEvent;
+        for(Event *speakersEvent in existingSpeaker.events){
+            if([speakersEvent.eventName localizedCaseInsensitiveCompare:getValue(eventData, @"eventName")] == NSOrderedSame){
+                if([speakersEvent.eventType localizedCaseInsensitiveCompare:getValue(eventData, @"eventType")] == NSOrderedSame){
+                duplicateEvent = speakersEvent;
+                }
             }
-            if([speaker.speakerOrganization localizedCaseInsensitiveCompare:getValue(eventData, @"speakerOrganization")] !=NSOrderedSame){
-                [speaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
-            }
-            
-            if([speaker.bio localizedCaseInsensitiveCompare:getValue(eventData, @"bio")]!=NSOrderedSame){
-                [speaker setBio: getValue(eventData, @"bio")];
-            }
-            
-            // Check if this speaker already has this event under their events set
-            for(Event *speakerEvent in currentEvents ){
-                if([speakerEvent.eventName localizedCaseInsensitiveCompare: getValue(eventData, @"eventName")] == NSOrderedSame){
-                    //                    NSLog(@"Identical Event");
-                    //Identical Event Name found in speakers events list
-                    //Check if any info needs to be updated
-                    //TODO Consider adding an "updated" property/flag to Events to let users know the event has been updated
-                    //Check For Time/Date Change
-                    if([speakerEvent.eventTimeAndDate compare: date] != NSOrderedSame){
-                        [speakerEvent setEventTimeAndDate:date];
-                    }
-                    
-                    //Check For Location Change
-                    if([speakerEvent.eventLocation localizedCaseInsensitiveCompare:getValue(eventData, @"eventLocation")] != NSOrderedSame){
-                        [speakerEvent setEventLocation:getValue(eventData, @"eventLocation")];
-                    }
-                    
-                    //Check For Type Change
-                    if([speakerEvent.eventType localizedCaseInsensitiveCompare:getValue(eventData, @"eventType")] != NSOrderedSame){
-                        [speakerEvent setEventType:getValue(eventData, @"eventType")];
-                    }
-                    
-                    
-                    //Check For Description Change
-                    if([speakerEvent.eventDescription localizedCaseInsensitiveCompare:getValue(eventData, @"description")] != NSOrderedSame){
-                        [speakerEvent setEventDescription:getValue(eventData, @"description")];
-                    }
-                    
-                    //Check For Event Link Change
-                    if( [speakerEvent.eventLink localizedCaseInsensitiveCompare:getValue(eventData, @"eventLink")]!= NSOrderedSame){
-                        [speakerEvent setEventLink:getValue(eventData, @"eventLink")];
-                    }
-                    
-                    return YES;
-                }//END EVENTNAME ==
-            }// END FOR EVENT
-        }//END IF SPEAKER ==
-    }//END FOR EVENTSPEAKER
+        }
+        
+        if(duplicateEvent){
+//            NSLog(@"Duplicate Event found, (%@) %@, %@", getValue(eventData, @"eventDate"), speakerNameTrimmed, getValue(eventData, @"eventName"));
+            //TODO Add some kind of management/consolidation in order to make sure we have the most up to dat event info
+            return YES;
+        }else{
+            NO;
+        }
+        
+    }
     return NO;
 }
 
@@ -371,6 +338,7 @@
     
     if(theSpeaker == nil){
         //Create a new speaker
+        NSLog(@"Creating new Speaker, %@", speakerNameTrimmed);
         theSpeaker = [NSEntityDescription insertNewObjectForEntityForName:@"EventSpeaker"
                                                    inManagedObjectContext:context];
         [theSpeaker setSpeakerName:speakerNameTrimmed];

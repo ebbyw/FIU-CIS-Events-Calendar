@@ -27,8 +27,6 @@
 #import "AppDelegate.h"
 #import "SplashViewController.h"
 #import "EventsViewController.h"
-#import "EventsView.h"
-#import "MyEventsView.h"
 
 #define kDarkBlueColor [UIColor colorWithRed:32/255.0f green:55/255.0f blue:106/255.0f alpha:1.0f]
 #define kGoldColor [UIColor colorWithRed:203/255.0f green:183/255.0f blue:72/255.0f alpha:1.0f]
@@ -44,15 +42,20 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    SplashViewController *splashScreen = [[SplashViewController alloc] init];
-    [self.window setRootViewController:splashScreen];
-    
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+//    SplashViewController *splashScreen = [[SplashViewController alloc] init];
+//    [self.window setRootViewController:splashScreen];
+//    
+//    self.window.backgroundColor = [UIColor whiteColor];
     
     [[UIBarButtonItem appearance] setTintColor:kGoldColor];
     [[UINavigationBar appearance] setTintColor:kDarkBlueColor];
     
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AppStoryboard" bundle:nil];
+    UIViewController *vc = [sb instantiateInitialViewController];
+    [self.window setRootViewController:vc];
+    
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 

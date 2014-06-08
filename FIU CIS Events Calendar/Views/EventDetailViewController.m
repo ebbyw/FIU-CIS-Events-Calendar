@@ -79,7 +79,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Email", @"iCal", @"Twitter", nil];
+                                                    otherButtonTitles:@"Email Event", @"Add to iCal", @"Tweet About It", nil];
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:[self.view window]];
@@ -162,19 +162,19 @@
             
         }//and these curly braces
             break;
-        case 3: //Facebook
-        {
-            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
-            //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-            //                    {
-            SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-            
-            [controller setInitialText:@"I'm thinking of attending:"];
-            [controller addURL:theEventLink];
-            [self presentViewController:controller animated:YES completion:Nil];
-            //                    }
-            
-        }
+//        case 3: //Facebook
+//        {
+//            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
+//            //                    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+//            //                    {
+//            SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+//            
+//            [controller setInitialText:@"I'm thinking of attending:"];
+//            [controller addURL:theEventLink];
+//            [self presentViewController:controller animated:YES completion:Nil];
+//            //                    }
+//            
+//        }
             break;
         default: //Out of bounds
             NSLog(@"Error, button is out of scope");
@@ -195,45 +195,20 @@
     
     event.startDate = currentEvent.eventTimeAndDate;
     event.endDate = [[NSDate alloc] initWithTimeInterval:3599 sinceDate:event.startDate];
+    event.location = currentEvent.eventLocation;
     
-    // Check if App has Permission to Post to the Calendar
-    alertView = [[UIAlertView alloc] initWithTitle:@"Please Wait"
-                                           message:@"One moment please..."
-                                          delegate:self
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:nil];
+    EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+    controller.eventStore = eventStore;
+    controller.event = event;
+    controller.editViewDelegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
     
-    [alertView show];
-    
-    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-        if (granted){
-            
-            //---- code here when user allows your app to access their calendar.
-            [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-            NSError *err;
-            [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
-            if(err){
-                iCalSuccess = NO;
-                NSLog(@"iCal Success set to NO");
-                
-            }else{
-                iCalSuccess = YES;
-                NSLog(@"iCal Success set to YES");
-            }
-        }else
-        {
-            iCalSuccess = NO;
-            NSLog(@"iCal Success set to NO");
-            
-            //----- code here when user does NOT allow your app to access their calendar.
-            [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-            NSError *err;
-            [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
-        }
-        
-        [self displayiCalAlert];
-    }];
-    
+}
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+          didCompleteWithAction:(EKEventEditViewAction)action
+{
+    [self dismissViewControllerAnimated: controller completion:nil];
 }
 
 -(void) displayiCalAlert{
