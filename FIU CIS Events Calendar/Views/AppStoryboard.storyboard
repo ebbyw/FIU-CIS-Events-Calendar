@@ -17,11 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B9l-Ui-ILb">
-                                <rect key="frame" x="59" y="400" width="203" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </progressView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FIUCISLogoSquare.png" translatesAutoresizingMaskIntoConstraints="NO" id="TWT-5V-23O">
                                 <rect key="frame" x="85" y="157" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -34,12 +29,15 @@
                                 <color key="textColor" red="0.85882352939999995" green="0.76862745099999996" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0Yl-8W-La3">
+                                <rect key="frame" x="142" y="410" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.078431372550000003" green="0.14901960780000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="loadingLabel" destination="I2A-7w-XzK" id="sVo-Vs-5sn"/>
-                        <outlet property="loadingProgressBar" destination="B9l-Ui-ILb" id="3m5-Pa-0BC"/>
                         <segue destination="LnT-uF-9Z8" kind="modal" identifier="GoToMain" modalTransitionStyle="crossDissolve" id="hlV-sl-87z"/>
                     </connections>
                 </viewController>
