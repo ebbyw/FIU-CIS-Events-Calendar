@@ -22,11 +22,13 @@ static char URL_KEY;
 	
 	NSData *cachedData = [speaker photo];
     
-	if (cachedData) {   
- 	   self.imageURL   = nil;
- 	   self.image      = [UIImage imageWithData:cachedData];
-	   return;
+	if (cachedData) {
+        self.imageURL   = nil;
+        self.image      = [UIImage imageWithData:cachedData];
+        return;
 	}
+    
+//    NSLog(@"Downloading Image from %@",url);
 
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
 	dispatch_async(queue, ^{
@@ -35,15 +37,15 @@ static char URL_KEY;
 		UIImage *imageFromData = [UIImage imageWithData:data];
 		
 		[speaker setPhoto:data];
-
+        
 		if (imageFromData) {
-			if ([self.imageURL.absoluteString isEqualToString:url.absoluteString]) {
+//			if ([self.imageURL.absoluteString isEqualToString:url.absoluteString]) {
 				dispatch_sync(dispatch_get_main_queue(), ^{
 					self.image = imageFromData;
 				});
-			} else {
-				NSLog(@"urls are not the same, bailing out!");
-			}
+//			} else {
+//				NSLog(@"urls are not the same, bailing out!");
+//			}
 		}
 		self.imageURL = nil;
 	});

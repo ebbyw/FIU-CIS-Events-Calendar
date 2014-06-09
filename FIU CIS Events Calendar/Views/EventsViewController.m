@@ -20,6 +20,7 @@
 @interface EventsViewController (){
     NSArray *dataSource;
     NSDateFormatter *dateFormatter;
+    BOOL noEvents;
 }
 
 @end
@@ -50,13 +51,20 @@
 //}
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     static unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-
+    
+    if(noEvents){
+        NSLog(@"NO EVENTS!");
+        UICollectionViewCell *noEventsCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NoEventsID" forIndexPath:indexPath];
+        
+        return noEventsCell;
+    }else{
+    
     EventCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventID" forIndexPath:indexPath];
     
     Event *cellEvent = [dataSource objectAtIndex:indexPath.item];
-
+    
     NSDateComponents *eventDate = [[NSCalendar currentCalendar] components:unitFlags fromDate:cellEvent.eventTimeAndDate];
     
     [cell.cellDayValue setText:[NSString stringWithFormat:@"%02ld",(long)eventDate.day]];
@@ -66,14 +74,20 @@
     [cell.cellEventTitle setText:cellEvent.eventName];
     [cell.cellSpeakerName setText: cellEvent.speaker.speakerName];
     [cell.cellSpeakerPhoto loadImageFromURL:[cellEvent.speaker imageURL]
-                            placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
-                                     speaker:cellEvent.speaker];
-//    NSLog(@"Event returned: %@, %@", cellEvent.eventName, cellEvent.speaker.speakerName);
+                           placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
+                                    speaker:cellEvent.speaker];
+    //    NSLog(@"Event returned: %@, %@", cellEvent.eventName, cellEvent.speaker.speakerName);
+    
     return cell;
+    }
     
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    noEvents = [dataSource count] == 0;
+    if(noEvents){
+        return 1;
+    }
     return [dataSource count];
 }
 
@@ -81,7 +95,7 @@
     NSLog(@"Cell Selected");
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.contentView.backgroundColor = kDarkBlueColor;
-
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -95,7 +109,7 @@
     if ([segue.identifier isEqualToString:@"DetailView"])
     {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
-
+        
         EventDetailViewController *detailView = segue.destinationViewController;
         [detailView receiveEventObject:[dataSource objectAtIndex:indexPath.item]];
     }

@@ -20,28 +20,36 @@
 		4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94BA5318E37490002ADF90 /* Default-568h@2x.png */; };
 		4D9E502D190309FE00D80FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9E502C190309FE00D80FEF /* EventKit.framework */; };
 		4DB3B04218FAEF79001F1364 /* EventsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B04018FAEF79001F1364 /* EventsModel.xcdatamodeld */; };
-		4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */; };
-		4DB3B04A18FB1291001F1364 /* MyEventsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */; };
 		4DB3B04D18FB5313001F1364 /* NSDate+Reporting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3B04C18FB5313001F1364 /* NSDate+Reporting.m */; };
-		4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */; };
 		4DE81B9D18FC98D00015A42E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE81B9C18FC98D00015A42E /* Social.framework */; };
-		622AC69618F9A4D200FA40DA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 622AC69518F9A4D200FA40DA /* placeholder.png */; };
 		62A4028C191FE40C005DA31A /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A4028B191FE40C005DA31A /* UIImageView+Network.m */; };
 		62C1A06A193D409D006E563B /* AppStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62C1A069193D409D006E563B /* AppStoryboard.storyboard */; };
 		62C1A06D193D7864006E563B /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C1A06C193D7864006E563B /* EventsViewController.m */; };
 		62C1A070193D7892006E563B /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C1A06F193D7892006E563B /* EventCell.m */; };
 		62C1A076193DAE73006E563B /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C1A075193DAE73006E563B /* EventDetailViewController.m */; };
-		62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */; };
-		62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */; };
-		62CBE9BB18F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */; };
 		62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */; };
-		62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */; };
-		62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */; };
 		62CBE9C818F8586D00375C96 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9C618F8586D00375C96 /* SplashViewController.m */; };
 		62CBE9CC18F86B8800375C96 /* EventSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CB18F86B8800375C96 /* EventSpeaker.m */; };
 		62CBE9CF18F86C4A00375C96 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9CE18F86C4A00375C96 /* Event.m */; };
 		62CBE9D218F86CCF00375C96 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CBE9D118F86CCF00375C96 /* Events.m */; };
 		62CBE9D418F8716800375C96 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62CBE9D318F8716800375C96 /* CoreData.framework */; };
+		62E258CF194569FE00B40374 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62E258CE194569FE00B40374 /* Images.xcassets */; };
+		62E258E119456CC600B40374 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D119456CC600B40374 /* Icon-40.png */; };
+		62E258E219456CC600B40374 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D219456CC600B40374 /* Icon-40@2x.png */; };
+		62E258E319456CC600B40374 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D319456CC600B40374 /* Icon-60.png */; };
+		62E258E419456CC600B40374 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D419456CC600B40374 /* Icon-60@2x.png */; };
+		62E258E519456CC600B40374 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D519456CC600B40374 /* Icon-72.png */; };
+		62E258E619456CC600B40374 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D619456CC600B40374 /* Icon-72@2x.png */; };
+		62E258E719456CC600B40374 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D719456CC600B40374 /* Icon-76.png */; };
+		62E258E819456CC600B40374 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D819456CC600B40374 /* Icon-76@2x.png */; };
+		62E258E919456CC600B40374 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258D919456CC600B40374 /* Icon-Small-50.png */; };
+		62E258EA19456CC600B40374 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DA19456CC600B40374 /* Icon-Small-50@2x.png */; };
+		62E258EB19456CC600B40374 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DB19456CC600B40374 /* Icon-Small.png */; };
+		62E258EC19456CC600B40374 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DC19456CC600B40374 /* Icon-Small@2x.png */; };
+		62E258ED19456CC600B40374 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DD19456CC600B40374 /* Icon.png */; };
+		62E258EE19456CC600B40374 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DE19456CC600B40374 /* Icon@2x.png */; };
+		62E258EF19456CC600B40374 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258DF19456CC600B40374 /* iTunesArtwork.png */; };
+		62E258F019456CC600B40374 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E258E019456CC600B40374 /* iTunesArtwork@2x.png */; };
 		62F5FCB41944D977003A77D5 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F5FCB31944D977003A77D5 /* EventKitUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,13 +72,9 @@
 		4D94BA5318E37490002ADF90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4D9E502C190309FE00D80FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		4DB3B04118FAEF79001F1364 /* EventsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventsModel.xcdatamodel; sourceTree = "<group>"; };
-		4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EventsIcon@2x.png"; path = "../FIU CIS Events Calendar/Views/EventsIcon@2x.png"; sourceTree = "<group>"; };
-		4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MyEventsIcon@2x.png"; path = "../FIU CIS Events Calendar/Views/MyEventsIcon@2x.png"; sourceTree = "<group>"; };
 		4DB3B04B18FB5313001F1364 /* NSDate+Reporting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Reporting.h"; path = "FIU CIS Events Calendar/Data/NSDate+Reporting.h"; sourceTree = "<group>"; };
 		4DB3B04C18FB5313001F1364 /* NSDate+Reporting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Reporting.m"; path = "FIU CIS Events Calendar/Data/NSDate+Reporting.m"; sourceTree = "<group>"; };
-		4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FIUCISLogo.png; path = ../FIUCISLogo.png; sourceTree = "<group>"; };
 		4DE81B9C18FC98D00015A42E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		622AC69518F9A4D200FA40DA /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = "../FIU CIS Events Calendar/Views/placeholder.png"; sourceTree = "<group>"; };
 		62A4028A191FE40C005DA31A /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
 		62A4028B191FE40C005DA31A /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
 		62C1A069193D409D006E563B /* AppStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AppStoryboard.storyboard; path = "FIU CIS Events Calendar/Views/AppStoryboard.storyboard"; sourceTree = "<group>"; };
@@ -80,12 +84,7 @@
 		62C1A06F193D7892006E563B /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventCell.m; path = "FIU CIS Events Calendar/Views/EventCell.m"; sourceTree = "<group>"; };
 		62C1A074193DAE73006E563B /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailViewController.h; path = "FIU CIS Events Calendar/Views/EventDetailViewController.h"; sourceTree = "<group>"; };
 		62C1A075193DAE73006E563B /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailViewController.m; path = "FIU CIS Events Calendar/Views/EventDetailViewController.m"; sourceTree = "<group>"; };
-		62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPad.png"; sourceTree = "<group>"; };
-		62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPadRetina.png"; sourceTree = "<group>"; };
-		62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-iPhoneRetina.png"; sourceTree = "<group>"; };
 		62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FIUCISLogoSquare.png; sourceTree = "<group>"; };
-		62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPhoneRetina.png"; sourceTree = "<group>"; };
-		62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FIUCISLogo-Spotlight-iPad.png"; sourceTree = "<group>"; };
 		62CBE9C518F8586D00375C96 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashViewController.h; path = "FIU CIS Events Calendar/Views/SplashViewController.h"; sourceTree = "<group>"; };
 		62CBE9C618F8586D00375C96 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplashViewController.m; path = "FIU CIS Events Calendar/Views/SplashViewController.m"; sourceTree = "<group>"; };
 		62CBE9CA18F86B8800375C96 /* EventSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventSpeaker.h; path = "FIU CIS Events Calendar/Data/EventSpeaker.h"; sourceTree = "<group>"; };
@@ -95,6 +94,23 @@
 		62CBE9D018F86CCF00375C96 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Events.h; path = "FIU CIS Events Calendar/Data/Events.h"; sourceTree = "<group>"; };
 		62CBE9D118F86CCF00375C96 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Events.m; path = "FIU CIS Events Calendar/Data/Events.m"; sourceTree = "<group>"; };
 		62CBE9D318F8716800375C96 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		62E258CE194569FE00B40374 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		62E258D119456CC600B40374 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
+		62E258D219456CC600B40374 /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
+		62E258D319456CC600B40374 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
+		62E258D419456CC600B40374 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		62E258D519456CC600B40374 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		62E258D619456CC600B40374 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		62E258D719456CC600B40374 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		62E258D819456CC600B40374 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
+		62E258D919456CC600B40374 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		62E258DA19456CC600B40374 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		62E258DB19456CC600B40374 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		62E258DC19456CC600B40374 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		62E258DD19456CC600B40374 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		62E258DE19456CC600B40374 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		62E258DF19456CC600B40374 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		62E258E019456CC600B40374 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		62F5FCB31944D977003A77D5 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -157,6 +173,7 @@
 			children = (
 				4D94BA4C18E37490002ADF90 /* AppDelegate.h */,
 				4D94BA4D18E37490002ADF90 /* AppDelegate.m */,
+				62E258CE194569FE00B40374 /* Images.xcassets */,
 				4D94BA4418E37490002ADF90 /* Supporting Files */,
 			);
 			path = "FIU CIS Events Calendar";
@@ -215,19 +232,34 @@
 		62CBE9B418F84BD900375C96 /* App Images */ = {
 			isa = PBXGroup;
 			children = (
-				4DB3B04718FB1291001F1364 /* EventsIcon@2x.png */,
-				62CBE9C118F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png */,
-				4DC28C1C18EA2675006BB5E8 /* FIUCISLogo.png */,
-				62CBE9BE18F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png */,
-				622AC69518F9A4D200FA40DA /* placeholder.png */,
-				62CBE9B518F84BD900375C96 /* FIUCISLogo-iPad.png */,
-				62CBE9B618F84BD900375C96 /* FIUCISLogo-iPadRetina.png */,
-				4DB3B04818FB1291001F1364 /* MyEventsIcon@2x.png */,
-				62CBE9B718F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png */,
+				62E258D019456CC600B40374 /* ios7 */,
 				62CBE9B818F84BD900375C96 /* FIUCISLogoSquare.png */,
 			);
 			name = "App Images";
 			path = "App Icon";
+			sourceTree = "<group>";
+		};
+		62E258D019456CC600B40374 /* ios7 */ = {
+			isa = PBXGroup;
+			children = (
+				62E258D119456CC600B40374 /* Icon-40.png */,
+				62E258D219456CC600B40374 /* Icon-40@2x.png */,
+				62E258D319456CC600B40374 /* Icon-60.png */,
+				62E258D419456CC600B40374 /* Icon-60@2x.png */,
+				62E258D519456CC600B40374 /* Icon-72.png */,
+				62E258D619456CC600B40374 /* Icon-72@2x.png */,
+				62E258D719456CC600B40374 /* Icon-76.png */,
+				62E258D819456CC600B40374 /* Icon-76@2x.png */,
+				62E258D919456CC600B40374 /* Icon-Small-50.png */,
+				62E258DA19456CC600B40374 /* Icon-Small-50@2x.png */,
+				62E258DB19456CC600B40374 /* Icon-Small.png */,
+				62E258DC19456CC600B40374 /* Icon-Small@2x.png */,
+				62E258DD19456CC600B40374 /* Icon.png */,
+				62E258DE19456CC600B40374 /* Icon@2x.png */,
+				62E258DF19456CC600B40374 /* iTunesArtwork.png */,
+				62E258E019456CC600B40374 /* iTunesArtwork@2x.png */,
+			);
+			path = ios7;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +290,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Ebby Wahman";
+				TargetAttributes = {
+					4D94BA3918E37490002ADF90 = {
+						DevelopmentTeam = 59V6J7YK34;
+					};
+				};
 			};
 			buildConfigurationList = 4D94BA3518E37490002ADF90 /* Build configuration list for PBXProject "FIU CIS Events Calendar" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -281,21 +318,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62E258E319456CC600B40374 /* Icon-60.png in Resources */,
+				62E258EF19456CC600B40374 /* iTunesArtwork.png in Resources */,
 				4D94BA4818E37490002ADF90 /* InfoPlist.strings in Resources */,
+				62E258E119456CC600B40374 /* Icon-40.png in Resources */,
+				62E258CF194569FE00B40374 /* Images.xcassets in Resources */,
+				62E258E719456CC600B40374 /* Icon-76.png in Resources */,
+				62E258E219456CC600B40374 /* Icon-40@2x.png in Resources */,
+				62E258E519456CC600B40374 /* Icon-72.png in Resources */,
 				4D94BA5018E37490002ADF90 /* Default.png in Resources */,
-				62CBE9C018F84D6E00375C96 /* FIUCISLogo-Spotlight-iPhoneRetina.png in Resources */,
-				4DB3B04A18FB1291001F1364 /* MyEventsIcon@2x.png in Resources */,
-				4DB3B04918FB1291001F1364 /* EventsIcon@2x.png in Resources */,
+				62E258E619456CC600B40374 /* Icon-72@2x.png in Resources */,
 				4D94BA5218E37490002ADF90 /* Default@2x.png in Resources */,
-				62CBE9B918F84BD900375C96 /* FIUCISLogo-iPad.png in Resources */,
+				62E258EC19456CC600B40374 /* Icon-Small@2x.png in Resources */,
+				62E258E419456CC600B40374 /* Icon-60@2x.png in Resources */,
 				4D94BA5418E37490002ADF90 /* Default-568h@2x.png in Resources */,
-				62CBE9BB18F84BD900375C96 /* FIUCISLogo-iPhoneRetina.png in Resources */,
-				62CBE9BA18F84BD900375C96 /* FIUCISLogo-iPadRetina.png in Resources */,
+				62E258F019456CC600B40374 /* iTunesArtwork@2x.png in Resources */,
+				62E258EB19456CC600B40374 /* Icon-Small.png in Resources */,
+				62E258EE19456CC600B40374 /* Icon@2x.png in Resources */,
+				62E258E919456CC600B40374 /* Icon-Small-50.png in Resources */,
 				62CBE9BC18F84BD900375C96 /* FIUCISLogoSquare.png in Resources */,
 				62C1A06A193D409D006E563B /* AppStoryboard.storyboard in Resources */,
-				62CBE9C218F84DC300375C96 /* FIUCISLogo-Spotlight-iPad.png in Resources */,
-				622AC69618F9A4D200FA40DA /* placeholder.png in Resources */,
-				4DC28C1D18EA2675006BB5E8 /* FIUCISLogo.png in Resources */,
+				62E258EA19456CC600B40374 /* Icon-Small-50@2x.png in Resources */,
+				62E258E819456CC600B40374 /* Icon-76@2x.png in Resources */,
+				62E258ED19456CC600B40374 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +406,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -385,7 +430,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -395,6 +440,9 @@
 		4D94BA5818E37490002ADF90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIU CIS Events Calendar/FIU CIS Events Calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -406,7 +454,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -414,6 +462,9 @@
 		4D94BA5918E37490002ADF90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIU CIS Events Calendar/FIU CIS Events Calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -425,7 +476,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

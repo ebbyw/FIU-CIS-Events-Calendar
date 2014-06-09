@@ -65,8 +65,6 @@
 
 -(void) fetchEvents{
     
-    [loadingProgressBar setProgress: 0 animated:YES];
-    
     jsonData = [[NSMutableData alloc] init];
     
     NSURL *url = [NSURL URLWithString:
@@ -74,20 +72,20 @@
                   @kJSONKey];
     
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
-    
-    [loadingProgressBar setProgress: 0.8 animated:YES];
-    [[Events defaultEvents] setCurrentProgress:[loadingProgressBar progress]];
 }
 
 -(void) connection: (NSURLConnection *) conn didReceiveData:(NSData *)data{
+    
     [jsonData appendData:data];
 }
 
 -(void) connectionDidFinishLoading: (NSURLConnection *) conn{
     NSError *error;
+    
     jsonReceivedData = [NSJSONSerialization JSONObjectWithData:jsonData
                                                        options:NSJSONReadingMutableContainers
                                                          error:&error];
@@ -108,9 +106,7 @@
             [[Events defaultEvents] setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
             
             [[Events defaultEvents] loadEventsList];
-            
-            [loadingProgressBar setProgress: [[Events defaultEvents] currentProgress]];
-            
+                        
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
             jsonData = nil;

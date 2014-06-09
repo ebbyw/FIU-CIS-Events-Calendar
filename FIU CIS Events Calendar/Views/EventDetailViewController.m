@@ -79,7 +79,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Email Event", @"Add to iCal", @"Tweet About It", nil];
+                                                    otherButtonTitles:@"Email Event", @"Add to iCal", @"Tweet About It", @"View in Browser", nil];
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:[self.view window]];
@@ -99,7 +99,7 @@
         case 0: //Email
         {
             //Email Subject
-            NSString *emailTitle =@"Test Email";
+            NSString *emailTitle = [NSString stringWithFormat:@"FIU %@ by %@", currentEvent.eventType, currentEvent.speaker.speakerName];
             //Email Content
             NSString *messageBody = [NSString stringWithFormat:@"Thinking of attending: %@", theEventLink];
             
@@ -162,6 +162,9 @@
             
         }//and these curly braces
             break;
+        case 3: //View in Browser
+            [[UIApplication sharedApplication] openURL:theEventLink];
+            break;
 //        case 3: //Facebook
 //        {
 //            NSLog(@"The %@ button was tapped", [actionSheet buttonTitleAtIndex:buttonIndex]);
@@ -208,7 +211,7 @@
 - (void)eventEditViewController:(EKEventEditViewController *)controller
           didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissViewControllerAnimated: controller completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) displayiCalAlert{

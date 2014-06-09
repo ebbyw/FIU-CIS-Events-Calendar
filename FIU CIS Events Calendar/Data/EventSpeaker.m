@@ -39,6 +39,8 @@
 @dynamic photo;
 
 -(NSURL *) imageURL{
+    self.imageLink = [self.imageLink stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
     return [NSURL URLWithString:self.imageLink];
 }
 
