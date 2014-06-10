@@ -25,7 +25,7 @@
 //THE SOFTWARE.
 
 #import "SplashViewController.h"
-#import "EventsView.h"
+//#import "EventsView.h"
 #import "Events.h"
 #import "AppDelegate.h"
 
@@ -64,9 +64,6 @@
 #pragma mark Retrieve Events Data from FIU Servers
 
 -(void) fetchEvents{
-    eventsData = [Events defaultEvents];
-    
-    [loadingProgressBar setProgress: 0 animated:YES];
     
     jsonData = [[NSMutableData alloc] init];
     
@@ -75,20 +72,20 @@
                   @kJSONKey];
     
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
     connection = [[NSURLConnection alloc] initWithRequest:req
                                                  delegate:self
                                          startImmediately:YES];
-    
-    [loadingProgressBar setProgress: 0.8 animated:YES];
-    [eventsData setCurrentProgress:[loadingProgressBar progress]];
 }
 
 -(void) connection: (NSURLConnection *) conn didReceiveData:(NSData *)data{
+    
     [jsonData appendData:data];
 }
 
 -(void) connectionDidFinishLoading: (NSURLConnection *) conn{
     NSError *error;
+    
     jsonReceivedData = [NSJSONSerialization JSONObjectWithData:jsonData
                                                        options:NSJSONReadingMutableContainers
                                                          error:&error];
@@ -106,12 +103,10 @@
             }
             
             //Send the JSON Object to Our Events Class
-            [eventsData setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
+            [[Events defaultEvents] setJsonObject: [NSArray arrayWithArray: jsonReceivedData]];
             
-            [eventsData loadEventsList];
-            
-            [loadingProgressBar setProgress: [eventsData currentProgress]];
-            
+            [[Events defaultEvents] loadEventsList];
+                        
             //release these variables, we don't need them anymore
             jsonReceivedData = nil;
             jsonData = nil;
@@ -138,8 +133,8 @@
 
 
 -(void) callNextView{
-    [loadingProgressBar setProgress: 1 animated:YES];
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] callMainAppView];
+     [self performSegueWithIdentifier:@"GoToMain" sender:self];
 }
+
 
 @end

@@ -26,8 +26,7 @@
 
 #import "AppDelegate.h"
 #import "SplashViewController.h"
-#import "EventsView.h"
-#import "MyEventsView.h"
+#import "EventsViewController.h"
 
 #define kDarkBlueColor [UIColor colorWithRed:32/255.0f green:55/255.0f blue:106/255.0f alpha:1.0f]
 #define kGoldColor [UIColor colorWithRed:203/255.0f green:183/255.0f blue:72/255.0f alpha:1.0f]
@@ -43,15 +42,20 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    SplashViewController *splashScreen = [[SplashViewController alloc] init];
-    [self.window setRootViewController:splashScreen];
-    
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+//    SplashViewController *splashScreen = [[SplashViewController alloc] init];
+//    [self.window setRootViewController:splashScreen];
+//    
+//    self.window.backgroundColor = [UIColor whiteColor];
     
     [[UIBarButtonItem appearance] setTintColor:kGoldColor];
     [[UINavigationBar appearance] setTintColor:kDarkBlueColor];
     
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AppStoryboard" bundle:nil];
+    UIViewController *vc = [sb instantiateInitialViewController];
+    [self.window setRootViewController:vc];
+    
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -87,48 +91,54 @@
 }
 
 -(void) callMainAppView{
-    EventsView *eventsView = [[EventsView alloc] init];
-    MyEventsView *myEventsView = [[MyEventsView alloc] init];
-    
-    
-    UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
-    
-    UINavigationController *myEventsNavigation = [[UINavigationController alloc]initWithRootViewController:myEventsView];
-
-    UITabBarController *mainTabsController = [[UITabBarController alloc] init];
-    
-    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];
-    
-    [mainTabsController setViewControllers:viewControllers];
-    
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-    {
-        UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
-        
-        UIViewController *mainView = [[UIViewController alloc] init];
-        [mainView.view setBackgroundColor:[UIColor colorWithRed:20.0/255.0
-                                                          green:38.0/255.0
-                                                           blue:74.0/255.0
-                                                          alpha:255]];
-        
-        UIImageView *fiuLogo = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"FIUCISLogo"]];
-        
-        CGPoint center = CGPointMake((mainView.view.bounds.size.width/2),
-                                     (mainView.view.bounds.size.height/2) - fiuLogo.frame.size.height);
-        
-        [fiuLogo setCenter:center];
-        
-        [mainView.view addSubview:fiuLogo];
-        
-        
-        splitViewController.viewControllers = [NSArray arrayWithObjects:mainTabsController, mainView, nil];
-        
-        [self.window setRootViewController:splitViewController];
-    }else{
-        [self.window setRootViewController:mainTabsController];
-    }
-    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AppStoryboard" bundle:nil];
+    UIViewController *vc = [sb instantiateInitialViewController];
+    [self.window setRootViewController:vc];
 }
+
+//-(void) callMainAppView{
+//    EventsView *eventsView = [[EventsView alloc] init];
+//    MyEventsView *myEventsView = [[MyEventsView alloc] init];
+//    
+//    
+//    UINavigationController *eventsNavigation = [[UINavigationController alloc]initWithRootViewController:eventsView];
+//    
+//    UINavigationController *myEventsNavigation = [[UINavigationController alloc]initWithRootViewController:myEventsView];
+//
+//    UITabBarController *mainTabsController = [[UITabBarController alloc] init];
+//    
+//    NSArray *viewControllers = [NSArray arrayWithObjects:eventsNavigation,myEventsNavigation,nil];
+//    
+//    [mainTabsController setViewControllers:viewControllers];
+//    
+//    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+//    {
+//        UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
+//        
+//        UIViewController *mainView = [[UIViewController alloc] init];
+//        [mainView.view setBackgroundColor:[UIColor colorWithRed:20.0/255.0
+//                                                          green:38.0/255.0
+//                                                           blue:74.0/255.0
+//                                                          alpha:255]];
+//        
+//        UIImageView *fiuLogo = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"FIUCISLogo"]];
+//        
+//        CGPoint center = CGPointMake((mainView.view.bounds.size.width/2),
+//                                     (mainView.view.bounds.size.height/2) - fiuLogo.frame.size.height);
+//        
+//        [fiuLogo setCenter:center];
+//        
+//        [mainView.view addSubview:fiuLogo];
+//        
+//        
+//        splitViewController.viewControllers = [NSArray arrayWithObjects:mainTabsController, mainView, nil];
+//        
+//        [self.window setRootViewController:splitViewController];
+//    }else{
+//        [self.window setRootViewController:mainTabsController];
+//    }
+//    
+//}
 
 
 #pragma mark - Core Data stack

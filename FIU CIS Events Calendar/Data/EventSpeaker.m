@@ -26,6 +26,7 @@
 
 #import "EventSpeaker.h"
 
+#define getValue(x,y) (([ x valueForKey:y] == [NSNull null]) ? nil : [ x valueForKey:y])
 
 @implementation EventSpeaker
 
@@ -38,7 +39,49 @@
 @dynamic photo;
 
 -(NSURL *) imageURL{
+    self.imageLink = [self.imageLink stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
     return [NSURL URLWithString:self.imageLink];
+}
+
++(EventSpeaker *) createSpeakerFromDictionary: (NSDictionary *) dict{
+    EventSpeaker *theSpeaker = [[EventSpeaker alloc] init];
+    NSString *speakerNameTrimmed = [getValue(dict,@"speakerName") stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    theSpeaker.speakerName = speakerNameTrimmed;
+    theSpeaker.speakerDepartment = getValue(dict, @"speakerDepartment");
+    theSpeaker.speakerOrganization = getValue(dict, @"speakerOrganization");
+    theSpeaker.imageLink = getValue(dict, @"imageLink");
+    theSpeaker.bio = getValue(dict, @"bio");
+    
+    return theSpeaker;
+}
+
+- (BOOL) updateSpeaker: (EventSpeaker *) otherSpeaker{
+    BOOL updatedAValue = NO;
+    if ([otherSpeaker.bio localizedCaseInsensitiveCompare: self.bio] != NSOrderedSame){
+        self.bio = otherSpeaker.bio;
+        updatedAValue = YES;
+    }
+    if ([otherSpeaker.speakerName localizedCaseInsensitiveCompare: self.speakerName] != NSOrderedSame){
+        self.speakerName = otherSpeaker.speakerName;
+        updatedAValue = YES;
+    }
+    if ([otherSpeaker.speakerOrganization localizedCaseInsensitiveCompare: self.speakerOrganization] != NSOrderedSame){
+        self.speakerOrganization = otherSpeaker.speakerOrganization;
+        updatedAValue = YES;
+    }
+    if ([otherSpeaker.speakerDepartment localizedCaseInsensitiveCompare: self.speakerDepartment] != NSOrderedSame){
+        self.speakerDepartment = otherSpeaker.speakerDepartment;
+        updatedAValue = YES;
+    }
+    
+    //TODO: Need to clear photo cache and re-download image
+    if ([otherSpeaker.imageLink localizedCaseInsensitiveCompare: self.imageLink] != NSOrderedSame){
+        self.imageLink = otherSpeaker.imageLink;
+        updatedAValue = YES;
+    }
+    
+    return updatedAValue;
 }
 
 @end

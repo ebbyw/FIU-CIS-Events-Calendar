@@ -31,16 +31,12 @@
 @interface SplashViewController : UIViewController{
     
     //View Related Properties
-    IBOutlet UILabel *loadingLabel;
-    IBOutlet UIProgressView *loadingProgressBar;
-    
+    IBOutlet UILabel *loadingLabel;    
     //Data Acquring Related Properties
     NSURLConnection *connection;
     NSMutableData *jsonData;
     NSMutableArray *jsonReceivedData;
-    
-    Events *eventsData;
-    
+        
 }
 
 -(void) fetchEvents;

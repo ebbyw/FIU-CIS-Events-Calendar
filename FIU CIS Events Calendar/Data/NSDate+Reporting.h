@@ -54,6 +54,9 @@
 // Return midnight today.
 + (NSDate *)midnightToday;
 
+// Return midnight yesterday //Added by Ebby
++ (NSDate *)midnightYesterday;
+
 // Return midnight tomorrow.
 + (NSDate *)midnightTomorrow;
 
@@ -61,6 +64,9 @@
 // zero out the time components. For example, if the specified date is 
 // April 15 2012 10:00 AM, the return value will be April 16 2012 10:00 AM.
 + (NSDate *)oneDayAfter:(NSDate *)date;
+
+//One Day before
++(NSDate *) oneDayBefore:(NSDate *) date;
 
 // Returns midnight of the first day of the current, previous or next Month.
 // Note: firstDayOfNextMonth returns midnight of the first day of next month,

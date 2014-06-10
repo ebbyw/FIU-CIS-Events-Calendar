@@ -54,6 +54,8 @@
 -(NSArray *) allEvents;
 -(NSArray *) allSpeakers;
 -(NSArray *) allUserEvents;
+-(NSArray *) upcomingEvents;
+-(NSArray *) pastEvents;
 
 -(EventSpeaker *) createSpeaker;
 -(Event *) createEvent;
