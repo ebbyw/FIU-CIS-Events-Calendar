@@ -39,13 +39,13 @@ static char URL_KEY;
 		[speaker setPhoto:data];
         
 		if (imageFromData) {
-//			if ([self.imageURL.absoluteString isEqualToString:url.absoluteString]) {
+			if ([self.imageURL.absoluteString isEqualToString:url.absoluteString]) {
 				dispatch_sync(dispatch_get_main_queue(), ^{
 					self.image = imageFromData;
 				});
-//			} else {
+			} else {
 //				NSLog(@"urls are not the same, bailing out!");
-//			}
+			}
 		}
 		self.imageURL = nil;
 	});

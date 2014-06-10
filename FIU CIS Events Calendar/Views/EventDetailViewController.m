@@ -53,7 +53,7 @@
         [monthFormatter setDateFormat:@"MMM"];
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"hh:mm a"];
-        [timeFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+//        [timeFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 
         NSLog(@"%@",currentEvent.eventTimeAndDate);
         [self.eventDayAndMonth setText:[NSString stringWithFormat:@"%ld %@",(long)eventDate.day,
@@ -195,9 +195,9 @@
     
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
     event.title = [NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName];
-    
+//    NSDate *eventTime = [NSDate dateWithTimeInterval:-[[NSTimeZone localTimeZone] secondsFromGMT] sinceDate:currentEvent.eventTimeAndDate];
     event.startDate = currentEvent.eventTimeAndDate;
-    event.endDate = [[NSDate alloc] initWithTimeInterval:3599 sinceDate:event.startDate];
+    event.endDate = [[NSDate alloc] initWithTimeInterval:3600 sinceDate:event.startDate];
     event.location = currentEvent.eventLocation;
     
     EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
@@ -214,28 +214,28 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) displayiCalAlert{
-    [alertView dismissWithClickedButtonIndex:-1 animated:YES];
-    
-    UIAlertView *iCalAlert;
-    
-    if(iCalSuccess){
-        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
-                                               message:[NSString stringWithFormat:@"Event added as \"%@\"",[NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName]]
-                                              delegate:self
-                                     cancelButtonTitle:@"OK"
-                                     otherButtonTitles:nil];
-        
-    }else{
-        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Add to iCal"
-                                               message:@"Sorry, an error occured and the event was not added to iCal"
-                                              delegate:self
-                                     cancelButtonTitle:@"OK"
-                                     otherButtonTitles:nil];
-    }
-    
-    [iCalAlert show];
-}
+//-(void) displayiCalAlert{
+//    [alertView dismissWithClickedButtonIndex:-1 animated:YES];
+//    
+//    UIAlertView *iCalAlert;
+//    
+//    if(iCalSuccess){
+//        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Event Added to iCal!"
+//                                               message:[NSString stringWithFormat:@"Event added as \"%@\"",[NSString stringWithFormat:@"%@: %@", currentEvent.eventType, currentEvent.eventName]]
+//                                              delegate:self
+//                                     cancelButtonTitle:@"OK"
+//                                     otherButtonTitles:nil];
+//        
+//    }else{
+//        iCalAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Add to iCal"
+//                                               message:@"Sorry, an error occured and the event was not added to iCal"
+//                                              delegate:self
+//                                     cancelButtonTitle:@"OK"
+//                                     otherButtonTitles:nil];
+//    }
+//    
+//    [iCalAlert show];
+//}
 
 /*  Mail composer Helper Method*/
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error

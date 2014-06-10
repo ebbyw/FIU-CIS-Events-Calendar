@@ -30,6 +30,7 @@
 #import "AppDelegate.h"
 #import "SplashViewController.h"
 #import "NSDate+Reporting.h"
+#import "NSString+HTML.h"
 
 #define appDelegate(z) [(AppDelegate *)[[UIApplication sharedApplication] delegate] z]
 #define getValue(x,y) (([ x valueForKey:y] == [NSNull null]) ? nil : [ x valueForKey:y])
@@ -42,7 +43,8 @@
     NSSortDescriptor *dateSortDescending;
     NSArray *dateAscendingSortDescriptor;
     NSArray *dateDescendingSortDescriptor;
-    NSDateFormatter *dateFormatter;
+//    NSDateFormatter *dateFormatter;
+    NSCalendar *gregorian;
 }
 
 @synthesize jsonObject;
@@ -105,12 +107,27 @@
                                return [[(Event *) evaluatedObject addedToUser] boolValue];
                            }
                            ];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+//        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        gregorian = [[NSCalendar alloc]
+                       initWithCalendarIdentifier:NSGregorianCalendar];
         NSLog(@"INITIALIZED EVENTS LIST HOLDER");
     }
     return self;
+}
+
+-(NSDate *) dateFromJSONString: (NSString *) jsonString{
+    NSDateComponents *date = [[NSDateComponents alloc]init];
+    
+    [date setYear:[[jsonString substringWithRange:NSMakeRange(0,4)] intValue]];
+    [date setMonth:[[jsonString substringWithRange:NSMakeRange(5,2)] intValue]];
+    [date setDay:[[jsonString substringWithRange:NSMakeRange(8,2)] intValue]];
+    [date setHour:[[jsonString substringWithRange:NSMakeRange(11,2)] intValue]];
+    [date setMinute:[[jsonString substringWithRange:NSMakeRange(14,2)] intValue]];
+    [date setSecond:[[jsonString substringWithRange:NSMakeRange(17,2)] intValue]];
+
+    return [gregorian dateFromComponents:date];
 }
 
 -(NSArray *) allEvents{
@@ -250,7 +267,7 @@
     
     for(NSDictionary *eventInfo in jsonObject){
         //Event Date, formatted and converted  to NSDate
-        NSDate *eventTimeAndDate = [dateFormatter dateFromString: [eventInfo valueForKey:@"eventDate" ]];
+        NSDate *eventTimeAndDate = [self dateFromJSONString: [eventInfo valueForKey:@"eventDate" ]];
         BOOL addTheEvent = ![self checkIfEventExists:eventInfo andDate:eventTimeAndDate];
         
         if(addTheEvent){
@@ -274,7 +291,7 @@
 
 -(BOOL) checkIfEventExists: (NSDictionary *) eventData andDate: (NSDate *) date{
     //Check for existing speaker
-    NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
+    NSString *speakerNameTrimmed = [getValue(eventData,@"speakerName") stringByDecodingHTMLEntities];
     speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     EventSpeaker *existingSpeaker;
@@ -325,7 +342,7 @@
 -(BOOL) addEvent: (NSDictionary *) eventData andDate:(NSDate *) date{
     EventSpeaker *theSpeaker;
     
-    NSString *speakerNameTrimmed = getValue(eventData,@"speakerName");
+    NSString *speakerNameTrimmed = [getValue(eventData,@"speakerName") stringByDecodingHTMLEntities];
     speakerNameTrimmed = [speakerNameTrimmed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     for(EventSpeaker *speaker in currentSpeakers){
@@ -341,21 +358,21 @@
         theSpeaker = [NSEntityDescription insertNewObjectForEntityForName:@"EventSpeaker"
                                                    inManagedObjectContext:context];
         [theSpeaker setSpeakerName:speakerNameTrimmed];
-        [theSpeaker setSpeakerDepartment:getValue(eventData, @"speakerDepartment")];
-        [theSpeaker setSpeakerOrganization:getValue(eventData, @"speakerOrganization")];
+        [theSpeaker setSpeakerDepartment: [getValue(eventData, @"speakerDepartment") stringByDecodingHTMLEntities]];
+        [theSpeaker setSpeakerOrganization:[getValue(eventData, @"speakerOrganization") stringByDecodingHTMLEntities]];
         [theSpeaker setImageLink:getValue(eventData, @"imageLink")];
-        [theSpeaker setBio:getValue(eventData, @"bio")];
+        [theSpeaker setBio:[getValue(eventData, @"bio") stringByDecodingHTMLEntities]];
         [currentSpeakers addObject:theSpeaker];
     }
     
     Event *newEvent =[NSEntityDescription insertNewObjectForEntityForName:@"Event"
                                                    inManagedObjectContext:context];
-    [newEvent setEventName:getValue(eventData, @"eventName")];
+    [newEvent setEventName:[getValue(eventData, @"eventName") stringByDecodingHTMLEntities]];
     [newEvent setEventTimeAndDate:date];
     [newEvent setEventLink:getValue(eventData, @"eventLink")];
-    [newEvent setEventType:getValue(eventData, @"eventType")];
-    [newEvent setEventDescription:getValue(eventData, @"description")];
-    [newEvent setEventLocation:getValue(eventData, @"eventLocation")];
+    [newEvent setEventType:[getValue(eventData, @"eventType") stringByDecodingHTMLEntities]];
+    [newEvent setEventDescription:[getValue(eventData, @"description") stringByDecodingHTMLEntities]];
+    [newEvent setEventLocation:[getValue(eventData, @"eventLocation") stringByDecodingHTMLEntities]];
     
     [currentEvents addObject:newEvent];
     [[theSpeaker events] addObject:newEvent];

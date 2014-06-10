@@ -60,25 +60,27 @@
         
         return noEventsCell;
     }else{
-    
-    EventCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventID" forIndexPath:indexPath];
-    
-    Event *cellEvent = [dataSource objectAtIndex:indexPath.item];
-    
-    NSDateComponents *eventDate = [[NSCalendar currentCalendar] components:unitFlags fromDate:cellEvent.eventTimeAndDate];
-    
-    [cell.cellDayValue setText:[NSString stringWithFormat:@"%02ld",(long)eventDate.day]];
-    [cell.cellYear setText:[NSString stringWithFormat:@"%ld",(long)eventDate.year]];
-    [cell.cellMonth setText:[dateFormatter stringFromDate:cellEvent.eventTimeAndDate]];
-    [cell.cellEventType setText:cellEvent.eventType];
-    [cell.cellEventTitle setText:cellEvent.eventName];
-    [cell.cellSpeakerName setText: cellEvent.speaker.speakerName];
-    [cell.cellSpeakerPhoto loadImageFromURL:[cellEvent.speaker imageURL]
-                           placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
-                                    speaker:cellEvent.speaker];
-    //    NSLog(@"Event returned: %@, %@", cellEvent.eventName, cellEvent.speaker.speakerName);
-    
-    return cell;
+        
+        EventCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventID" forIndexPath:indexPath];
+        
+        Event *cellEvent = [dataSource objectAtIndex:indexPath.item];
+        
+        NSDateComponents *eventDate = [[NSCalendar currentCalendar] components:unitFlags fromDate:cellEvent.eventTimeAndDate];
+        
+        [cell.cellDayValue setText:[NSString stringWithFormat:@"%02ld",(long)eventDate.day]];
+        [cell.cellYear setText:[NSString stringWithFormat:@"%ld",(long)eventDate.year]];
+        [cell.cellMonth setText:[dateFormatter stringFromDate:cellEvent.eventTimeAndDate]];
+        [cell.cellEventType setText:cellEvent.eventType];
+        [cell.cellEventTitle setText:cellEvent.eventName];
+        [cell.cellSpeakerName setText: cellEvent.speaker.speakerName];
+        
+        //    [cell.cellSpeakerName setText: cellEvent.speaker.speakerName];
+        [cell.cellSpeakerPhoto loadImageFromURL:[cellEvent.speaker imageURL]
+                               placeholderImage:[UIImage imageNamed:@"FIUCISLogoSquare"]
+                                        speaker:cellEvent.speaker];
+        //    NSLog(@"Event returned: %@, %@", cellEvent.eventName, cellEvent.speaker.speakerName);
+        
+        return cell;
     }
     
 }
